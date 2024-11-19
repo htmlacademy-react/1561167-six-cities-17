@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Вадим Холодов](https://up.htmlacademy.ru/react/17/user/1561167).
-* Наставник: `Неизвестно`.
+- Студент: [Вадим Холодов](https://up.htmlacademy.ru/react/17/user/1561167).
+- Наставник: [Yulia Volkova](https://htmlacademy.ru/profile/id423707).
 
 ---
 
