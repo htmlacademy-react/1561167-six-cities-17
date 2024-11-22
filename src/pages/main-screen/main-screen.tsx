@@ -5,11 +5,9 @@ type MainScreenProps = {
 };
 
 function MainScreen({ rentalOffersCount }: MainScreenProps): JSX.Element {
-  const cards = [];
-
-  for (let i = 0; i < rentalOffersCount; i++) {
-    cards.push(<Card />);
-  }
+  const cards = Array.from({ length: rentalOffersCount }, (_, i) => (
+    <Card key={i} />
+  ));
 
   return (
     <div className="page page--gray page--main">
