@@ -1,6 +1,16 @@
 import Card from '../../components/card/card';
 
-function MainScreen(): JSX.Element {
+type MainScreenProps = {
+  rentalOffersCount: number;
+};
+
+function MainScreen({ rentalOffersCount }: MainScreenProps): JSX.Element {
+  const cards = [];
+
+  for (let i = 0; i < rentalOffersCount; i++) {
+    cards.push(<Card />);
+  }
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -48,7 +58,10 @@ function MainScreen(): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a
+                  className="locations__item-link tabs__item tabs__item--active"
+                  href="#"
+                >
                   <span>Paris</span>
                 </a>
               </li>
@@ -63,7 +76,7 @@ function MainScreen(): JSX.Element {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <a className="locations__item-link tabs__item">
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -112,11 +125,7 @@ function MainScreen(): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {cards}
               </div>
             </section>
             <div className="cities__right-section">
