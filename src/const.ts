@@ -8,4 +8,13 @@ const HeaderLogoValue = {
   height: 41,
 } as const;
 
-export { Setting, HeaderLogoValue };
+const Locations = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
+
+export { Setting, HeaderLogoValue, Locations };
