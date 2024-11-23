@@ -8,6 +8,12 @@ const HeaderLogoValue = {
   height: 41,
 } as const;
 
+const FooterLogoValue = {
+  className: 'footer__logo-link',
+  width: 64,
+  height: 33,
+} as const;
+
 const BookmarkButtonValue = {
   buttonClassName: 'place-card__bookmark-button button',
   svgClassName: 'place-card__bookmark-icon',
@@ -30,4 +36,11 @@ const PageType = {
   FAVORITES: 'favorites',
 } as const;
 
-export { Setting, HeaderLogoValue, Locations, BookmarkButtonValue, PageType };
+export {
+  Setting,
+  HeaderLogoValue,
+  Locations,
+  BookmarkButtonValue,
+  PageType,
+  FooterLogoValue,
+};

@@ -1,8 +1,8 @@
-import { BookmarkButtonValue } from '../../const';
+import { BookmarkButtonValue, PageType } from '../../const';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
-  isPremium: boolean;
+  isPremium?: boolean;
   pageType: string;
 };
 
@@ -19,8 +19,8 @@ function Card({ isPremium, pageType }: CardProps): JSX.Element {
           <img
             className="place-card__image"
             src="img/room.jpg"
-            width="260"
-            height="200"
+            width={pageType === PageType.FAVORITES ? 150 : 260}
+            height={pageType === PageType.FAVORITES ? 200 : 110}
             alt="Place image"
           />
         </a>
