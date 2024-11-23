@@ -58,7 +58,7 @@ function MainPage({ rentalOffersCount }: MainPageProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className={'cities__map'}></section>
             </div>
           </div>
         </div>
