@@ -1,3 +1,6 @@
+import { BookmarkButtonValue } from '../../const';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+
 function Card(): JSX.Element {
   return (
     <article className="cities__card place-card">
@@ -18,15 +21,10 @@ function Card(): JSX.Element {
             <b className="place-card__price-value">€80</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookmarkButton
+            isButtonActive
+            buttonAttributesValue={BookmarkButtonValue}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -8,6 +8,13 @@ const HeaderLogoValue = {
   height: 41,
 } as const;
 
+const BookmarkButtonValue = {
+  buttonClassName: 'place-card__bookmark-button button',
+  svgClassName: 'place-card__bookmark-icon',
+  width: 18,
+  height: 19,
+} as const;
+
 const Locations = [
   'Paris',
   'Cologne',
@@ -17,4 +24,4 @@ const Locations = [
   'Dusseldorf',
 ];
 
-export { Setting, HeaderLogoValue, Locations };
+export { Setting, HeaderLogoValue, Locations, BookmarkButtonValue };
