@@ -24,4 +24,10 @@ const Locations = [
   'Dusseldorf',
 ];
 
-export { Setting, HeaderLogoValue, Locations, BookmarkButtonValue };
+const PageType = {
+  MAIN: 'cities',
+  OFFER: 'near-places',
+  FAVORITES: 'favorites',
+} as const;
+
+export { Setting, HeaderLogoValue, Locations, BookmarkButtonValue, PageType };

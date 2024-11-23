@@ -1,10 +1,20 @@
 import { BookmarkButtonValue } from '../../const';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
-function Card(): JSX.Element {
+type CardProps = {
+  isPremium: boolean;
+  pageType: string;
+};
+
+function Card({ isPremium, pageType }: CardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={`${pageType}__card place-card`}>
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
+      <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
