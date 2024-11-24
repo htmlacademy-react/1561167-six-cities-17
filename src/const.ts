@@ -36,6 +36,7 @@ const TypesPage = {
   MAIN: 'cities',
   OFFER: 'near-places',
   FAVORITES: 'favorites',
+  LOGIN: 'login',
 } as const;
 
 const TypesSort = {

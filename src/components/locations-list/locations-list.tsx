@@ -10,6 +10,7 @@ function LocationsList({ locations }: LocationsProps): JSX.Element {
   const items = Array.from({ length: locations.length }, (_, i) => (
     <LocationsItem
       key={nanoid()}
+      className="locations__item-link tabs__item"
       location={locations[i]}
       isLocationActive={locations[i] === DEFAULT_ACTIVE_LOCATION}
     />
