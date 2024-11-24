@@ -1,8 +1,8 @@
-type mapProps = {
+type MapProps = {
   className: string;
 };
 
-function Map({ className }: mapProps): JSX.Element {
+function Map({ className }: MapProps): JSX.Element {
   return <section className={`${className} map`}></section>;
 }
 

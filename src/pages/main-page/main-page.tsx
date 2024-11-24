@@ -2,7 +2,7 @@ import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
-import { Locations, PageType } from '../../const';
+import { LOCATIONS, TypesPage } from '../../const';
 
 type MainPageProps = {
   rentalOffersCount: number;
@@ -10,7 +10,7 @@ type MainPageProps = {
 
 function MainPage({ rentalOffersCount }: MainPageProps): JSX.Element {
   const cards = Array.from({ length: rentalOffersCount }, (_, i) => (
-    <Card key={i} isPremium pageType={PageType.MAIN} />
+    <Card key={i} isPremium typesPage={TypesPage.MAIN} />
   ));
 
   return (
@@ -20,7 +20,7 @@ function MainPage({ rentalOffersCount }: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList locations={Locations} />
+            <LocationsList locations={LOCATIONS} />
           </section>
         </div>
         <div className="cities">

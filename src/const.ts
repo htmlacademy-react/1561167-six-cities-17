@@ -21,7 +21,7 @@ const BookmarkButtonValue = {
   height: 19,
 } as const;
 
-const Locations = [
+const LOCATIONS = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -30,7 +30,7 @@ const Locations = [
   'Dusseldorf',
 ];
 
-const PageType = {
+const TypesPage = {
   MAIN: 'cities',
   OFFER: 'near-places',
   FAVORITES: 'favorites',
@@ -39,8 +39,8 @@ const PageType = {
 export {
   Setting,
   HeaderLogoValue,
-  Locations,
+  LOCATIONS,
   BookmarkButtonValue,
-  PageType,
+  TypesPage,
   FooterLogoValue,
 };

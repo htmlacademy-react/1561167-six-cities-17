@@ -1,6 +1,6 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { PageType } from '../../const';
+import { TypesPage } from '../../const';
 
 function FavoriteEmptyPage(): JSX.Element {
   return (
@@ -19,7 +19,7 @@ function FavoriteEmptyPage(): JSX.Element {
           </section>
         </div>
       </main>
-      <Footer pageType={PageType.FAVORITES} />
+      <Footer pageType={TypesPage.FAVORITES} />
     </div>
   );
 }

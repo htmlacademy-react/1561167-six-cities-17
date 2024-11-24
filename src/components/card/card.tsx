@@ -1,26 +1,26 @@
-import { BookmarkButtonValue, PageType } from '../../const';
+import { BookmarkButtonValue, TypesPage } from '../../const';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
   isPremium?: boolean;
-  pageType: string;
+  typesPage: string;
 };
 
-function Card({ isPremium, pageType }: CardProps): JSX.Element {
+function Card({ isPremium, typesPage }: CardProps): JSX.Element {
   return (
-    <article className={`${pageType}__card place-card`}>
+    <article className={`${typesPage}__card place-card`}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${typesPage}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src="img/room.jpg"
-            width={pageType === PageType.FAVORITES ? 150 : 260}
-            height={pageType === PageType.FAVORITES ? 200 : 110}
+            width={typesPage === TypesPage.FAVORITES ? 150 : 260}
+            height={typesPage === TypesPage.FAVORITES ? 200 : 110}
             alt="Place image"
           />
         </a>
