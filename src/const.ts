@@ -30,6 +30,8 @@ const LOCATIONS = [
   'Dusseldorf',
 ];
 
+const DEFAULT_ACTIVE_LOCATION = LOCATIONS[0];
+
 const TypesPage = {
   MAIN: 'cities',
   OFFER: 'near-places',
@@ -54,4 +56,5 @@ export {
   FooterLogoValue,
   TypesSort,
   DEFAULT_SORTING_TYPE,
+  DEFAULT_ACTIVE_LOCATION,
 };

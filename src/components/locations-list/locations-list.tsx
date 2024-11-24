@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
-import LocationsItem from '../locations_item/locations_item';
+import LocationsItem from '../locations-item/locations-item';
+import { DEFAULT_ACTIVE_LOCATION } from '../../const';
 
 type LocationsProps = {
   locations: string[];
@@ -10,7 +11,7 @@ function LocationsList({ locations }: LocationsProps): JSX.Element {
     <LocationsItem
       key={nanoid()}
       location={locations[i]}
-      isLocationActive={i === 0}
+      isLocationActive={locations[i] === DEFAULT_ACTIVE_LOCATION}
     />
   ));
   return <ul className="locations__list tabs__list">{items}</ul>;
