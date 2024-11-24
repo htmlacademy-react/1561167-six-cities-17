@@ -1,7 +1,7 @@
 import Card from '../../components/card/card';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { PageType } from '../../const';
+import { TypesPage } from '../../const';
 
 function FavoritePage(): JSX.Element {
   return (
@@ -21,8 +21,8 @@ function FavoritePage(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <Card isPremium pageType={PageType.FAVORITES} />
-                  <Card pageType={PageType.FAVORITES} />
+                  <Card isPremium typesPage={TypesPage.FAVORITES} />
+                  <Card typesPage={TypesPage.FAVORITES} />
                 </div>
               </li>
 
@@ -35,14 +35,14 @@ function FavoritePage(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <Card isPremium pageType={PageType.FAVORITES} />
+                  <Card isPremium typesPage={TypesPage.FAVORITES} />
                 </div>
               </li>
             </ul>
           </section>
         </div>
       </main>
-      <Footer pageType={PageType.FAVORITES} />
+      <Footer pageType={TypesPage.FAVORITES} />
     </div>
   );
 }

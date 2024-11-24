@@ -36,6 +36,15 @@ const TypesPage = {
   FAVORITES: 'favorites',
 } as const;
 
+const TypesSort = {
+  popular: 'Popular',
+  lowToHigh: 'Price: low to high',
+  highToLow: 'Price: high to low',
+  rating: 'Top rated first',
+} as const;
+
+const DEFAULT_SORTING_TYPE = TypesSort.popular;
+
 export {
   Setting,
   HeaderLogoValue,
@@ -43,4 +52,6 @@ export {
   BookmarkButtonValue,
   TypesPage,
   FooterLogoValue,
+  TypesSort,
+  DEFAULT_SORTING_TYPE,
 };
