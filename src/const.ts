@@ -3,7 +3,7 @@ const Setting = {
 } as const;
 
 const HeaderLogoValue = {
-  className: 'header__logo-link header__logo-link--active',
+  className: 'header__logo-link',
   width: 81,
   height: 41,
 } as const;

@@ -13,7 +13,7 @@ function Logo({ valueAttributesLogo, pageType = '' }: LogoProps): JSX.Element {
   const { className, width, height } = valueAttributesLogo;
   if (pageType.length === 0) {
     return (
-      <a className={className}>
+      <a className={`${className} header__logo-link--active`}>
         <img
           className="header__logo"
           src="img/logo.svg"

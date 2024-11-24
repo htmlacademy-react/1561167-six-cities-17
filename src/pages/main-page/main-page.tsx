@@ -2,7 +2,7 @@ import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
-import { DEFAULT_SORTING_TYPE, LOCATIONS } from '../../const';
+import { DEFAULT_SORTING_TYPE, LOCATIONS, TypesPage } from '../../const';
 import CardsList from '../../components/cards-list/cards-list';
 
 type MainPageProps = {
@@ -27,7 +27,10 @@ function MainPage({ rentalOffersCount }: MainPageProps): JSX.Element {
               <b className="places__found">312 places to stay in Amsterdam</b>
               <Sort currentSortType={DEFAULT_SORTING_TYPE} />
               <div className="cities__places-list places__list tabs__content">
-                <CardsList rentalOffersCount={rentalOffersCount} />
+                <CardsList
+                  rentalOffersCount={rentalOffersCount}
+                  typesPage={TypesPage.MAIN}
+                />
               </div>
             </section>
             <div className="cities__right-section">

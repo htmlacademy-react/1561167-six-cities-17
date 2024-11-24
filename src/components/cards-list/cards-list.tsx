@@ -1,14 +1,17 @@
 import { nanoid } from 'nanoid';
 import Card from '../card/card';
-import { TypesPage } from '../../const';
 
 type CardsListProps = {
   rentalOffersCount: number;
+  typesPage: string;
 };
 
-function CardsList({ rentalOffersCount }: CardsListProps): JSX.Element {
+function CardsList({
+  rentalOffersCount,
+  typesPage,
+}: CardsListProps): JSX.Element {
   const cards = Array.from({ length: rentalOffersCount }, () => (
-    <Card key={nanoid()} isPremium typesPage={TypesPage.MAIN} />
+    <Card key={nanoid()} isPremium typesPage={typesPage} />
   ));
   return <> {cards}</>;
 }
