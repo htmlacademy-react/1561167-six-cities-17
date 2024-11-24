@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
@@ -10,8 +11,8 @@ type MainPageProps = {
 };
 
 function MainPage({ rentalOffersCount }: MainPageProps): JSX.Element {
-  const cards = Array.from({ length: rentalOffersCount }, (_, i) => (
-    <Card key={i} isPremium typesPage={TypesPage.MAIN} />
+  const cards = Array.from({ length: rentalOffersCount }, () => (
+    <Card key={nanoid()} isPremium typesPage={TypesPage.MAIN} />
   ));
 
   return (

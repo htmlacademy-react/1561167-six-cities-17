@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { TypesSort } from '../../const';
 
 type ItemSortProps = {
@@ -8,10 +9,6 @@ type ItemSortProps = {
 type SortProps = {
   currentSortType: string;
 };
-
-function replaceSpacesWithDashes(str: string): string {
-  return str.split(' ').join('-');
-}
 
 function ItemSort({ item, isActive }: ItemSortProps): JSX.Element {
   const className = isActive
@@ -35,9 +32,9 @@ function Sort({ currentSortType }: SortProps): JSX.Element {
         </svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        {Object.values(TypesSort).map((item, i) => (
+        {Object.values(TypesSort).map((item) => (
           <ItemSort
-            key={i.toString() + replaceSpacesWithDashes(item)}
+            key={nanoid()}
             item={item}
             isActive={item === currentSortType}
           />
