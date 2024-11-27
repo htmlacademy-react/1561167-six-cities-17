@@ -11,6 +11,17 @@ type FavoritePageProps = {
   isLoggedIn: boolean;
 };
 
+function FavoriteEmpty(): JSX.Element {
+  return (
+    <div className="favorites__status-wrapper">
+      <b className="favorites__status">Nothing yet saved.</b>
+      <p className="favorites__status-description">
+        Save properties to narrow down search or plan your future trips.
+      </p>
+    </div>
+  );
+}
+
 function FavoritePage(props: FavoritePageProps): JSX.Element {
   const { isLoggedIn, isEmpty = false } = props;
   const typesPage = TypesPage.Favorites;
@@ -40,16 +51,7 @@ function FavoritePage(props: FavoritePageProps): JSX.Element {
             <h1 className={titleClasses}>
               {isEmpty ? 'Favorites (empty)' : 'Saved listing'}
             </h1>
-            {isEmpty && (
-              <div className="favorites__status-wrapper">
-                <b className="favorites__status">Nothing yet saved.</b>
-                <p className="favorites__status-description">
-                  Save properties to narrow down search or plan your future
-                  trips.
-                </p>
-              </div>
-            )}
-            {isEmpty || (
+            {(isEmpty && <FavoriteEmpty />) || (
               <ul className="favorites__list">
                 <li className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
