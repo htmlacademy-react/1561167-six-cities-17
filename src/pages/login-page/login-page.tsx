@@ -1,20 +1,14 @@
-import LocationsItem from '../../components/locations-item/locations-item';
-import Logo from '../../components/logo/logo';
+import Header from '../../components/header/header';
+import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
 import SignIn from '../../components/sign-in/sign-in';
-import { HeaderLogoValue } from '../../const';
+import { TypesPage } from '../../const';
 
-function LoginPage() {
+function LoginPage(): JSX.Element {
+  const typesPage = TypesPage.Login;
+  const location = 'Amsterdam';
   return (
     <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo valueAttributesLogo={HeaderLogoValue} />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header typesPage={typesPage} />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -22,15 +16,9 @@ function LoginPage() {
             <SignIn />
           </section>
           <section className="locations locations--login locations--current">
-            <LocationsItem
-              location="Amsterdam"
-              className="locations__item-link"
-            />
-            {/* <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div> */}
+            <div className="locations__item">
+              <LocationsItemLink location={location} typesPage={typesPage} />
+            </div>
           </section>
         </div>
       </main>

@@ -1,32 +1,69 @@
 import CardsList from '../../components/cards-list/cards-list';
 import Gallery from '../../components/gallery/gallery';
-import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import Nav from '../../components/nav/nav';
-import Feedback from '../../components/feedback/feedback';
-import { HeaderLogoValue, TypesPage } from '../../const';
+import { TypesPage } from '../../const';
 import ReviewsList from '../../components/reviews-list/reviews-list';
+import Mark from '../../components/mark/mark';
+import Header from '../../components/header/header';
+import { nanoid } from 'nanoid';
+import FeedbackForm from '../../components/feedback-form/feedback-form';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
+import Rating from '../../components/rating/rating';
 
-function OfferPage() {
+type InsideItemProps = {
+  item: string;
+};
+
+type InsideListProps = {
+  internalOffers: ReadonlyArray<string>;
+};
+
+type OfferPageProps = {
+  isLoggedIn: boolean;
+};
+
+const insideOffers: ReadonlyArray<string> = [
+  'Wi-Fi',
+  'Washing machine',
+  'Towels',
+  'Heating',
+  'Coffee machine',
+  'Baby seat',
+  'Kitchen',
+  'Dishwasher',
+  'Cabel TV',
+  'Fridge',
+];
+
+function OfferInsideItem({ item }: InsideItemProps): JSX.Element {
+  return <li className="offer__inside-item">{item}</li>;
+}
+
+function OfferInsideList({ internalOffers }: InsideListProps): JSX.Element {
+  return (
+    <div className="offer__inside">
+      <h2 className="offer__inside-title">What&apos;s inside</h2>
+      <ul className="offer__inside-list">
+        {internalOffers.map((item) => (
+          <OfferInsideItem key={nanoid()} item={item} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
+  const typesPage = TypesPage.Offer;
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo
-                valueAttributesLogo={HeaderLogoValue}
-                pageType={TypesPage.OFFER}
-              />
-            </div>
-            <Nav
-              isLoggedIn
-              userName={'Oliver.conner@gmail.com'}
-              favoriteCount={3}
-            />
-          </div>
-        </div>
-      </header>
+      <Header typesPage={typesPage}>
+        <Nav
+          isLoggedIn={isLoggedIn}
+          userName={'Oliver.conner@gmail.com'}
+          favoriteCount={3}
+        />
+      </Header>
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -34,27 +71,16 @@ function OfferPage() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              <Mark />
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   Beautiful &amp; luxurious studio at great location
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton typesPage={typesPage} />
               </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }} />
-                  <span className="visually-hidden">Rating</span>
-                </div>
+              <Rating isOffer>
                 <span className="offer__rating-value rating__value">4.8</span>
-              </div>
+              </Rating>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
                   Apartment
@@ -70,21 +96,7 @@ function OfferPage() {
                 <b className="offer__price-value">€120</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  <li className="offer__inside-item">Wi-Fi</li>
-                  <li className="offer__inside-item">Washing machine</li>
-                  <li className="offer__inside-item">Towels</li>
-                  <li className="offer__inside-item">Heating</li>
-                  <li className="offer__inside-item">Coffee machine</li>
-                  <li className="offer__inside-item">Baby seat</li>
-                  <li className="offer__inside-item">Kitchen</li>
-                  <li className="offer__inside-item">Dishwasher</li>
-                  <li className="offer__inside-item">Cabel TV</li>
-                  <li className="offer__inside-item">Fridge</li>
-                </ul>
-              </div>
+              <OfferInsideList internalOffers={insideOffers} />
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
@@ -118,7 +130,7 @@ function OfferPage() {
                   Reviews · <span className="reviews__amount">1</span>
                 </h2>
                 <ReviewsList />
-                <Feedback />
+                {isLoggedIn && <FeedbackForm />}
               </section>
             </div>
           </div>
@@ -130,7 +142,7 @@ function OfferPage() {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList rentalOffersCount={3} typesPage={TypesPage.OFFER} />
+              <CardsList rentalOffersCount={3} typesPage={typesPage} />
             </div>
           </section>
         </div>

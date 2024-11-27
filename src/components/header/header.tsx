@@ -1,20 +1,20 @@
-import { HeaderLogoValue } from '../../const';
+import { ReactNode } from 'react';
 import Logo from '../logo/logo';
-import Nav from '../nav/nav';
 
-function Header(): JSX.Element {
+type NavProps = {
+  typesPage: string;
+  children?: ReactNode;
+};
+
+function Header({ typesPage, children }: NavProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo valueAttributesLogo={HeaderLogoValue} />
+            <Logo typesPage={typesPage} />
           </div>
-          <Nav
-            isLoggedIn
-            userName={'Oliver.conner@gmail.com'}
-            favoriteCount={3}
-          />
+          {children}
         </div>
       </div>
     </header>

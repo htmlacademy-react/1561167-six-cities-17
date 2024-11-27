@@ -5,7 +5,15 @@ type AppPageProps = {
 };
 
 function App({ rentalOffersCount }: AppPageProps): JSX.Element {
-  return <MainPage rentalOffersCount={rentalOffersCount} />;
+  const isEmpty = true;
+  const isLoggedIn = true;
+  return (
+    <MainPage
+      rentalOffersCount={rentalOffersCount}
+      isLoggedIn={isLoggedIn}
+      isEmpty={isEmpty}
+    />
+  );
 }
 
 export default App;

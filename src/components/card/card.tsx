@@ -1,4 +1,8 @@
-import { BookmarkButtonValue, TypesPage } from '../../const';
+import cn from 'classnames';
+import { TypesPage } from '../../const';
+import Mark from '../mark/mark';
+import Rating from '../rating/rating';
+import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
@@ -6,42 +10,53 @@ type CardProps = {
   typesPage: string;
 };
 
+type CardImageProps = {
+  typesPage: string;
+};
+
+function CardImage({ typesPage }: CardImageProps): JSX.Element {
+  const wrapperClasses = cn('place-card__image-wrapper', {
+    ['cities__image-wrapper']: typesPage === TypesPage.Main,
+    ['near-places__image-wrapper']: typesPage === TypesPage.Offer,
+    ['favorites__image-wrapper']: typesPage === TypesPage.Favorites,
+  });
+  return (
+    <div className={wrapperClasses}>
+      <a href="#">
+        <img
+          className="place-card__image"
+          src="img/room.jpg"
+          width={
+            typesPage === TypesPage.Favorites
+              ? ImageSize.Favorites.Width
+              : ImageSize.Default.Width
+          }
+          height={
+            typesPage === TypesPage.Favorites
+              ? ImageSize.Favorites.Height
+              : ImageSize.Default.Height
+          }
+          alt="Place image"
+        />
+      </a>
+    </div>
+  );
+}
+
 function Card({ isPremium, typesPage }: CardProps): JSX.Element {
   return (
     <article className={`${typesPage}__card place-card`}>
-      {isPremium && (
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      )}
-      <div className={`${typesPage}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
-          <img
-            className="place-card__image"
-            src="img/room.jpg"
-            width={typesPage === TypesPage.FAVORITES ? 150 : 260}
-            height={typesPage === TypesPage.FAVORITES ? 200 : 110}
-            alt="Place image"
-          />
-        </a>
-      </div>
+      {isPremium && <Mark isCard />}
+      <CardImage typesPage={typesPage} />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€80</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton
-            isButtonActive
-            buttonAttributesValue={BookmarkButtonValue}
-          />
+          <BookmarkButton typesPage={typesPage} isCard isActive />
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating isCard />
         <h2 className="place-card__name">
           <a href="#">Wood and stone place</a>
         </h2>

@@ -1,4 +1,6 @@
-function ReviewsItem() {
+import Rating from '../rating/rating';
+
+function ReviewsItem(): JSX.Element {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -14,12 +16,7 @@ function ReviewsItem() {
         <span className="reviews__user-name">Max</span>
       </div>
       <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating isReview />
         <p className="reviews__text">
           A quiet cozy and picturesque that hides behind a a river by the unique
           lightness of Amsterdam. The building is green and from 18th century.

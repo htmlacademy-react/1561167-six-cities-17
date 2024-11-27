@@ -1,32 +1,36 @@
-type ButtonProps = {
-  buttonClassName: string;
-  svgClassName: string;
-  width: number;
-  height: number;
-};
+import cn from 'classnames';
+import { TypesPage } from '../../const';
+import { SvgSize } from './settings';
 
 type BookmarkButtonProps = {
-  isButtonActive: boolean;
-  buttonAttributesValue: ButtonProps;
+  typesPage: string;
+  isActive?: boolean;
+  isCard?: boolean;
 };
 
 function BookmarkButton({
-  isButtonActive,
-  buttonAttributesValue,
+  typesPage,
+  isActive,
+  isCard,
 }: BookmarkButtonProps): JSX.Element {
-  const buttonClassName = `${buttonAttributesValue.buttonClassName} ${
-    isButtonActive ? 'place-card__bookmark-button--active' : ''
-  }`;
+  const buttonClasses = cn('button', {
+    ['place-card__bookmark-button--active']: isActive,
+    ['place-card__bookmark-button']: isCard,
+    ['offer__bookmark-button']: !isCard && typesPage === TypesPage.Offer,
+  });
+  const svgClasses = cn({
+    ['place-card__bookmark-icon']: isCard,
+    ['offer__bookmark-icon']: !isCard && typesPage === TypesPage.Offer,
+  });
+  const width = isCard ? SvgSize.Card.Width : SvgSize.OffCard.Width;
+  const height = isCard ? SvgSize.Card.Height : SvgSize.OffCard.Height;
+  const text = isActive ? 'In' : 'To';
   return (
-    <button className={buttonClassName} type="button">
-      <svg
-        className={buttonAttributesValue.svgClassName}
-        width={buttonAttributesValue.width}
-        height={buttonAttributesValue.height}
-      >
+    <button className={buttonClasses} type="button">
+      <svg className={svgClasses} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">In bookmarks</span>
+      <span className="visually-hidden">{`${text} bookmarks`}</span>
     </button>
   );
 }

@@ -1,37 +1,30 @@
-type LogoValueProps = {
-  className: string;
-  width: number;
-  height: number;
-};
+import cn from 'classnames';
+import { TypesPage } from '../../const';
+import { ImageSizeFooter, ImageSizeHeader } from './settings';
 
 type LogoProps = {
-  pageType?: string;
-  valueAttributesLogo: LogoValueProps;
+  typesPage: string;
+  isFooter?: boolean;
 };
 
-function Logo({ valueAttributesLogo, pageType = '' }: LogoProps): JSX.Element {
-  const { className, width, height } = valueAttributesLogo;
-  if (pageType.length === 0) {
-    return (
-      <a className={`${className} header__logo-link--active`}>
-        <img
-          className="header__logo"
-          src="img/logo.svg"
-          alt="6 cities logo"
-          width={width}
-          height={height}
-        />
-      </a>
-    );
-  }
+function Logo({ typesPage, isFooter = false }: LogoProps): JSX.Element {
+  const linkClasses = cn({
+    ['header__logo-link']: !isFooter,
+    ['header__logo-link--active']: !isFooter && typesPage === TypesPage.Main,
+    ['footer__logo-link']: isFooter,
+  });
+  const imageClasses = cn({
+    ['header__logo']: !isFooter,
+    ['footer__logo']: isFooter,
+  });
   return (
-    <a className={className} href="main.html">
+    <a className={linkClasses} href="#">
       <img
-        className="header__logo"
+        className={imageClasses}
         src="img/logo.svg"
         alt="6 cities logo"
-        width={width}
-        height={height}
+        width={isFooter ? ImageSizeFooter.Width : ImageSizeHeader.Width}
+        height={isFooter ? ImageSizeFooter.Height : ImageSizeHeader.Height}
       />
     </a>
   );
