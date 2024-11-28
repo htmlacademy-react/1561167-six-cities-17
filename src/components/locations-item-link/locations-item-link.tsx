@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import { TypesPage } from '../../const';
+import { CityType, TypesPageEnum } from '../../types/types';
 
 type LocationLinkProps = {
-  location: string;
-  typesPage: string;
+  location: CityType;
+  typesPage: TypesPageEnum;
   isActive?: boolean;
 };
 

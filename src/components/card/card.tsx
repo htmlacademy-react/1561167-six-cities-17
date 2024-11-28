@@ -4,14 +4,15 @@ import Mark from '../mark/mark';
 import Rating from '../rating/rating';
 import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import { TypesPageEnum } from '../../types/types';
 
 type CardProps = {
+  typesPage: TypesPageEnum;
   isPremium?: boolean;
-  typesPage: string;
 };
 
 type CardImageProps = {
-  typesPage: string;
+  typesPage: TypesPageEnum;
 };
 
 function CardImage({ typesPage }: CardImageProps): JSX.Element {

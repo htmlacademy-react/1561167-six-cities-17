@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { starsCount } from './settings';
+import { CommentLengthLimits } from '../../const';
 
 type StarProps = {
   number: number;
@@ -40,6 +41,7 @@ function Rating(): JSX.Element {
 }
 
 function FeedbackForm() {
+  const countCharacters = CommentLengthLimits.Min;
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
@@ -57,7 +59,8 @@ function FeedbackForm() {
         <p className="reviews__help">
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">50 characters</b>.
+          with at least{' '}
+          <b className="reviews__text-amount">{countCharacters} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

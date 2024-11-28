@@ -2,16 +2,15 @@ import { nanoid } from 'nanoid';
 import Card from '../card/card';
 import cn from 'classnames';
 import { TypesPage } from '../../const';
+import { TypesPageEnum } from '../../types/types';
 
 type CardsListProps = {
   rentalOffersCount: number;
-  typesPage: string;
+  typesPage: TypesPageEnum;
 };
 
-function CardsList({
-  rentalOffersCount,
-  typesPage,
-}: CardsListProps): JSX.Element {
+function CardsList(props: CardsListProps): JSX.Element {
+  const { rentalOffersCount, typesPage } = props;
   const cards = Array.from({ length: rentalOffersCount }, (_, i) => ++i);
   const listClasses = cn({
     ['cities__places-list places__list tabs__content']:

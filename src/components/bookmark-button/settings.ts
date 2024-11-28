@@ -1,4 +1,6 @@
-const SvgSize = {
+import { ImageSizeType } from '../../types/types';
+
+const SvgSize: ImageSizeType = {
   Card: {
     Width: 18,
     Height: 19,

@@ -1,14 +1,6 @@
-const DefaultImageSize = {
-  Width: 260,
-  Height: 200,
-} as const;
+import { ImageSizeType } from '../../types/types';
 
-const FavoritesImageSize = {
-  Width: 150,
-  Height: 110,
-} as const;
-
-const ImageSize = {
+const ImageSize: ImageSizeType = {
   Default: {
     Width: 260,
     Height: 200,
@@ -19,4 +11,4 @@ const ImageSize = {
   },
 } as const;
 
-export { DefaultImageSize, FavoritesImageSize, ImageSize };
+export { ImageSize };

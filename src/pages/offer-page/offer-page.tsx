@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid';
 import FeedbackForm from '../../components/feedback-form/feedback-form';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
+import { TypesPageEnum } from '../../types/types';
 
 type InsideItemProps = {
   item: string;
@@ -54,7 +55,7 @@ function OfferInsideList({ internalOffers }: InsideListProps): JSX.Element {
 }
 
 function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
-  const typesPage = TypesPage.Offer;
+  const typesPage: TypesPageEnum = TypesPage.Offer;
   return (
     <div className="page">
       <Header typesPage={typesPage}>

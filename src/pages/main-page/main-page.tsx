@@ -6,6 +6,7 @@ import { DEFAULT_SORTING_TYPE, LOCATIONS, TypesPage } from '../../const';
 import CardsList from '../../components/cards-list/cards-list';
 import Nav from '../../components/nav/nav';
 import cn from 'classnames';
+import { CityType, TypesPageEnum } from '../../types/types';
 
 type MainPageProps = {
   isLoggedIn: boolean;
@@ -13,12 +14,16 @@ type MainPageProps = {
   isEmpty?: boolean;
 };
 
-function MainEmpty(): JSX.Element {
+type MainEmptyProps = {
+  location: CityType;
+};
+
+function MainEmpty({ location }: MainEmptyProps): JSX.Element {
   return (
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">No places to stay available</b>
       <p className="cities__status-description">
-        We could not find any property available at the moment in Dusseldorf
+        We could not find any property available at the moment in {location}
       </p>
     </div>
   );
@@ -26,7 +31,7 @@ function MainEmpty(): JSX.Element {
 
 function MainPage(props: MainPageProps): JSX.Element {
   const { rentalOffersCount, isLoggedIn, isEmpty = false } = props;
-  const typesPage = TypesPage.Main;
+  const typesPage: TypesPageEnum = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
   });
@@ -56,7 +61,7 @@ function MainPage(props: MainPageProps): JSX.Element {
         <div className="cities">
           <div className={containerClasses}>
             <section className={sectionClasses}>
-              {(isEmpty && <MainEmpty />) || (
+              {(isEmpty && <MainEmpty location={'Dusseldorf'} />) || (
                 <>
                   <h2 className="places__found">Places</h2>
                   <b className="places__found">

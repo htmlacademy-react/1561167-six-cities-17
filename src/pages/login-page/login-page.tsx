@@ -2,9 +2,10 @@ import Header from '../../components/header/header';
 import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
 import SignIn from '../../components/sign-in/sign-in';
 import { TypesPage } from '../../const';
+import { TypesPageEnum } from '../../types/types';
 
 function LoginPage(): JSX.Element {
-  const typesPage = TypesPage.Login;
+  const typesPage: TypesPageEnum = TypesPage.Login;
   const location = 'Amsterdam';
   return (
     <div className="page page--gray page--login">

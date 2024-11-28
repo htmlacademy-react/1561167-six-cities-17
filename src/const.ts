@@ -9,7 +9,7 @@ const LOCATIONS = [
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-];
+] as const;
 
 const DEFAULT_ACTIVE_LOCATION = LOCATIONS[0];
 
@@ -29,6 +29,11 @@ const TypesSort = {
 
 const DEFAULT_SORTING_TYPE = TypesSort.Popular;
 
+const CommentLengthLimits = {
+  Min: 50,
+  Max: 300,
+} as const;
+
 export {
   Setting,
   LOCATIONS,
@@ -36,4 +41,5 @@ export {
   TypesSort,
   DEFAULT_SORTING_TYPE,
   DEFAULT_ACTIVE_LOCATION,
+  CommentLengthLimits,
 };

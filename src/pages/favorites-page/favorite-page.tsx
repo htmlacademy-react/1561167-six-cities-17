@@ -5,6 +5,7 @@ import Header from '../../components/header/header';
 import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
 import Nav from '../../components/nav/nav';
 import { Setting, TypesPage } from '../../const';
+import { TypesPageEnum } from '../../types/types';
 
 type FavoritePageProps = {
   isEmpty?: boolean;
@@ -24,7 +25,7 @@ function FavoriteEmpty(): JSX.Element {
 
 function FavoritePage(props: FavoritePageProps): JSX.Element {
   const { isLoggedIn, isEmpty = false } = props;
-  const typesPage = TypesPage.Favorites;
+  const typesPage: TypesPageEnum = TypesPage.Favorites;
   const pageClasses = cn('page', { ['page--favorites-empty']: isEmpty });
   const mainClasses = cn('page__main page__main--favorites', {
     ['page__main--favorites-empty']: isEmpty,

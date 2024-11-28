@@ -1,11 +1,14 @@
-const ImageSizeHeader = {
-  Width: '81',
-  Height: '41',
-} as const;
+import { ImageSizeType } from '../../types/types';
 
-const ImageSizeFooter = {
-  Width: '64',
-  Height: '33',
-} as const;
+const LogoSize: ImageSizeType = {
+  Header: {
+    Width: 81,
+    Height: 41,
+  },
+  Footer: {
+    Width: 81,
+    Height: 41,
+  },
+};
 
-export { ImageSizeHeader, ImageSizeFooter };
+export { LogoSize };

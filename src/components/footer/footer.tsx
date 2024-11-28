@@ -1,7 +1,8 @@
+import { TypesPageEnum } from '../../types/types';
 import Logo from '../logo/logo';
 
 type FooterProps = {
-  typesPage: string;
+  typesPage: TypesPageEnum;
 };
 
 function Footer({ typesPage }: FooterProps): JSX.Element {

@@ -5,7 +5,7 @@ type AppPageProps = {
 };
 
 function App({ rentalOffersCount }: AppPageProps): JSX.Element {
-  const isEmpty = true;
+  const isEmpty = false;
   const isLoggedIn = true;
   return (
     <MainPage

@@ -1,15 +1,16 @@
 import { nanoid } from 'nanoid';
 import { DEFAULT_ACTIVE_LOCATION } from '../../const';
 import LocationsItemLink from '../locations-item-link/locations-item-link';
+import { CitiesType, CityType, TypesPageEnum } from '../../types/types';
 
 type LocationsProps = {
-  locations: string[];
-  typesPage: string;
+  locations: CitiesType;
+  typesPage: TypesPageEnum;
 };
 
 type LocationItemProps = {
-  location: string;
-  typesPage: string;
+  location: CityType;
+  typesPage: TypesPageEnum;
   isActive: boolean;
 };
 

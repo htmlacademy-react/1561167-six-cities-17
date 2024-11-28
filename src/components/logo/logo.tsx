@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import { TypesPage } from '../../const';
-import { ImageSizeFooter, ImageSizeHeader } from './settings';
+import { LogoSize } from './settings';
+import { TypesPageEnum } from '../../types/types';
 
 type LogoProps = {
-  typesPage: string;
+  typesPage: TypesPageEnum;
   isFooter?: boolean;
 };
 
@@ -23,8 +24,8 @@ function Logo({ typesPage, isFooter = false }: LogoProps): JSX.Element {
         className={imageClasses}
         src="img/logo.svg"
         alt="6 cities logo"
-        width={isFooter ? ImageSizeFooter.Width : ImageSizeHeader.Width}
-        height={isFooter ? ImageSizeFooter.Height : ImageSizeHeader.Height}
+        width={isFooter ? LogoSize.Footer.Width : LogoSize.Header.Width}
+        height={isFooter ? LogoSize.Footer.Height : LogoSize.Header.Height}
       />
     </a>
   );
