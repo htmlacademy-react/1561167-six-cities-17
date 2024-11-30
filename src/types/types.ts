@@ -11,7 +11,7 @@ type ImageSizeType = {
 
 type CitiesType = typeof LOCATIONS;
 
-type CityType = (typeof LOCATIONS)[number];
+type CityType = CitiesType[number];
 
 type TypesPageEnum = (typeof TypesPage)[keyof typeof TypesPage];
 
