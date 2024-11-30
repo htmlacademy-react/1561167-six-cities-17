@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
-import { Path } from '../../const';
+import { AuthorizationStatus, Path } from '../../const';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritePage from '../../pages/favorites-page/favorite-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { PrivateRoute } from '../private-route/private-route';
+import { AuthorizationStatusEnum } from '../../types/types';
 
 type AppPageProps = {
   rentalOffersCount: number;
@@ -12,7 +14,7 @@ type AppPageProps = {
 
 function App({ rentalOffersCount }: AppPageProps): JSX.Element {
   const isEmpty = false;
-  const isLoggedIn = true;
+  const authorizationStatus: AuthorizationStatusEnum = AuthorizationStatus.Auth;
   return (
     <BrowserRouter>
       <Routes>
@@ -21,7 +23,7 @@ function App({ rentalOffersCount }: AppPageProps): JSX.Element {
           element={
             <MainPage
               rentalOffersCount={rentalOffersCount}
-              isLoggedIn={isLoggedIn}
+              isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
               isEmpty={isEmpty}
             />
           }
@@ -29,11 +31,24 @@ function App({ rentalOffersCount }: AppPageProps): JSX.Element {
         <Route path={Path.Login} element={<LoginPage />} />
         <Route
           path={Path.Favorites}
-          element={<FavoritePage isLoggedIn={isLoggedIn} isEmpty={isEmpty} />}
+          element={
+            <PrivateRoute
+              isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
+            >
+              <FavoritePage
+                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
+                isEmpty={isEmpty}
+              />
+            </PrivateRoute>
+          }
         />
         <Route
           path={Path.Offer}
-          element={<OfferPage isLoggedIn={isLoggedIn} />}
+          element={
+            <OfferPage
+              isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
+            />
+          }
         />
         <Route path={Path.NotFound} element={<NotFoundPage />} />
       </Routes>

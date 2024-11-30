@@ -42,6 +42,12 @@ const Path = {
   NotFound: '*',
 } as const;
 
+const AuthorizationStatus = {
+  Auth: 'auth',
+  NoAuth: 'no_auth',
+  Unknown: 'unknown',
+} as const;
+
 export {
   Setting,
   LOCATIONS,
@@ -51,4 +57,5 @@ export {
   DEFAULT_ACTIVE_LOCATION,
   CommentLengthLimits,
   Path,
+  AuthorizationStatus,
 };

@@ -1,4 +1,4 @@
-import { LOCATIONS, TypesPage } from '../const';
+import { AuthorizationStatus, LOCATIONS, TypesPage } from '../const';
 
 type SizeType = {
   Width: number;
@@ -15,4 +15,13 @@ type CityType = CitiesType[number];
 
 type TypesPageEnum = (typeof TypesPage)[keyof typeof TypesPage];
 
-export type { ImageSizeType, CitiesType, CityType, TypesPageEnum };
+type AuthorizationStatusEnum =
+  (typeof AuthorizationStatus)[keyof typeof AuthorizationStatus];
+
+export type {
+  ImageSizeType,
+  CitiesType,
+  CityType,
+  TypesPageEnum,
+  AuthorizationStatusEnum,
+};
