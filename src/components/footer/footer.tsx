@@ -1,16 +1,11 @@
-import { TypesPageEnum } from '../../types/types';
-import Logo from '../logo/logo';
+import { ReactNode } from 'react';
 
 type FooterProps = {
-  typesPage: TypesPageEnum;
+  children: ReactNode;
 };
 
-function Footer({ typesPage }: FooterProps): JSX.Element {
-  return (
-    <footer className="footer container">
-      <Logo typesPage={typesPage} isFooter />
-    </footer>
-  );
+function Footer({ children }: FooterProps): JSX.Element {
+  return <footer className="footer container">{children}</footer>;
 }
 
 export default Footer;

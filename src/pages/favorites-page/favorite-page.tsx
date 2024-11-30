@@ -6,6 +6,7 @@ import LocationsItemLink from '../../components/locations-item-link/locations-it
 import Nav from '../../components/nav/nav';
 import { Setting, TypesPage } from '../../const';
 import { TypesPageEnum } from '../../types/types';
+import Logo from '../../components/logo/logo';
 
 type FavoritePageProps = {
   isEmpty?: boolean;
@@ -86,7 +87,9 @@ function FavoritePage(props: FavoritePageProps): JSX.Element {
           </section>
         </div>
       </main>
-      <Footer typesPage={typesPage} />
+      <Footer>
+        <Logo typesPage={typesPage} isFooter />
+      </Footer>
     </div>
   );
 }
