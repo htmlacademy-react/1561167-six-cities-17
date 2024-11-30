@@ -4,7 +4,7 @@ import Logo from '../../components/logo/logo';
 import { TypesPage } from '../../const';
 import { TypesPageEnum } from '../../types/types';
 
-function FavoritePage(): JSX.Element {
+function NotFoundPage(): JSX.Element {
   const typesPage: TypesPageEnum = TypesPage.Favorites;
   return (
     <div className="page page--favorites-empty">
@@ -13,7 +13,13 @@ function FavoritePage(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
             <h1 className="visually-hidden">Page not found</h1>
-            <div className="favorites__status-wrapper">
+            <div
+              className="favorites__status-wrapper"
+              style={{
+                backgroundImage: 'url(../img/not-found.jpg)',
+                backgroundSize: '260px 90px',
+              }}
+            >
               <b className="favorites__status">Nothing is lost yet.</b>
               <p className="favorites__status-description">
                 <a href="#">Go back to the main page.</a>
@@ -29,4 +35,4 @@ function FavoritePage(): JSX.Element {
   );
 }
 
-export default FavoritePage;
+export default NotFoundPage;

@@ -34,6 +34,14 @@ const CommentLengthLimits = {
   Max: 300,
 } as const;
 
+const Path = {
+  Root: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer/:offerId',
+  NotFound: '*',
+} as const;
+
 export {
   Setting,
   LOCATIONS,
@@ -42,4 +50,5 @@ export {
   DEFAULT_SORTING_TYPE,
   DEFAULT_ACTIVE_LOCATION,
   CommentLengthLimits,
+  Path,
 };
