@@ -4,6 +4,7 @@ import Header from '../../components/header/header';
 import Logo from '../../components/logo/logo';
 import { Path, TypesPage } from '../../const';
 import { TypesPageEnum } from '../../types/types';
+import styles from './style.module.css';
 
 function NotFoundPage(): JSX.Element {
   const typesPage: TypesPageEnum = TypesPage.Favorites;
@@ -14,13 +15,7 @@ function NotFoundPage(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
             <h1 className="visually-hidden">Page not found</h1>
-            <div
-              className="favorites__status-wrapper"
-              style={{
-                backgroundImage: 'url(../img/not-found.jpg)',
-                backgroundSize: '260px 90px',
-              }}
-            >
+            <div className={`favorites__status-wrapper ${styles.wrapper}`}>
               <b className="favorites__status">Nothing is lost yet.</b>
               <p className="favorites__status-description">
                 <Link to={Path.Root}>Go back to the main page.</Link>
