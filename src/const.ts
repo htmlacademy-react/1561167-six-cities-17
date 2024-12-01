@@ -48,6 +48,15 @@ const AuthorizationStatus = {
   Unknown: 'unknown',
 } as const;
 
+const DEFAULT_PREFIX_TITLE = '6 cities:';
+
+const TypesTitle = {
+  [TypesPage.Main]: '',
+  [TypesPage.Favorites]: 'favorites',
+  [TypesPage.Login]: 'authorization',
+  [TypesPage.Offer]: 'offer',
+} as const;
+
 export {
   Setting,
   LOCATIONS,
@@ -58,4 +67,6 @@ export {
   CommentLengthLimits,
   Path,
   AuthorizationStatus,
+  DEFAULT_PREFIX_TITLE,
+  TypesTitle,
 };

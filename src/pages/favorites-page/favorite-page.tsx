@@ -7,6 +7,7 @@ import Nav from '../../components/nav/nav';
 import { Setting, TypesPage } from '../../const';
 import { TypesPageEnum } from '../../types/types';
 import Logo from '../../components/logo/logo';
+import { Title } from '../../components/title/title';
 
 type FavoritePageProps = {
   isEmpty?: boolean;
@@ -53,36 +54,44 @@ function FavoritePage(props: FavoritePageProps): JSX.Element {
             <h1 className={titleClasses}>
               {isEmpty ? 'Favorites (empty)' : 'Saved listing'}
             </h1>
-            {(isEmpty && <FavoriteEmpty />) || (
-              <ul className="favorites__list">
-                <li className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <LocationsItemLink
-                        location={'Amsterdam'}
-                        typesPage={typesPage}
-                      />
+            {(isEmpty && (
+              <>
+                <Title typesPage={typesPage} />
+                <FavoriteEmpty />
+              </>
+            )) || (
+              <>
+                <Title typesPage={typesPage} isEmpty={isEmpty} />
+                <ul className="favorites__list">
+                  <li className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <LocationsItemLink
+                          location={'Amsterdam'}
+                          typesPage={typesPage}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <CardsList
-                    rentalOffersCount={Setting.RentalOffersCount}
-                    typesPage={typesPage}
-                  />
-                </li>
-                <li className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>Cologne</span>
-                      </a>
+                    <CardsList
+                      rentalOffersCount={Setting.RentalOffersCount}
+                      typesPage={typesPage}
+                    />
+                  </li>
+                  <li className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>Cologne</span>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <CardsList
-                    rentalOffersCount={Setting.RentalOffersCount}
-                    typesPage={typesPage}
-                  />
-                </li>
-              </ul>
+                    <CardsList
+                      rentalOffersCount={Setting.RentalOffersCount}
+                      typesPage={typesPage}
+                    />
+                  </li>
+                </ul>
+              </>
             )}
           </section>
         </div>

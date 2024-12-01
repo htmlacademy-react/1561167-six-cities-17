@@ -11,6 +11,7 @@ import FeedbackForm from '../../components/feedback-form/feedback-form';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { TypesPageEnum } from '../../types/types';
+import { Title } from '../../components/title/title';
 
 type InsideItemProps = {
   item: string;
@@ -66,6 +67,7 @@ function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
         />
       </Header>
       <main className="page__main page__main--offer">
+        <Title typesPage={typesPage} />
         <section className="offer">
           <div className="offer__gallery-container container">
             <Gallery />
