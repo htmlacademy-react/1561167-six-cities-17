@@ -1,10 +1,11 @@
 import cn from 'classnames';
-import { TypesPage } from '../../const';
+import { Path, TypesPage } from '../../const';
 import Mark from '../mark/mark';
 import Rating from '../rating/rating';
 import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { TypesPageEnum } from '../../types/types';
+import { Link } from 'react-router-dom';
 
 type CardProps = {
   typesPage: TypesPageEnum;
@@ -23,7 +24,7 @@ function CardImage({ typesPage }: CardImageProps): JSX.Element {
   });
   return (
     <div className={wrapperClasses}>
-      <a href="#">
+      <Link to={Path.Offer}>
         <img
           className="place-card__image"
           src="img/room.jpg"
@@ -39,7 +40,7 @@ function CardImage({ typesPage }: CardImageProps): JSX.Element {
           }
           alt="Place image"
         />
-      </a>
+      </Link>
     </div>
   );
 }
@@ -59,7 +60,7 @@ function Card({ isPremium, typesPage }: CardProps): JSX.Element {
         </div>
         <Rating isCard />
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <Link to={Path.Offer}>Wood and stone place</Link>
         </h2>
         <p className="place-card__type">Room</p>
       </div>

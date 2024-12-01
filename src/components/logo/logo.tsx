@@ -1,7 +1,8 @@
 import cn from 'classnames';
-import { TypesPage } from '../../const';
+import { Path, TypesPage } from '../../const';
 import { LogoSize } from './settings';
 import { TypesPageEnum } from '../../types/types';
+import { Link } from 'react-router-dom';
 
 type LogoProps = {
   typesPage: TypesPageEnum;
@@ -19,7 +20,7 @@ function Logo({ typesPage, isFooter = false }: LogoProps): JSX.Element {
     ['footer__logo']: isFooter,
   });
   return (
-    <a className={linkClasses} href="#">
+    <Link className={linkClasses} to={Path.Root}>
       <img
         className={imageClasses}
         src="img/logo.svg"
@@ -27,7 +28,7 @@ function Logo({ typesPage, isFooter = false }: LogoProps): JSX.Element {
         width={isFooter ? LogoSize.Footer.Width : LogoSize.Header.Width}
         height={isFooter ? LogoSize.Footer.Height : LogoSize.Header.Height}
       />
-    </a>
+    </Link>
   );
 }
 

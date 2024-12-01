@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { Path } from '../../const';
+
 type UserProfileProps = {
   isLoggedIn: boolean;
   userName: string;
@@ -30,9 +33,9 @@ function UserProfile({
 function Item(): JSX.Element {
   return (
     <li className="header__nav-item">
-      <a className="header__nav-link" href="#">
+      <Link className="header__nav-link" to={Path.Login}>
         <span className="header__signout">Sign out</span>
-      </a>
+      </Link>
     </li>
   );
 }
@@ -46,13 +49,16 @@ function Nav({
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <a className="header__nav-link header__nav-link--profile" href="#">
+          <Link
+            className="header__nav-link header__nav-link--profile"
+            to={Path.Favorites}
+          >
             <UserProfile
               isLoggedIn={isLoggedIn}
               userName={userName}
               favoriteCount={favoriteCount}
             />
-          </a>
+          </Link>
         </li>
         {isLoggedIn && Item()}
       </ul>
