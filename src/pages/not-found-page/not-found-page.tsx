@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Logo from '../../components/logo/logo';
-import { TypesPage } from '../../const';
+import { Path, TypesPage } from '../../const';
 import { TypesPageEnum } from '../../types/types';
 
 function NotFoundPage(): JSX.Element {
@@ -22,7 +23,7 @@ function NotFoundPage(): JSX.Element {
             >
               <b className="favorites__status">Nothing is lost yet.</b>
               <p className="favorites__status-description">
-                <a href="#">Go back to the main page.</a>
+                <Link to={Path.Root}>Go back to the main page.</Link>
               </p>
             </div>
           </section>
