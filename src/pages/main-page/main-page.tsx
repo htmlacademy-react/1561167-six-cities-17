@@ -5,8 +5,8 @@ import LocationsList from '../../components/locations-list/locations-list';
 import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
-import { DEFAULT_SORTING_TYPE, LOCATIONS, TypesPage } from '../../const';
-import { LocationProps, TypesPageEnum } from '../../types/types';
+import { DEFAULT_SORTING_TYPE, CITIES, TypesPage } from '../../const';
+import { CityProps, TypesPageEnum } from '../../types/types';
 
 type MainPageProps = {
   isLoggedIn: boolean;
@@ -14,19 +14,19 @@ type MainPageProps = {
   isEmpty?: boolean;
 };
 
-type MainEmptyProps = Pick<LocationProps, 'location'>;
+type MainEmptyProps = Pick<CityProps, 'city'>;
 
 type MainContentProps = {
   rentalOffersCount: number;
   typesPage: TypesPageEnum;
 };
 
-function MainEmpty({ location }: MainEmptyProps): JSX.Element {
+function MainEmpty({ city }: MainEmptyProps): JSX.Element {
   return (
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">No places to stay available</b>
       <p className="cities__status-description">
-        We could not find any property available at the moment in {location}
+        We could not find any property available at the moment in {city}
       </p>
     </div>
   );
@@ -72,14 +72,14 @@ function MainPage(props: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList locations={LOCATIONS} typesPage={typesPage} />
+            <LocationsList cities={CITIES} typesPage={typesPage} />
           </section>
         </div>
         <div className="cities">
           <div className={containerClasses}>
             <section className={sectionClasses}>
               {isEmpty ? (
-                <MainEmpty location={'Dusseldorf'} />
+                <MainEmpty city={'Dusseldorf'} />
               ) : (
                 <MainContent
                   rentalOffersCount={rentalOffersCount}

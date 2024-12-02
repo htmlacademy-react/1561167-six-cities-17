@@ -7,8 +7,8 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { AuthStatus, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
-import { AuthStatusEnum } from '../../types/types';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
+import { AuthStatusEnum } from '../../types/types';
 
 type AppPageProps = {
   rentalOffersCount: number;
