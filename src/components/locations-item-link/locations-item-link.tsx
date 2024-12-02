@@ -1,6 +1,7 @@
 import cn from 'classnames';
-import { TypesPage } from '../../const';
+import { Path, TypesPage } from '../../const';
 import { CityType, TypesPageEnum } from '../../types/types';
+import { Link } from 'react-router-dom';
 
 type LocationLinkProps = {
   location: CityType;
@@ -15,9 +16,9 @@ function LocationsItemLink(props: LocationLinkProps): JSX.Element {
     ['tabs__item--active']: isActive,
   });
   return (
-    <a className={linkClasses} href="#">
+    <Link className={linkClasses} to={Path.Root}>
       <span>{location}</span>
-    </a>
+    </Link>
   );
 }
 
