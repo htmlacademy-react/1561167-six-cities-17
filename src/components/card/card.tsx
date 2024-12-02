@@ -46,8 +46,13 @@ function CardImage({ typesPage }: CardImageProps): JSX.Element {
 }
 
 function Card({ isPremium, typesPage }: CardProps): JSX.Element {
+  const articleClasses = cn('place-card', {
+    ['cities__card']: typesPage === TypesPage.Main,
+    ['near-places__card']: typesPage === TypesPage.Offer,
+    ['favorites__card']: typesPage === TypesPage.Favorites,
+  });
   return (
-    <article className={`${typesPage}__card place-card`}>
+    <article className={articleClasses}>
       {isPremium && <Mark isCard />}
       <CardImage typesPage={typesPage} />
       <div className="place-card__info">

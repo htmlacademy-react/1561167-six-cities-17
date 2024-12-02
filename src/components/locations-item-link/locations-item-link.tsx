@@ -1,16 +1,10 @@
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Path, TypesPage } from '../../const';
-import { CityType, TypesPageEnum } from '../../types/types';
-import { Link } from 'react-router-dom';
+import { LocationProps } from '../../types/types';
 
-type LocationLinkProps = {
-  location: CityType;
-  typesPage: TypesPageEnum;
-  isActive?: boolean;
-};
-
-function LocationsItemLink(props: LocationLinkProps): JSX.Element {
-  const { location, typesPage, isActive } = props;
+function LocationsItemLink(props: LocationProps): JSX.Element {
+  const { location, typesPage, isActive = false } = props;
   const linkClasses = cn('locations__item-link', {
     ['tabs__item']: typesPage === TypesPage.Main,
     ['tabs__item--active']: isActive,

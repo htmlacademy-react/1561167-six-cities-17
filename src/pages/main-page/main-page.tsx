@@ -1,12 +1,12 @@
+import cn from 'classnames';
 import Header from '../../components/header/header';
+import Nav from '../../components/nav/nav';
 import LocationsList from '../../components/locations-list/locations-list';
+import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import { DEFAULT_SORTING_TYPE, LOCATIONS, TypesPage } from '../../const';
-import CardsList from '../../components/cards-list/cards-list';
-import Nav from '../../components/nav/nav';
-import cn from 'classnames';
-import { CityType, TypesPageEnum } from '../../types/types';
+import { LocationProps, TypesPageEnum } from '../../types/types';
 
 type MainPageProps = {
   isLoggedIn: boolean;
@@ -14,8 +14,11 @@ type MainPageProps = {
   isEmpty?: boolean;
 };
 
-type MainEmptyProps = {
-  location: CityType;
+type MainEmptyProps = Pick<LocationProps, 'location'>;
+
+type MainContentProps = {
+  rentalOffersCount: number;
+  typesPage: TypesPageEnum;
 };
 
 function MainEmpty({ location }: MainEmptyProps): JSX.Element {
@@ -26,6 +29,20 @@ function MainEmpty({ location }: MainEmptyProps): JSX.Element {
         We could not find any property available at the moment in {location}
       </p>
     </div>
+  );
+}
+
+function MainContent(props: MainContentProps): JSX.Element {
+  const { rentalOffersCount, typesPage } = props;
+  return (
+    <>
+      <h2 className="visually-hidden">Places</h2>
+      <b className="places__found">
+        {rentalOffersCount} places to stay in Amsterdam
+      </b>
+      <Sort currentSortType={DEFAULT_SORTING_TYPE} />
+      <CardsList rentalOffersCount={rentalOffersCount} typesPage={typesPage} />
+    </>
   );
 }
 
@@ -61,18 +78,13 @@ function MainPage(props: MainPageProps): JSX.Element {
         <div className="cities">
           <div className={containerClasses}>
             <section className={sectionClasses}>
-              {(isEmpty && <MainEmpty location={'Dusseldorf'} />) || (
-                <>
-                  <h2 className="places__found">Places</h2>
-                  <b className="places__found">
-                    {rentalOffersCount} places to stay in Amsterdam
-                  </b>
-                  <Sort currentSortType={DEFAULT_SORTING_TYPE} />
-                  <CardsList
-                    rentalOffersCount={rentalOffersCount}
-                    typesPage={typesPage}
-                  />
-                </>
+              {isEmpty ? (
+                <MainEmpty location={'Dusseldorf'} />
+              ) : (
+                <MainContent
+                  rentalOffersCount={rentalOffersCount}
+                  typesPage={typesPage}
+                />
               )}
             </section>
             <div className="cities__right-section">
