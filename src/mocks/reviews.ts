@@ -1,4 +1,6 @@
-const reviews = [
+import { Review } from '../types/types';
+
+const reviews: Review[] = [
   {
     id: '242984cc-c5d7-4c7f-8099-987641366f7f',
     comment:

@@ -61,6 +61,18 @@ type OfferPreviewType = Omit<
   'description' | 'images' | 'goods' | 'host' | 'bedrooms' | 'maxAdults'
 > & { previewImage: string };
 
+type Review = {
+  id: string;
+  date: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
+  rating: number;
+};
+
 export type {
   ImageSizeType,
   CitiesType,
@@ -71,4 +83,5 @@ export type {
   CityProps,
   OfferType,
   OfferPreviewType,
+  Review,
 };
