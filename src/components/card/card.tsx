@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { nanoid } from 'nanoid';
 import { Path, TypesPage } from '../../const';
 import Mark from '../mark/mark';
 import Rating from '../rating/rating';
@@ -6,6 +7,7 @@ import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { TypesPageEnum } from '../../types/types';
 import { Link } from 'react-router-dom';
+import { getDynamicURL } from '../../utils/utils';
 
 type CardProps = {
   typesPage: TypesPageEnum;
@@ -24,7 +26,7 @@ function CardImage({ typesPage }: CardImageProps): JSX.Element {
   });
   return (
     <div className={wrapperClasses}>
-      <Link to={Path.Offer}>
+      <Link to={getDynamicURL({ path: Path.Offer, id: nanoid() })}>
         <img
           className="place-card__image"
           src="img/room.jpg"
@@ -65,7 +67,9 @@ function Card({ isPremium, typesPage }: CardProps): JSX.Element {
         </div>
         <Rating isCard />
         <h2 className="place-card__name">
-          <Link to={Path.Offer}>Wood and stone place</Link>
+          <Link to={getDynamicURL({ path: Path.Offer, id: nanoid() })}>
+            Wood and stone place
+          </Link>
         </h2>
         <p className="place-card__type">Room</p>
       </div>

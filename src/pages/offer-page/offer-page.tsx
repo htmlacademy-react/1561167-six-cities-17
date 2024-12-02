@@ -1,3 +1,4 @@
+// import { useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
@@ -56,6 +57,7 @@ function OfferInsideList({ internalOffers }: InsideListProps): JSX.Element {
 }
 
 function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
+  // const {offerId} = useParams();
   const typesPage: TypesPageEnum = TypesPage.Offer;
   return (
     <div className="page">
