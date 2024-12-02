@@ -1,15 +1,17 @@
-import CardsList from '../../components/cards-list/cards-list';
-import Gallery from '../../components/gallery/gallery';
-import Map from '../../components/map/map';
+// import { useParams } from 'react-router-dom';
+import { nanoid } from 'nanoid';
+import { Title } from '../../components/title/title';
+import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import { TypesPage } from '../../const';
+import Gallery from '../../components/gallery/gallery';
+import CardsList from '../../components/cards-list/cards-list';
+import Map from '../../components/map/map';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Mark from '../../components/mark/mark';
-import Header from '../../components/header/header';
-import { nanoid } from 'nanoid';
 import FeedbackForm from '../../components/feedback-form/feedback-form';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
+import { TypesPage } from '../../const';
 import { TypesPageEnum } from '../../types/types';
 
 type InsideItemProps = {
@@ -55,6 +57,7 @@ function OfferInsideList({ internalOffers }: InsideListProps): JSX.Element {
 }
 
 function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
+  // const {offerId} = useParams();
   const typesPage: TypesPageEnum = TypesPage.Offer;
   return (
     <div className="page">
@@ -66,6 +69,7 @@ function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
         />
       </Header>
       <main className="page__main page__main--offer">
+        <Title typesPage={typesPage} />
         <section className="offer">
           <div className="offer__gallery-container container">
             <Gallery />

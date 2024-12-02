@@ -1,20 +1,14 @@
 import { nanoid } from 'nanoid';
-import { DEFAULT_ACTIVE_LOCATION } from '../../const';
 import LocationsItemLink from '../locations-item-link/locations-item-link';
-import { CitiesType, CityType, TypesPageEnum } from '../../types/types';
+import { DEFAULT_ACTIVE_LOCATION } from '../../const';
+import { CitiesType, LocationProps, TypesPageEnum } from '../../types/types';
 
-type LocationsProps = {
+type LocationsListProps = {
   locations: CitiesType;
   typesPage: TypesPageEnum;
 };
 
-type LocationItemProps = {
-  location: CityType;
-  typesPage: TypesPageEnum;
-  isActive: boolean;
-};
-
-function LocationsItem(props: LocationItemProps): JSX.Element {
+function LocationsItem(props: LocationProps): JSX.Element {
   const { location, isActive, typesPage } = props;
   return (
     <li className="locations__item">
@@ -27,7 +21,10 @@ function LocationsItem(props: LocationItemProps): JSX.Element {
   );
 }
 
-function LocationsList({ locations, typesPage }: LocationsProps): JSX.Element {
+function LocationsList({
+  locations,
+  typesPage,
+}: LocationsListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {locations.map((location) => (

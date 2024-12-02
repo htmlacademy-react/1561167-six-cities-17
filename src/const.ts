@@ -14,8 +14,8 @@ const LOCATIONS = [
 const DEFAULT_ACTIVE_LOCATION = LOCATIONS[0];
 
 const TypesPage = {
-  Main: 'cities',
-  Offer: 'near-places',
+  Main: 'main',
+  Offer: 'offer',
   Favorites: 'favorites',
   Login: 'login',
 } as const;
@@ -34,6 +34,29 @@ const CommentLengthLimits = {
   Max: 300,
 } as const;
 
+const Path = {
+  Root: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer/:offerId',
+  NotFound: '*',
+} as const;
+
+const AuthStatus = {
+  Auth: 'auth',
+  NoAuth: 'no_auth',
+  Unknown: 'unknown',
+} as const;
+
+const DEFAULT_PREFIX_TITLE = '6 cities:';
+
+const TextTitle = {
+  [TypesPage.Main]: '',
+  [TypesPage.Favorites]: 'favorites',
+  [TypesPage.Login]: 'authorization',
+  [TypesPage.Offer]: 'offer',
+} as const;
+
 export {
   Setting,
   LOCATIONS,
@@ -42,4 +65,8 @@ export {
   DEFAULT_SORTING_TYPE,
   DEFAULT_ACTIVE_LOCATION,
   CommentLengthLimits,
+  Path,
+  AuthStatus,
+  DEFAULT_PREFIX_TITLE,
+  TextTitle,
 };
