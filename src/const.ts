@@ -2,7 +2,7 @@ const Setting = {
   RentalOffersCount: 5,
 } as const;
 
-const LOCATIONS = [
+const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -11,7 +11,7 @@ const LOCATIONS = [
   'Dusseldorf',
 ] as const;
 
-const DEFAULT_ACTIVE_LOCATION = LOCATIONS[0];
+const DEFAULT_ACTIVE_CITY = CITIES[0];
 
 const TypesPage = {
   Main: 'main',
@@ -59,11 +59,11 @@ const TextTitle = {
 
 export {
   Setting,
-  LOCATIONS,
+  CITIES,
   TypesPage,
   TypesSort,
   DEFAULT_SORTING_TYPE,
-  DEFAULT_ACTIVE_LOCATION,
+  DEFAULT_ACTIVE_CITY,
   CommentLengthLimits,
   Path,
   AuthStatus,

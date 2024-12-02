@@ -7,7 +7,6 @@ import { TypesPageEnum } from '../../types/types';
 
 function LoginPage(): JSX.Element {
   const typesPage: TypesPageEnum = TypesPage.Login;
-  const location = 'Amsterdam';
   return (
     <div className="page page--gray page--login">
       <Title typesPage={typesPage} />
@@ -20,7 +19,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <LocationsItemLink location={location} typesPage={typesPage} />
+              <LocationsItemLink city={'Amsterdam'} typesPage={typesPage} />
             </div>
           </section>
         </div>

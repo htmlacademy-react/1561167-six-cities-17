@@ -1,19 +1,19 @@
 import { nanoid } from 'nanoid';
 import LocationsItemLink from '../locations-item-link/locations-item-link';
-import { DEFAULT_ACTIVE_LOCATION } from '../../const';
-import { CitiesType, LocationProps, TypesPageEnum } from '../../types/types';
+import { DEFAULT_ACTIVE_CITY } from '../../const';
+import { CitiesType, CityProps, TypesPageEnum } from '../../types/types';
 
 type LocationsListProps = {
-  locations: CitiesType;
+  cities: CitiesType;
   typesPage: TypesPageEnum;
 };
 
-function LocationsItem(props: LocationProps): JSX.Element {
-  const { location, isActive, typesPage } = props;
+function LocationsItem(props: CityProps): JSX.Element {
+  const { city, isActive, typesPage } = props;
   return (
     <li className="locations__item">
       <LocationsItemLink
-        location={location}
+        city={city}
         typesPage={typesPage}
         isActive={isActive}
       />
@@ -21,18 +21,15 @@ function LocationsItem(props: LocationProps): JSX.Element {
   );
 }
 
-function LocationsList({
-  locations,
-  typesPage,
-}: LocationsListProps): JSX.Element {
+function LocationsList({ cities, typesPage }: LocationsListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
-      {locations.map((location) => (
+      {cities.map((city) => (
         <LocationsItem
           key={nanoid()}
           typesPage={typesPage}
-          location={location}
-          isActive={location === DEFAULT_ACTIVE_LOCATION}
+          city={city}
+          isActive={city === DEFAULT_ACTIVE_CITY}
         />
       ))}
     </ul>

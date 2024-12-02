@@ -1,4 +1,4 @@
-import { AuthStatus, LOCATIONS, Path, TypesPage } from '../const';
+import { AuthStatus, CITIES, Path, TypesPage } from '../const';
 
 type SizeType = {
   Width: number;
@@ -9,13 +9,13 @@ type ImageSizeType = {
   [key: string]: SizeType;
 };
 
-type LocationProps = {
+type CityProps = {
   typesPage: TypesPageEnum;
-  location: CityType;
+  city: CityType;
   isActive?: boolean;
 };
 
-type CitiesType = typeof LOCATIONS;
+type CitiesType = typeof CITIES;
 
 type CityType = CitiesType[number];
 
@@ -25,6 +25,42 @@ type AuthStatusEnum = (typeof AuthStatus)[keyof typeof AuthStatus];
 
 type PathEnum = (typeof Path)[keyof typeof Path];
 
+type LocationType = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+type OfferType = {
+  id: string;
+  title: string;
+  description: string;
+  type: string;
+  price: number;
+  images: string[];
+  city: {
+    name: string;
+    location: LocationType;
+  };
+  location: LocationType;
+  goods: string[];
+  host: {
+    isPro: boolean;
+    name: string;
+    avatarUrl: string;
+  };
+  isPremium: boolean;
+  isFavorite: boolean;
+  rating: number;
+  bedrooms: number;
+  maxAdults: number;
+};
+
+type OfferPreviewType = Omit<
+  OfferType,
+  'description' | 'images' | 'goods' | 'host' | 'bedrooms' | 'maxAdults'
+> & { previewImage: string };
+
 export type {
   ImageSizeType,
   CitiesType,
@@ -32,5 +68,7 @@ export type {
   TypesPageEnum,
   AuthStatusEnum,
   PathEnum,
-  LocationProps,
+  CityProps,
+  OfferType,
+  OfferPreviewType,
 };
