@@ -56,7 +56,7 @@ type OfferType = {
   maxAdults: number;
 };
 
-type OfferPreviewType = Omit<
+type ShortOfferType = Omit<
   OfferType,
   'description' | 'images' | 'goods' | 'host' | 'bedrooms' | 'maxAdults'
 > & { previewImage: string };
@@ -82,6 +82,6 @@ export type {
   PathEnum,
   CityProps,
   OfferType,
-  OfferPreviewType,
+  ShortOfferType,
   Review,
 };

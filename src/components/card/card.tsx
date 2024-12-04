@@ -1,24 +1,26 @@
 import cn from 'classnames';
-import { nanoid } from 'nanoid';
 import { Path, TypesPage } from '../../const';
 import Mark from '../mark/mark';
 import Rating from '../rating/rating';
 import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
-import { Link } from 'react-router-dom';
-import { getDynamicURL } from '../../utils/utils';
-import { TypesPageEnum } from '../../types/types';
+import { generatePath, Link } from 'react-router-dom';
+import { ShortOfferType, TypesPageEnum } from '../../types/types';
 
 type CardProps = {
   typesPage: TypesPageEnum;
-  isPremium?: boolean;
+  offer: ShortOfferType;
 };
 
 type CardImageProps = {
+  id: string;
+  src: string;
+  title: string;
   typesPage: TypesPageEnum;
 };
 
-function CardImage({ typesPage }: CardImageProps): JSX.Element {
+function CardImage(props: CardImageProps): JSX.Element {
+  const { id, src, title, typesPage } = props;
   const wrapperClasses = cn('place-card__image-wrapper', {
     ['cities__image-wrapper']: typesPage === TypesPage.Main,
     ['near-places__image-wrapper']: typesPage === TypesPage.Offer,
@@ -26,10 +28,10 @@ function CardImage({ typesPage }: CardImageProps): JSX.Element {
   });
   return (
     <div className={wrapperClasses}>
-      <Link to={getDynamicURL({ path: Path.Offer, id: nanoid() })}>
+      <Link to={generatePath(Path.Offer, { offerId: id })}>
         <img
           className="place-card__image"
-          src="img/room.jpg"
+          src={src}
           width={
             typesPage === TypesPage.Favorites
               ? ImageSize.Favorites.Width
@@ -40,38 +42,52 @@ function CardImage({ typesPage }: CardImageProps): JSX.Element {
               ? ImageSize.Favorites.Height
               : ImageSize.Default.Height
           }
-          alt="Place image"
+          alt={title}
         />
       </Link>
     </div>
   );
 }
 
-function Card({ isPremium, typesPage }: CardProps): JSX.Element {
+function Card({ offer, typesPage }: CardProps): JSX.Element {
+  const {
+    id,
+    isPremium,
+    previewImage,
+    title,
+    price,
+    rating,
+    type,
+    isFavorite,
+  } = offer;
   const articleClasses = cn('place-card', {
     ['cities__card']: typesPage === TypesPage.Main,
     ['near-places__card']: typesPage === TypesPage.Offer,
     ['favorites__card']: typesPage === TypesPage.Favorites,
   });
+
   return (
     <article className={articleClasses}>
       {isPremium && <Mark isCard />}
-      <CardImage typesPage={typesPage} />
+      <CardImage
+        id={id}
+        src={previewImage}
+        title={title}
+        typesPage={typesPage}
+      />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€80</b>
+            <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton typesPage={typesPage} isCard isActive />
+          <BookmarkButton typesPage={typesPage} isCard isActive={isFavorite} />
         </div>
-        <Rating isCard />
+        <Rating rating={rating} isCard />
         <h2 className="place-card__name">
-          <Link to={getDynamicURL({ path: Path.Offer, id: nanoid() })}>
-            Wood and stone place
-          </Link>
+          <Link to={generatePath(Path.Offer, { offerId: id })}>{title}</Link>
         </h2>
-        <p className="place-card__type">Room</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

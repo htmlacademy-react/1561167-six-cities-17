@@ -8,13 +8,13 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { AuthStatus, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
-import { AuthStatusEnum } from '../../types/types';
+import { AuthStatusEnum, ShortOfferType } from '../../types/types';
 
 type AppPageProps = {
-  rentalOffersCount: number;
+  shortOffers: ShortOfferType[];
 };
 
-function App({ rentalOffersCount }: AppPageProps): JSX.Element {
+function App({ shortOffers }: AppPageProps): JSX.Element {
   const isEmpty = false;
   const authStatus: AuthStatusEnum = AuthStatus.Auth;
   return (
@@ -26,9 +26,8 @@ function App({ rentalOffersCount }: AppPageProps): JSX.Element {
             path={Path.Root}
             element={
               <MainPage
-                rentalOffersCount={rentalOffersCount}
+                shortOffers={shortOffers}
                 isLoggedIn={authStatus === AuthStatus.Auth}
-                isEmpty={isEmpty}
               />
             }
           />

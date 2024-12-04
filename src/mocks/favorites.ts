@@ -1,6 +1,6 @@
-import { OfferPreviewType } from '../types/types';
+import { ShortOfferType } from '../types/types';
 
-const favorites: OfferPreviewType[] = [
+const favorites: ShortOfferType[] = [
   {
     id: 'f97c0500-1c51-412d-a72d-1e0da4da4762',
     title: 'Penthouse, 4-5 rooms + 5 balconies',

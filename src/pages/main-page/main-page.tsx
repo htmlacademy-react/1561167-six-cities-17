@@ -6,19 +6,18 @@ import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import { DEFAULT_SORTING_TYPE, CITIES, TypesPage } from '../../const';
-import { CityProps, TypesPageEnum } from '../../types/types';
+import { CityProps, ShortOfferType, TypesPageEnum } from '../../types/types';
 
 type MainPageProps = {
   isLoggedIn: boolean;
-  rentalOffersCount: number;
-  isEmpty?: boolean;
+  shortOffers: ShortOfferType[];
 };
 
 type MainEmptyProps = Pick<CityProps, 'city'>;
 
 type MainContentProps = {
-  rentalOffersCount: number;
-  typesPage: TypesPageEnum;
+  offersCount: number;
+  children: JSX.Element[];
 };
 
 function MainEmpty({ city }: MainEmptyProps): JSX.Element {
@@ -32,22 +31,18 @@ function MainEmpty({ city }: MainEmptyProps): JSX.Element {
   );
 }
 
-function MainContent(props: MainContentProps): JSX.Element {
-  const { rentalOffersCount, typesPage } = props;
+function MainContent({ offersCount, children }: MainContentProps): JSX.Element {
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">
-        {rentalOffersCount} places to stay in Amsterdam
-      </b>
-      <Sort currentSortType={DEFAULT_SORTING_TYPE} />
-      <CardsList rentalOffersCount={rentalOffersCount} typesPage={typesPage} />
+      <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+      {children}
     </>
   );
 }
 
-function MainPage(props: MainPageProps): JSX.Element {
-  const { rentalOffersCount, isLoggedIn, isEmpty = false } = props;
+function MainPage({ shortOffers, isLoggedIn }: MainPageProps): JSX.Element {
+  const isEmpty = shortOffers.length === 0;
   const typesPage: TypesPageEnum = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
@@ -59,6 +54,7 @@ function MainPage(props: MainPageProps): JSX.Element {
     ['cities__places places']: !isEmpty,
     ['cities__no-places']: isEmpty,
   });
+
   return (
     <div className="page page--gray page--main">
       <Header typesPage={typesPage}>
@@ -81,10 +77,10 @@ function MainPage(props: MainPageProps): JSX.Element {
               {isEmpty ? (
                 <MainEmpty city={'Dusseldorf'} />
               ) : (
-                <MainContent
-                  rentalOffersCount={rentalOffersCount}
-                  typesPage={typesPage}
-                />
+                <MainContent offersCount={shortOffers.length}>
+                  <Sort currentSortType={DEFAULT_SORTING_TYPE} />
+                  <CardsList offers={shortOffers} typesPage={typesPage} />
+                </MainContent>
               )}
             </section>
             <div className="cities__right-section">

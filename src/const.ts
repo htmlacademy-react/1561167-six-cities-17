@@ -2,6 +2,8 @@ const Setting = {
   RentalOffersCount: 5,
 } as const;
 
+const STARS_MAXIMUM = 5;
+
 const CITIES = [
   'Paris',
   'Cologne',
@@ -44,7 +46,7 @@ const Path = {
 
 const AuthStatus = {
   Auth: 'auth',
-  NoAuth: 'no_auth',
+  NoAuth: 'no-auth',
   Unknown: 'unknown',
 } as const;
 
@@ -59,6 +61,7 @@ const TextTitle = {
 
 export {
   Setting,
+  STARS_MAXIMUM,
   CITIES,
   TypesPage,
   TypesSort,
