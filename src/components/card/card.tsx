@@ -6,6 +6,7 @@ import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { generatePath, Link } from 'react-router-dom';
 import { ShortOfferType, TypesPageEnum } from '../../types/types';
+import { useState } from 'react';
 
 type CardProps = {
   typesPage: TypesPageEnum;
@@ -26,6 +27,7 @@ function CardImage(props: CardImageProps): JSX.Element {
     ['near-places__image-wrapper']: typesPage === TypesPage.Offer,
     ['favorites__image-wrapper']: typesPage === TypesPage.Favorites,
   });
+
   return (
     <div className={wrapperClasses}>
       <Link to={generatePath(Path.Offer, { offerId: id })}>
@@ -66,8 +68,15 @@ function Card({ offer, typesPage }: CardProps): JSX.Element {
     ['favorites__card']: typesPage === TypesPage.Favorites,
   });
 
+  const [active, setActive] = useState('');
+  const mouseOverHandler = (value: string) => setActive(value);
+
   return (
-    <article className={articleClasses}>
+    <article
+      onMouseOver={() => mouseOverHandler(id)}
+      onMouseOut={() => mouseOverHandler('')}
+      className={articleClasses}
+    >
       {isPremium && <Mark isCard />}
       <CardImage
         id={id}
