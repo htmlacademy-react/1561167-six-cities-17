@@ -8,10 +8,10 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { AuthStatus, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
-import { AuthStatusEnum, ShortOfferType } from '../../types/types';
+import { AuthStatusEnum, ShortOfferListType } from '../../types/types';
 
 type AppPageProps = {
-  shortOffers: ShortOfferType[];
+  shortOffers: ShortOfferListType;
 };
 
 function App({ shortOffers }: AppPageProps): JSX.Element {

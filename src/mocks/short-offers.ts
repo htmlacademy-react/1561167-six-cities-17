@@ -1,6 +1,6 @@
-import { ShortOfferType } from '../types/types';
+import { ShortOfferListType } from '../types/types';
 
-const shortOffers: ShortOfferType[] = [
+const shortOffers: ShortOfferListType = [
   {
     id: 'f97c0500-1c51-412d-a72d-1e0da4da4762',
     title: 'Penthouse, 4-5 rooms + 5 balconies',

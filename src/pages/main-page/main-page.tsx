@@ -6,11 +6,11 @@ import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import { DEFAULT_SORTING_TYPE, CITIES, TypesPage } from '../../const';
-import { CityProps, ShortOfferType, TypesPageEnum } from '../../types/types';
+import { CityProps, ShortOfferListType, TypesPageEnum } from '../../types/types';
 
 type MainPageProps = {
   isLoggedIn: boolean;
-  shortOffers: ShortOfferType[];
+  shortOffers: ShortOfferListType;
 };
 
 type MainEmptyProps = Pick<CityProps, 'city'>;

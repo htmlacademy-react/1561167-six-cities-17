@@ -1,10 +1,10 @@
 import Card from '../card/card';
 import cn from 'classnames';
 import { TypesPage } from '../../const';
-import { ShortOfferType, TypesPageEnum } from '../../types/types';
+import { ShortOfferListType, TypesPageEnum } from '../../types/types';
 
 type CardsListProps = {
-  offers: ShortOfferType[];
+  offers: ShortOfferListType;
   typesPage: TypesPageEnum;
 };
 

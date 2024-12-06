@@ -31,6 +31,12 @@ type LocationType = {
   zoom: number;
 };
 
+type UserType = {
+  isPro: boolean;
+  name: string;
+  avatarUrl: string;
+};
+
 type OfferType = {
   id: string;
   title: string;
@@ -44,34 +50,30 @@ type OfferType = {
   };
   location: LocationType;
   goods: string[];
-  host: {
-    isPro: boolean;
-    name: string;
-    avatarUrl: string;
-  };
+  host: UserType;
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
   bedrooms: number;
   maxAdults: number;
 };
+type OfferListType = OfferType[];
 
 type ShortOfferType = Omit<
   OfferType,
   'description' | 'images' | 'goods' | 'host' | 'bedrooms' | 'maxAdults'
 > & { previewImage: string };
 
-type Review = {
+type ShortOfferListType = ShortOfferType[];
+
+type ReviewType = {
   id: string;
   date: string;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
+  user: UserType;
   comment: string;
   rating: number;
 };
+type ReviewListType = ReviewType[];
 
 export type {
   ImageSizeType,
@@ -83,5 +85,6 @@ export type {
   CityProps,
   OfferType,
   ShortOfferType,
-  Review,
+  ReviewType,
+  ReviewListType,OfferListType,ShortOfferListType
 };
