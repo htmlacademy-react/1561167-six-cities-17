@@ -78,7 +78,7 @@ function FavoritesList({
   );
 }
 
-function FavoritePage(props: FavoritePageProps): JSX.Element {
+function FavoritesPage(props: FavoritePageProps): JSX.Element {
   const { shortOffers, isLoggedIn } = props;
   const typesPage: TypesPageEnum = TypesPage.Favorites;
   const groupedOffers = groupByList(shortOffers);
@@ -130,4 +130,4 @@ function FavoritePage(props: FavoritePageProps): JSX.Element {
   );
 }
 
-export default FavoritePage;
+export default FavoritesPage;

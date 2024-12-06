@@ -75,7 +75,7 @@ type ReviewType = {
   comment: string;
   rating: number;
 };
-type ReviewListType = ReviewType[];
+type ReviewListType = readonly ReviewType[];
 
 type OnCardChangeType = (id: string | null) => void;
 
@@ -95,5 +95,6 @@ export type {
   ReviewListType,
   OfferListType,
   ShortOfferListType,
-  OnCardChangeType,GroupedOffersType,
+  OnCardChangeType,
+  GroupedOffersType,
 };

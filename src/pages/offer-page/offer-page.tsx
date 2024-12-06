@@ -1,4 +1,5 @@
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import cn from 'classnames';
 import { nanoid } from 'nanoid';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
@@ -12,38 +13,50 @@ import FeedbackForm from '../../components/feedback-form/feedback-form';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { TypesPage } from '../../const';
-import { TypesPageEnum } from '../../types/types';
+import {
+  OfferType,
+  ReviewListType,
+  ShortOfferType,
+  TypesPageEnum,
+} from '../../types/types';
+import { offerReviews } from '../../mocks/offer-reviews';
 
 type InsideItemProps = {
   item: string;
 };
 
 type InsideListProps = {
-  internalOffers: ReadonlyArray<string>;
+  internalOffers: string[];
 };
 
 type OfferPageProps = {
+  offer: OfferType;
+  nearbyOffers: ShortOfferType[];
   isLoggedIn: boolean;
 };
 
-const insideOffers: ReadonlyArray<string> = [
-  'Wi-Fi',
-  'Washing machine',
-  'Towels',
-  'Heating',
-  'Coffee machine',
-  'Baby seat',
-  'Kitchen',
-  'Dishwasher',
-  'Cabel TV',
-  'Fridge',
-];
+type FeaturesProps = Pick<OfferType, 'type' | 'bedrooms' | 'maxAdults'>;
+
+function Features({ type, bedrooms, maxAdults }: FeaturesProps): JSX.Element {
+  return (
+    <ul className="offer__features">
+      <li className="offer__feature offer__feature--entire">{type}</li>
+      <li className="offer__feature offer__feature--bedrooms">
+        {bedrooms} Bedrooms
+      </li>
+      <li className="offer__feature offer__feature--adults">
+        Max {maxAdults} adults
+      </li>
+    </ul>
+  );
+}
 
 function OfferInsideItem({ item }: InsideItemProps): JSX.Element {
   return <li className="offer__inside-item">{item}</li>;
 }
 
-function OfferInsideList({ internalOffers }: InsideListProps): JSX.Element {
+function OfferInsideList(props: InsideListProps): JSX.Element {
+  const { internalOffers } = props;
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>
@@ -56,9 +69,33 @@ function OfferInsideList({ internalOffers }: InsideListProps): JSX.Element {
   );
 }
 
-function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
-  // const {offerId} = useParams();
+function OfferPage({
+  offer,
+  nearbyOffers,
+  isLoggedIn,
+}: OfferPageProps): JSX.Element {
+  const {
+    images,
+    isPremium,
+    title,
+    isFavorite,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    description,
+    host: { avatarUrl, name, isPro },
+  } = offer;
+  const reviews: ReviewListType = offerReviews;
   const typesPage: TypesPageEnum = TypesPage.Offer;
+  const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
+    ['offer__avatar-wrapper--pro']: isPro,
+  });
+
+  const { offerId } = useParams();
+
   return (
     <div className="page">
       <Header typesPage={typesPage}>
@@ -68,73 +105,56 @@ function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
           favoriteCount={3}
         />
       </Header>
+      {`offerId: ${offerId}`}
       <main className="page__main page__main--offer">
         <Title typesPage={typesPage} />
         <section className="offer">
           <div className="offer__gallery-container container">
-            <Gallery />
+            <Gallery images={images} />
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <Mark />
+              {isPremium && <Mark />}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
-                </h1>
-                <BookmarkButton typesPage={typesPage} />
+                <h1 className="offer__name">{title}</h1>
+                <BookmarkButton typesPage={typesPage} isActive={isFavorite} />
               </div>
-              <Rating isOffer>
-                <span className="offer__rating-value rating__value">4.8</span>
+              <Rating rating={rating} isOffer>
+                <span className="offer__rating-value rating__value">
+                  {rating}
+                </span>
               </Rating>
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  Apartment
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
-                </li>
-              </ul>
+              <Features type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
               <div className="offer__price">
-                <b className="offer__price-value">€120</b>
+                <b className="offer__price-value">€{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              <OfferInsideList internalOffers={insideOffers} />
+              <OfferInsideList internalOffers={goods} />
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={avatarClasses}>
                     <img
                       className="offer__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
+                      src={avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">Angelina</span>
-                  <span className="offer__user-status">Pro</span>
+                  <span className="offer__user-name">{name}</span>
+                  {isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by
-                    the unique lightness of Amsterdam. The building is green and
-                    from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
-                  </p>
+                  <p className="offer__text">{description}</p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
+                  Reviews ·{' '}
+                  <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewsList />
+                <ReviewsList reviews={reviews} />
                 {isLoggedIn && <FeedbackForm />}
               </section>
             </div>
@@ -147,7 +167,11 @@ function OfferPage({ isLoggedIn }: OfferPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList rentalOffersCount={3} typesPage={typesPage} />
+              <CardsList
+                offers={nearbyOffers}
+                onCardChange={() => {}}
+                typesPage={typesPage}
+              />
             </div>
           </section>
         </div>
