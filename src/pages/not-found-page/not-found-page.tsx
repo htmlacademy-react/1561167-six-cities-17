@@ -3,8 +3,8 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { Path, TypesPage } from '../../const';
-import { TypesPageEnum } from '../../types/types';
 import styles from './style.module.css';
+import { TypesPageEnum } from '../../types/types';
 
 function NotFoundPage(): JSX.Element {
   const typesPage: TypesPageEnum = TypesPage.Favorites;
