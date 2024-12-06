@@ -31,7 +31,7 @@ const shortOffers: ShortOfferListType = [
     price: 421,
     previewImage: 'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -100,7 +100,7 @@ const shortOffers: ShortOfferListType = [
     price: 105,
     previewImage: 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,

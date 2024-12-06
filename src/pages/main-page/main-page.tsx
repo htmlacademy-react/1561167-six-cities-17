@@ -6,7 +6,12 @@ import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import { DEFAULT_SORTING_TYPE, CITIES, TypesPage } from '../../const';
-import { CityProps, ShortOfferListType, TypesPageEnum } from '../../types/types';
+import {
+  CityProps,
+  ShortOfferListType,
+  TypesPageEnum,
+} from '../../types/types';
+import { useState } from 'react';
 
 type MainPageProps = {
   isLoggedIn: boolean;
@@ -55,8 +60,13 @@ function MainPage({ shortOffers, isLoggedIn }: MainPageProps): JSX.Element {
     ['cities__no-places']: isEmpty,
   });
 
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+
+  const handleCardChange = (id: string | null) => setActiveCardId(id);
+
   return (
     <div className="page page--gray page--main">
+      {activeCardId}
       <Header typesPage={typesPage}>
         <Nav
           isLoggedIn={isLoggedIn}
@@ -79,7 +89,11 @@ function MainPage({ shortOffers, isLoggedIn }: MainPageProps): JSX.Element {
               ) : (
                 <MainContent offersCount={shortOffers.length}>
                   <Sort currentSortType={DEFAULT_SORTING_TYPE} />
-                  <CardsList offers={shortOffers} typesPage={typesPage} />
+                  <CardsList
+                    offers={shortOffers}
+                    onCardChange={handleCardChange}
+                    typesPage={typesPage}
+                  />
                 </MainContent>
               )}
             </section>

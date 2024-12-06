@@ -15,7 +15,6 @@ type AppPageProps = {
 };
 
 function App({ shortOffers }: AppPageProps): JSX.Element {
-  const isEmpty = false;
   const authStatus: AuthStatusEnum = AuthStatus.Auth;
   return (
     <HelmetProvider>
@@ -40,8 +39,8 @@ function App({ shortOffers }: AppPageProps): JSX.Element {
                 toPath={Path.Login}
               >
                 <FavoritePage
+                  shortOffers={shortOffers}
                   isLoggedIn={authStatus === AuthStatus.Auth}
-                  isEmpty={isEmpty}
                 />
               </PrivateRoute>
             }

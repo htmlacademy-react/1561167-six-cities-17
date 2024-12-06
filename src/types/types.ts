@@ -37,6 +37,11 @@ type UserType = {
   avatarUrl: string;
 };
 
+type OfferCityType = {
+  name: CityType;
+  location: LocationType;
+};
+
 type OfferType = {
   id: string;
   title: string;
@@ -44,10 +49,7 @@ type OfferType = {
   type: string;
   price: number;
   images: string[];
-  city: {
-    name: string;
-    location: LocationType;
-  };
+  city: OfferCityType;
   location: LocationType;
   goods: string[];
   host: UserType;
@@ -75,6 +77,10 @@ type ReviewType = {
 };
 type ReviewListType = ReviewType[];
 
+type OnCardChangeType = (id: string | null) => void;
+
+type GroupedOffersType = Record<string, ShortOfferListType>;
+
 export type {
   ImageSizeType,
   CitiesType,
@@ -86,5 +92,8 @@ export type {
   OfferType,
   ShortOfferType,
   ReviewType,
-  ReviewListType,OfferListType,ShortOfferListType
+  ReviewListType,
+  OfferListType,
+  ShortOfferListType,
+  OnCardChangeType,GroupedOffersType,
 };
