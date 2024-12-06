@@ -15,6 +15,8 @@ const CITIES = [
 
 const DEFAULT_ACTIVE_CITY = CITIES[0];
 
+const RATING_VALUES = ['one', 'two', 'three', 'four', 'five'] as const;
+
 const TypesPage = {
   Main: 'main',
   Offer: 'offer',
@@ -72,4 +74,5 @@ export {
   AuthStatus,
   DEFAULT_PREFIX_TITLE,
   TextTitle,
+  RATING_VALUES,
 };

@@ -81,6 +81,10 @@ type OnCardChangeType = (id: string | null) => void;
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
 
+type RatingType = 1 | 2 | 3 | 4 | 5 | undefined;
+
+type CommentType = string | undefined;
+
 export type {
   ImageSizeType,
   CitiesType,
@@ -97,4 +101,5 @@ export type {
   ShortOfferListType,
   OnCardChangeType,
   GroupedOffersType,
+  RatingType,CommentType,
 };

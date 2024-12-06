@@ -1,5 +1,6 @@
 import { ReviewType } from '../../types/types';
 import Rating from '../rating/rating';
+import { convertDate } from './utils';
 
 type ReviewsItemProps = {
   review: ReviewType;
@@ -30,14 +31,7 @@ function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
       <div className="reviews__info">
         <Rating rating={rating} isReview />
         <p className="reviews__text">{comment}</p>
-        <time
-          className="reviews__time"
-          dateTime={dateReview.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })}
-        >
+        <time className="reviews__time" dateTime={convertDate(dateReview)}>
           {dateReview.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
@@ -49,4 +43,3 @@ function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
 }
 
 export default ReviewsItem;
-
