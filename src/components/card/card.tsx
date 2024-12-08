@@ -14,7 +14,7 @@ import {
 type CardProps = {
   typesPage: TypesPageEnum;
   offer: ShortOfferType;
-  onCardChange: OnCardChangeType;
+  onCardChange?: OnCardChangeType;
 };
 
 type CardImageProps = {
@@ -74,8 +74,8 @@ function Card({ offer, onCardChange, typesPage }: CardProps): JSX.Element {
 
   return (
     <article
-      onMouseOver={() => onCardChange(id)}
-      onMouseOut={() => onCardChange(null)}
+      onMouseEnter={() => onCardChange && onCardChange(id)}
+      onMouseLeave={() => onCardChange && onCardChange(null)}
       className={articleClasses}
     >
       {isPremium && <Mark isCard />}

@@ -14,6 +14,8 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { TypesPage } from '../../const';
 import {
+  FavoritesListType,
+  OfferListType,
   OfferType,
   ReviewListType,
   ShortOfferType,
@@ -30,7 +32,8 @@ type InsideListProps = {
 };
 
 type OfferPageProps = {
-  offer: OfferType;
+  offers: OfferListType;
+  favorites: FavoritesListType;
   nearbyOffers: ShortOfferType[];
   isLoggedIn: boolean;
 };
@@ -70,10 +73,18 @@ function OfferInsideList(props: InsideListProps): JSX.Element {
 }
 
 function OfferPage({
-  offer,
+  offers,
+  favorites,
   nearbyOffers,
   isLoggedIn,
 }: OfferPageProps): JSX.Element {
+  const { offerId } = useParams();
+  const offer = offers.find(({ id }) => id === offerId);
+
+  if (!offer) {
+    throw new Error(`There is no ID:${offerId} element`);
+  }
+
   const {
     images,
     isPremium,
@@ -94,18 +105,15 @@ function OfferPage({
     ['offer__avatar-wrapper--pro']: isPro,
   });
 
-  const { offerId } = useParams();
-
   return (
     <div className="page">
       <Header typesPage={typesPage}>
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={3}
+          favoriteCount={favorites.length}
         />
       </Header>
-      {`offerId: ${offerId}`}
       <main className="page__main page__main--offer">
         <Title typesPage={typesPage} />
         <section className="offer">
@@ -169,7 +177,6 @@ function OfferPage({
             <div className="near-places__list places__list">
               <CardsList
                 offers={nearbyOffers}
-                onCardChange={() => {}}
                 typesPage={typesPage}
               />
             </div>

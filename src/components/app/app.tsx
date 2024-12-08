@@ -8,14 +8,20 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { AuthStatus, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
-import { AuthStatusEnum, OfferType, ShortOfferType } from '../../types/types';
+import {
+  AuthStatusEnum,
+  FavoritesListType,
+  OfferListType,
+  ShortOfferType,
+} from '../../types/types';
 
 type AppPageProps = {
   shortOffers: ShortOfferType[];
-  offer: OfferType;
+  offers: OfferListType;
+  favorites: FavoritesListType;
 };
 
-function App({ offer, shortOffers }: AppPageProps): JSX.Element {
+function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
   const authStatus: AuthStatusEnum = AuthStatus.Auth;
   return (
     <HelmetProvider>
@@ -27,11 +33,22 @@ function App({ offer, shortOffers }: AppPageProps): JSX.Element {
             element={
               <MainPage
                 shortOffers={shortOffers}
+                favorites={favorites}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />
             }
           />
-          <Route path={Path.Login} element={<LoginPage />} />
+          <Route
+            path={Path.Login}
+            element={
+              <PrivateRoute
+                isLoggedIn={authStatus !== AuthStatus.Auth}
+                toPath={Path.Root}
+              >
+                <LoginPage />
+              </PrivateRoute>
+            }
+          />
           <Route
             path={Path.Favorites}
             element={
@@ -40,7 +57,7 @@ function App({ offer, shortOffers }: AppPageProps): JSX.Element {
                 toPath={Path.Login}
               >
                 <FavoritesPage
-                  shortOffers={shortOffers}
+                  favorites={favorites}
                   isLoggedIn={authStatus === AuthStatus.Auth}
                 />
               </PrivateRoute>
@@ -50,8 +67,9 @@ function App({ offer, shortOffers }: AppPageProps): JSX.Element {
             path={Path.Offer}
             element={
               <OfferPage
-                offer={offer}
-                nearbyOffers={shortOffers.slice(0, 3)}
+                offers={offers}
+                favorites={favorites}
+                nearbyOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />
             }

@@ -1,6 +1,6 @@
-import { FavoritesListType } from '../types/types';
+import { OfferListType } from '../types/types';
 
-const favorites: FavoritesListType = [
+const offers: OfferListType = [
   {
     id: '86ef72ae-69aa-4a99-8124-cbb2e460d6bc',
     title: 'Nice, cozy, warm big bed apartment',
@@ -8,7 +8,6 @@ const favorites: FavoritesListType = [
       'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     type: 'house',
     price: 756,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
     images: [
       'https://16.design.htmlacademy.pro/static/hotel/8.jpg',
       'https://16.design.htmlacademy.pro/static/hotel/6.jpg',
@@ -51,7 +50,7 @@ const favorites: FavoritesListType = [
         'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg',
     },
     isPremium: true,
-    isFavorite: true,
+    isFavorite: false,
     rating: 1.1,
     bedrooms: 1,
     maxAdults: 9,
@@ -63,7 +62,6 @@ const favorites: FavoritesListType = [
       'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     type: 'apartment',
     price: 456,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
     images: [
       'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
       'https://16.design.htmlacademy.pro/static/hotel/11.jpg',
@@ -103,10 +101,100 @@ const favorites: FavoritesListType = [
         'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg',
     },
     isPremium: false,
-    isFavorite: true,
+    isFavorite: false,
     rating: 3.6,
     bedrooms: 5,
     maxAdults: 4,
+  },
+  {
+    id: '2ad908a4-09e9-48b4-bb86-9428f748011d',
+    title: 'Beautiful & luxurious apartment at great location',
+    description:
+      'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
+    type: 'room',
+    price: 292,
+    images: [
+      'https://16.design.htmlacademy.pro/static/hotel/12.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/16.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/11.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/7.jpg',
+    ],
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.351499,
+        zoom: 13,
+      },
+    },
+    location: {
+      latitude: 48.834610000000005,
+      longitude: 2.335499,
+      zoom: 16,
+    },
+    goods: ['Heating', 'Dishwasher', 'Washing machine', 'Coffee machine'],
+    host: {
+      isPro: true,
+      name: 'Angelina',
+      avatarUrl:
+        'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg',
+    },
+    isPremium: false,
+    isFavorite: false,
+    rating: 4.6,
+    bedrooms: 1,
+    maxAdults: 1,
+  },
+  {
+    id: '0049e82e-b682-4eb8-b45b-3cc01e96a37a',
+    title: 'The Joshua Tree House',
+    description:
+      'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
+    type: 'apartment',
+    price: 467,
+    images: [
+      'https://16.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/11.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    ],
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.351499,
+        zoom: 13,
+      },
+    },
+    location: {
+      latitude: 48.85761,
+      longitude: 2.358499,
+      zoom: 16,
+    },
+    goods: [
+      'Washing machine',
+      'Laptop friendly workspace',
+      'Wi-Fi',
+      'Kitchen',
+      'Cable TV',
+      'Heating',
+      'Breakfast',
+    ],
+    host: {
+      isPro: true,
+      name: 'Angelina',
+      avatarUrl:
+        'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg',
+    },
+    isPremium: true,
+    isFavorite: false,
+    rating: 2.6,
+    bedrooms: 1,
+    maxAdults: 2,
   },
   {
     id: '72c95075-91dc-44a7-83e3-2a15389b529f',
@@ -115,7 +203,6 @@ const favorites: FavoritesListType = [
       'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
     type: 'house',
     price: 621,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/7.jpg',
     images: [
       'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
       'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
@@ -158,11 +245,11 @@ const favorites: FavoritesListType = [
         'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg',
     },
     isPremium: false,
-    isFavorite: true,
+    isFavorite: false,
     rating: 4,
     bedrooms: 3,
     maxAdults: 4,
   },
 ];
 
-export { favorites };
+export { offers };

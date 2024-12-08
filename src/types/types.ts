@@ -68,6 +68,10 @@ type ShortOfferType = Omit<
 
 type ShortOfferListType = ShortOfferType[];
 
+type FavoritesType = OfferType & { previewImage: string };
+
+type FavoritesListType = FavoritesType[];
+
 type ReviewType = {
   id: string;
   date: string;
@@ -101,5 +105,8 @@ export type {
   ShortOfferListType,
   OnCardChangeType,
   GroupedOffersType,
-  RatingType,CommentType,
+  RatingType,
+  CommentType,
+  FavoritesType,
+  FavoritesListType,
 };

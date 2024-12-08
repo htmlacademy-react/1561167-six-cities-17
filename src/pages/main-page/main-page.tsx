@@ -8,21 +8,23 @@ import Sort from '../../components/sort/sort';
 import { DEFAULT_SORTING_TYPE, CITIES, TypesPage } from '../../const';
 import {
   CityProps,
+  FavoritesListType,
   ShortOfferListType,
   TypesPageEnum,
 } from '../../types/types';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 type MainPageProps = {
   isLoggedIn: boolean;
   shortOffers: ShortOfferListType;
+  favorites: FavoritesListType;
 };
 
 type MainEmptyProps = Pick<CityProps, 'city'>;
 
 type MainContentProps = {
   offersCount: number;
-  children: JSX.Element[];
+  children: ReactNode[];
 };
 
 function MainEmpty({ city }: MainEmptyProps): JSX.Element {
@@ -46,7 +48,11 @@ function MainContent({ offersCount, children }: MainContentProps): JSX.Element {
   );
 }
 
-function MainPage({ shortOffers, isLoggedIn }: MainPageProps): JSX.Element {
+function MainPage({
+  shortOffers,
+  isLoggedIn,
+  favorites,
+}: MainPageProps): JSX.Element {
   const isEmpty = shortOffers.length === 0;
   const typesPage: TypesPageEnum = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
@@ -66,12 +72,12 @@ function MainPage({ shortOffers, isLoggedIn }: MainPageProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      {activeCardId}
+      <span className="visually-hidden">{activeCardId}</span>
       <Header typesPage={typesPage}>
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={3}
+          favoriteCount={favorites.length}
         />
       </Header>
       <main className={mainClasses}>

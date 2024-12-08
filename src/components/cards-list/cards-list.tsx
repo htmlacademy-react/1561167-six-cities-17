@@ -10,7 +10,7 @@ import {
 type CardsListProps = {
   offers: ShortOfferListType;
   typesPage: TypesPageEnum;
-  onCardChange: OnCardChangeType;
+  onCardChange?: OnCardChangeType;
 };
 
 function CardsList({

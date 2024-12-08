@@ -2,11 +2,34 @@ import { ShortOfferListType } from '../types/types';
 
 const shortOffers: ShortOfferListType = [
   {
-    id: 'f97c0500-1c51-412d-a72d-1e0da4da4762',
-    title: 'Penthouse, 4-5 rooms + 5 balconies',
+    id: '86ef72ae-69aa-4a99-8124-cbb2e460d6bc',
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'house',
+    price: 756,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.351499,
+        zoom: 13,
+      },
+    },
+    location: {
+      latitude: 48.868610000000004,
+      longitude: 2.342499,
+      zoom: 16,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 1.1,
+  },
+  {
+    id: 'e49b9283-4cdc-4437-bade-b249a29ad933',
+    title: 'House in countryside',
     type: 'apartment',
-    price: 219,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
+    price: 456,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -21,17 +44,17 @@ const shortOffers: ShortOfferListType = [
       zoom: 16,
     },
     isFavorite: false,
-    isPremium: true,
-    rating: 3.5,
+    isPremium: false,
+    rating: 3.6,
   },
   {
-    id: '65435c47-cd3d-432a-9f65-546d1f1885f4',
-    title: 'Waterfront with extraordinary view',
-    type: 'hotel',
-    price: 421,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
+    id: '2ad908a4-09e9-48b4-bb86-9428f748011d',
+    title: 'Beautiful & luxurious apartment at great location',
+    type: 'room',
+    price: 292,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -45,14 +68,14 @@ const shortOffers: ShortOfferListType = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 3.9,
+    rating: 4.6,
   },
   {
-    id: '89013707-3300-47ad-8c0b-d63f46094318',
-    title: 'Penthouse, 4-5 rooms + 5 balconies',
-    type: 'hotel',
-    price: 370,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
+    id: '0049e82e-b682-4eb8-b45b-3cc01e96a37a',
+    title: 'The Joshua Tree House',
+    type: 'apartment',
+    price: 467,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -67,15 +90,15 @@ const shortOffers: ShortOfferListType = [
       zoom: 16,
     },
     isFavorite: false,
-    isPremium: false,
-    rating: 3.1,
+    isPremium: true,
+    rating: 2.6,
   },
   {
-    id: '7cb31f50-1507-4a95-84ac-63b20e7c4aff',
-    title: 'Penthouse, 4-5 rooms + 5 balconies',
-    type: 'hotel',
-    price: 326,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
+    id: '72c95075-91dc-44a7-83e3-2a15389b529f',
+    title: 'Loft Studio in the Central Area',
+    type: 'house',
+    price: 621,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/7.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -91,30 +114,7 @@ const shortOffers: ShortOfferListType = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 2.7,
-  },
-  {
-    id: '60d9eeb3-c499-4567-b380-896cfcd20a38',
-    title: 'Waterfront with extraordinary view',
-    type: 'room',
-    price: 105,
-    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13,
-      },
-    },
-    location: {
-      latitude: 48.87961000000001,
-      longitude: 2.353499,
-      zoom: 16,
-    },
-    isFavorite: false,
-    isPremium: true,
-    rating: 2.5,
+    rating: 4,
   },
 ];
 

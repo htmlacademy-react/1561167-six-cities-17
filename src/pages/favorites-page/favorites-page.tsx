@@ -9,6 +9,7 @@ import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import {
   CityType,
+  FavoritesListType,
   GroupedOffersType,
   ShortOfferListType,
   TypesPageEnum,
@@ -16,7 +17,7 @@ import {
 import { groupByList } from './utils';
 
 type FavoritePageProps = {
-  shortOffers: ShortOfferListType;
+  favorites: FavoritesListType;
   isLoggedIn: boolean;
 };
 
@@ -54,7 +55,6 @@ function FavoritesItem(props: FavoritesItemProps): JSX.Element {
       <CardsList
         offers={offers}
         typesPage={typesPage}
-        onCardChange={() => {}}
       />
     </li>
   );
@@ -79,9 +79,9 @@ function FavoritesList({
 }
 
 function FavoritesPage(props: FavoritePageProps): JSX.Element {
-  const { shortOffers, isLoggedIn } = props;
+  const { favorites, isLoggedIn } = props;
   const typesPage: TypesPageEnum = TypesPage.Favorites;
-  const groupedOffers = groupByList(shortOffers);
+  const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
 
   const pageClasses = cn('page', { ['page--favorites-empty']: isEmpty });
@@ -102,7 +102,7 @@ function FavoritesPage(props: FavoritePageProps): JSX.Element {
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={3}
+          favoriteCount={favorites.length}
         />
       </Header>
       <Title typesPage={typesPage} isEmpty={isEmpty} />
