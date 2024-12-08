@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { CommentLengthLimits, RATING_VALUES } from '../../const';
 import { CommentType, RatingType } from '../../types/types';
-import { isDisable } from './utils';
+import { isValidValues } from './utils';
 
 type onRatingChangeType = (e: ChangeEvent<HTMLInputElement>) => void;
 
@@ -16,12 +16,12 @@ type StarProps = {
 
 type FeedbackType = {
   rating: RatingType;
-  comment: CommentType;
+  review: CommentType;
 };
 
 const initialFeedback: FeedbackType = {
-  rating: undefined,
-  comment: undefined,
+  rating: null,
+  review: '',
 };
 
 function Star({ number, onRatingChange }: StarProps): JSX.Element {
@@ -52,7 +52,7 @@ function Rating({ onRatingChange }: RatingProps): JSX.Element {
   return (
     <div className="reviews__rating-form form__rating">
       {RATING_VALUES.map((value, i) => (
-        <Star key={value} onRatingChange={onRatingChange} number={i} />
+        <Star key={value} onRatingChange={onRatingChange} number={5 - i} />
       ))}
     </div>
   );
@@ -61,31 +61,41 @@ function Rating({ onRatingChange }: RatingProps): JSX.Element {
 function FeedbackForm(): JSX.Element {
   const [feedback, setFeedback] = useState<FeedbackType>(initialFeedback);
 
-  const handleReviewChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setFeedback((prev) => ({ ...prev, comment: e.target.value }));
-  };
-
-  const handleRatingChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleValueChange = ({
+    target,
+  }:
+    | ChangeEvent<HTMLTextAreaElement>
+    | ChangeEvent<HTMLInputElement>): void => {
     setFeedback((prev) => ({
       ...prev,
-      rating: Number(e.target.value) as RatingType,
+      [target.name]:
+        target.name === 'review' ? target.value : Number(target.value),
     }));
   };
 
+  const handleFormSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    setFeedback(initialFeedback);
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      onSubmit={handleFormSubmit}
+      className="reviews__form form"
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <Rating onRatingChange={handleRatingChange} />
+      <Rating onRatingChange={handleValueChange} />
       <textarea
-        onChange={handleReviewChange}
+        onChange={handleValueChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={feedback.comment}
-        defaultValue={''}
+        value={feedback.review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -100,7 +110,7 @@ function FeedbackForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isDisable(feedback.comment, feedback.rating)}
+          disabled={!isValidValues(feedback.review, feedback.rating)}
         >
           Submit
         </button>

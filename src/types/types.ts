@@ -85,9 +85,9 @@ type OnCardChangeType = (id: string | null) => void;
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
 
-type RatingType = 1 | 2 | 3 | 4 | 5 | undefined;
+type RatingType = 1 | 2 | 3 | 4 | 5 | null;
 
-type CommentType = string | undefined;
+type CommentType = string;
 
 export type {
   ImageSizeType,

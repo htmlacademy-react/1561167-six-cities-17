@@ -34,8 +34,8 @@ const TypesSort = {
 const DEFAULT_SORTING_TYPE = TypesSort.Popular;
 
 const CommentLengthLimits = {
-  Min: 50,
-  Max: 300,
+  Min: 1,
+  Max: 5,
 } as const;
 
 const Path = {

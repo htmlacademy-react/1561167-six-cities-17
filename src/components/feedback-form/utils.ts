@@ -1,10 +1,15 @@
 import { CommentLengthLimits } from '../../const';
 import { CommentType, RatingType } from '../../types/types';
 
-const isDisable = (comment: CommentType, rating: RatingType): boolean =>
-  !comment ||
-  !rating ||
-  comment.length < CommentLengthLimits.Min ||
-  comment.length > CommentLengthLimits.Max;
+const isValidValues = (comment: CommentType, rating: RatingType): boolean => {
+  const isValidComment =
+    typeof comment === 'string' &&
+    comment.length >= CommentLengthLimits.Min &&
+    comment.length <= CommentLengthLimits.Max;
+  const isValidRating =
+    typeof rating === 'number' && rating >= 1 && rating <= 5;
 
-export { isDisable };
+  return isValidComment && isValidRating;
+};
+
+export { isValidValues };
