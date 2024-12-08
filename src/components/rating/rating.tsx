@@ -1,7 +1,9 @@
 import cn from 'classnames';
 import { ReactNode } from 'react';
+import { STARS_MAXIMUM } from '../../const';
 
 type RatingProps = {
+  rating: number;
   isCard?: boolean;
   isReview?: boolean;
   isOffer?: boolean;
@@ -9,7 +11,7 @@ type RatingProps = {
 };
 
 function Rating(props: RatingProps): JSX.Element {
-  const { isCard, isReview, isOffer, children } = props;
+  const { rating, isCard, isReview, isOffer, children } = props;
   const ratingClasses = cn('rating', {
     ['reviews__rating']: isReview,
     ['place-card__rating']: isCard,
@@ -20,10 +22,11 @@ function Rating(props: RatingProps): JSX.Element {
     ['place-card__stars']: isCard,
     ['offer__stars']: isOffer,
   });
+
   return (
     <div className={ratingClasses}>
       <div className={starsClasses}>
-        <span style={{ width: '80%' }}></span>
+        <span style={{ width: `${(rating / STARS_MAXIMUM) * 100}%` }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
       {children}

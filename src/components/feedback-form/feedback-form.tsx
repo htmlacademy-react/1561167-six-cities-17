@@ -1,18 +1,37 @@
-import { nanoid } from 'nanoid';
-import { starsCount } from './settings';
-import { CommentLengthLimits } from '../../const';
+import { ChangeEvent, useState } from 'react';
+import { CommentLengthLimits, RATING_VALUES } from '../../const';
+import { CommentType, RatingType } from '../../types/types';
+import { isValidValues } from './utils';
+
+type onRatingChangeType = (e: ChangeEvent<HTMLInputElement>) => void;
+
+type RatingProps = {
+  onRatingChange: onRatingChangeType;
+};
 
 type StarProps = {
   number: number;
+  onRatingChange: onRatingChangeType;
 };
 
-function Star({ number }: StarProps): JSX.Element {
+type FeedbackType = {
+  rating: RatingType;
+  review: CommentType;
+};
+
+const initialFeedback: FeedbackType = {
+  rating: null,
+  review: '',
+};
+
+function Star({ number, onRatingChange }: StarProps): JSX.Element {
   return (
     <>
       <input
+        onChange={onRatingChange}
         className="form__rating-input visually-hidden"
         name="rating"
-        defaultValue={number}
+        value={number}
         id={`${number}-stars`}
         type="radio"
       />
@@ -29,43 +48,69 @@ function Star({ number }: StarProps): JSX.Element {
   );
 }
 
-function Rating(): JSX.Element {
-  const stars = Array.from({ length: starsCount }, (_, i) => i + 1);
+function Rating({ onRatingChange }: RatingProps): JSX.Element {
   return (
     <div className="reviews__rating-form form__rating">
-      {stars.map((number) => (
-        <Star key={nanoid()} number={number} />
+      {RATING_VALUES.map((value, i) => (
+        <Star key={value} onRatingChange={onRatingChange} number={5 - i} />
       ))}
     </div>
   );
 }
 
-function FeedbackForm() {
-  const countCharacters = CommentLengthLimits.Min;
+function FeedbackForm(): JSX.Element {
+  const [feedback, setFeedback] = useState<FeedbackType>(initialFeedback);
+
+  const handleValueChange = ({
+    target,
+  }:
+    | ChangeEvent<HTMLTextAreaElement>
+    | ChangeEvent<HTMLInputElement>): void => {
+    setFeedback((prev) => ({
+      ...prev,
+      [target.name]:
+        target.name === 'review' ? target.value : Number(target.value),
+    }));
+  };
+
+  const handleFormSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    setFeedback(initialFeedback);
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      onSubmit={handleFormSubmit}
+      className="reviews__form form"
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <Rating />
+      <Rating onRatingChange={handleValueChange} />
       <textarea
+        onChange={handleValueChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={feedback.review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay
           with at least{' '}
-          <b className="reviews__text-amount">{countCharacters} characters</b>.
+          <b className="reviews__text-amount">
+            {CommentLengthLimits.Min} characters
+          </b>
+          .
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!isValidValues(feedback.review, feedback.rating)}
         >
           Submit
         </button>
