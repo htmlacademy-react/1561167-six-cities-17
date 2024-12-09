@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { Setting } from './const';
+import { shortOffers } from './mocks/short-offers';
+import { offers } from './mocks/offers';
+import { favorites } from './mocks/favorites';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +11,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App rentalOffersCount={Setting.RentalOffersCount} />
+    <App shortOffers={shortOffers} offers={offers} favorites={favorites} />
   </React.StrictMode>
 );
+

@@ -2,7 +2,9 @@ const Setting = {
   RentalOffersCount: 5,
 } as const;
 
-const LOCATIONS = [
+const STARS_MAXIMUM = 5;
+
+const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -11,7 +13,9 @@ const LOCATIONS = [
   'Dusseldorf',
 ] as const;
 
-const DEFAULT_ACTIVE_LOCATION = LOCATIONS[0];
+const DEFAULT_CURRENT_CITY = CITIES[0];
+
+const RATING_VALUES = ['one', 'two', 'three', 'four', 'five'] as const;
 
 const TypesPage = {
   Main: 'main',
@@ -44,7 +48,7 @@ const Path = {
 
 const AuthStatus = {
   Auth: 'auth',
-  NoAuth: 'no_auth',
+  NoAuth: 'no-auth',
   Unknown: 'unknown',
 } as const;
 
@@ -59,14 +63,16 @@ const TextTitle = {
 
 export {
   Setting,
-  LOCATIONS,
+  STARS_MAXIMUM,
+  CITIES,
   TypesPage,
   TypesSort,
   DEFAULT_SORTING_TYPE,
-  DEFAULT_ACTIVE_LOCATION,
+  DEFAULT_CURRENT_CITY,
   CommentLengthLimits,
   Path,
   AuthStatus,
   DEFAULT_PREFIX_TITLE,
   TextTitle,
+  RATING_VALUES,
 };
