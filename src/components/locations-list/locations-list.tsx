@@ -1,39 +1,28 @@
-import { nanoid } from 'nanoid';
-import LocationsItemLink from '../locations-item-link/locations-item-link';
-import { DEFAULT_ACTIVE_CITY } from '../../const';
-import { CitiesType, CityProps, TypesPageEnum } from '../../types/types';
+import { CITIES } from '../../const';
+import { CityType, TypesPageEnum } from '../../types/types';
+import { LocationsItem } from '../locations-item/locations-item';
 
 type LocationsListProps = {
-  cities: CitiesType;
+  currentCity: CityType;
+  onCurrentCityChange: (citi: CityType) => void;
   typesPage: TypesPageEnum;
 };
 
-function LocationsItem(props: CityProps): JSX.Element {
-  const { city, isActive, typesPage } = props;
-  return (
-    <li className="locations__item">
-      <LocationsItemLink
-        city={city}
-        typesPage={typesPage}
-        isActive={isActive}
-      />
-    </li>
-  );
-}
-
-function LocationsList({ cities, typesPage }: LocationsListProps): JSX.Element {
+function LocationsList(props: LocationsListProps): JSX.Element {
+  const { currentCity, onCurrentCityChange, typesPage } = props;
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city) => (
+      {CITIES.map((city) => (
         <LocationsItem
-          key={nanoid()}
-          typesPage={typesPage}
+          key={city}
           city={city}
-          isActive={city === DEFAULT_ACTIVE_CITY}
+          currentCity={currentCity}
+          onCurrentCityChange={onCurrentCityChange}
+          typesPage={typesPage}
         />
       ))}
     </ul>
   );
 }
 
-export default LocationsList;
+export { LocationsList };

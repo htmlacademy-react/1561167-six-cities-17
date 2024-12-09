@@ -13,7 +13,7 @@ const CITIES = [
   'Dusseldorf',
 ] as const;
 
-const DEFAULT_ACTIVE_CITY = CITIES[0];
+const DEFAULT_CURRENT_CITY = CITIES[0];
 
 const RATING_VALUES = ['one', 'two', 'three', 'four', 'five'] as const;
 
@@ -34,8 +34,8 @@ const TypesSort = {
 const DEFAULT_SORTING_TYPE = TypesSort.Popular;
 
 const CommentLengthLimits = {
-  Min: 1,
-  Max: 5,
+  Min: 50,
+  Max: 300,
 } as const;
 
 const Path = {
@@ -68,7 +68,7 @@ export {
   TypesPage,
   TypesSort,
   DEFAULT_SORTING_TYPE,
-  DEFAULT_ACTIVE_CITY,
+  DEFAULT_CURRENT_CITY,
   CommentLengthLimits,
   Path,
   AuthStatus,

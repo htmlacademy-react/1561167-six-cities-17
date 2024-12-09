@@ -1,20 +1,23 @@
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import LocationsList from '../../components/locations-list/locations-list';
 import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
-import { DEFAULT_SORTING_TYPE, CITIES, TypesPage } from '../../const';
+import { DEFAULT_SORTING_TYPE, TypesPage } from '../../const';
 import {
   CityProps,
+  CityType,
   FavoritesListType,
   ShortOfferListType,
   TypesPageEnum,
 } from '../../types/types';
 import { ReactNode, useState } from 'react';
+import { LocationsList } from '../../components/locations-list/locations-list';
 
 type MainPageProps = {
+  currentCity: CityType;
+  onCurrentCityChange: (city: CityType) => void;
   isLoggedIn: boolean;
   shortOffers: ShortOfferListType;
   favorites: FavoritesListType;
@@ -23,6 +26,7 @@ type MainPageProps = {
 type MainEmptyProps = Pick<CityProps, 'city'>;
 
 type MainContentProps = {
+  currentCity: CityType;
   offersCount: number;
   children: ReactNode[];
 };
@@ -38,21 +42,30 @@ function MainEmpty({ city }: MainEmptyProps): JSX.Element {
   );
 }
 
-function MainContent({ offersCount, children }: MainContentProps): JSX.Element {
+function MainContent(props: MainContentProps): JSX.Element {
+  const { currentCity, offersCount, children } = props;
+  const lastCharacter = offersCount !== 1 ? 's' : '';
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+      <b className="places__found">
+        {offersCount} {`place${lastCharacter}`} to stay in {currentCity}
+      </b>
       {children}
     </>
   );
 }
 
 function MainPage({
+  currentCity,
+  onCurrentCityChange,
   shortOffers,
   isLoggedIn,
   favorites,
 }: MainPageProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const handleCardChange = (id: string | null) => setActiveCardId(id);
+
   const isEmpty = shortOffers.length === 0;
   const typesPage: TypesPageEnum = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
@@ -65,10 +78,6 @@ function MainPage({
     ['cities__places places']: !isEmpty,
     ['cities__no-places']: isEmpty,
   });
-
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-
-  const handleCardChange = (id: string | null) => setActiveCardId(id);
 
   return (
     <div className="page page--gray page--main">
@@ -84,7 +93,11 @@ function MainPage({
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList cities={CITIES} typesPage={typesPage} />
+            <LocationsList
+              currentCity={currentCity}
+              onCurrentCityChange={onCurrentCityChange}
+              typesPage={typesPage}
+            />
           </section>
         </div>
         <div className="cities">
@@ -93,8 +106,11 @@ function MainPage({
               {isEmpty ? (
                 <MainEmpty city={'Dusseldorf'} />
               ) : (
-                <MainContent offersCount={shortOffers.length}>
-                  <Sort currentSortType={DEFAULT_SORTING_TYPE} />
+                <MainContent
+                  currentCity={currentCity}
+                  offersCount={shortOffers.length}
+                >
+                  <Sort currentSortType={DEFAULT_SORTING_TYPE} />,
                   <CardsList
                     offers={shortOffers}
                     onCardChange={handleCardChange}

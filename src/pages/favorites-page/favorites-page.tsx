@@ -9,6 +9,7 @@ import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import {
   CityType,
+  CurrentCityChangeType,
   FavoritesListType,
   GroupedOffersType,
   ShortOfferListType,
@@ -19,17 +20,20 @@ import { groupByList } from './utils';
 type FavoritePageProps = {
   favorites: FavoritesListType;
   isLoggedIn: boolean;
+  onCurrentCityChange: CurrentCityChangeType;
 };
 
 type FavoritesListProps = {
   typesPage: TypesPageEnum;
   groupedOffers: GroupedOffersType;
+  onCurrentCityChange: CurrentCityChangeType;
 };
 
 type FavoritesItemProps = {
   typesPage: TypesPageEnum;
   offers: ShortOfferListType;
   city: CityType;
+  onCurrentCityChange: CurrentCityChangeType;
 };
 
 function FavoriteEmpty(): JSX.Element {
@@ -44,32 +48,31 @@ function FavoriteEmpty(): JSX.Element {
 }
 
 function FavoritesItem(props: FavoritesItemProps): JSX.Element {
-  const { city, offers, typesPage } = props;
+  const { city, offers, typesPage, onCurrentCityChange } = props;
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
-        <div className="locations__item">
-          <LocationsItemLink city={city} typesPage={typesPage} isActive />
+        <div
+          onClick={() => onCurrentCityChange(city)}
+          className="locations__item"
+        >
+          <LocationsItemLink city={city} typesPage={typesPage} />
         </div>
       </div>
-      <CardsList
-        offers={offers}
-        typesPage={typesPage}
-      />
+      <CardsList offers={offers} typesPage={typesPage} />
     </li>
   );
 }
 
-function FavoritesList({
-  groupedOffers,
-  typesPage,
-}: FavoritesListProps): JSX.Element {
+function FavoritesList(props: FavoritesListProps): JSX.Element {
+  const { groupedOffers, typesPage, onCurrentCityChange } = props;
   return (
     <ul className="favorites__list">
       {Object.keys(groupedOffers).map((key) => (
         <FavoritesItem
           key={key as CityType}
           city={key as CityType}
+          onCurrentCityChange={onCurrentCityChange}
           offers={groupedOffers[key]}
           typesPage={typesPage}
         />
@@ -79,7 +82,7 @@ function FavoritesList({
 }
 
 function FavoritesPage(props: FavoritePageProps): JSX.Element {
-  const { favorites, isLoggedIn } = props;
+  const { favorites, isLoggedIn, onCurrentCityChange } = props;
   const typesPage: TypesPageEnum = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
@@ -116,6 +119,7 @@ function FavoritesPage(props: FavoritePageProps): JSX.Element {
               <FavoriteEmpty />
             ) : (
               <FavoritesList
+                onCurrentCityChange={onCurrentCityChange}
                 groupedOffers={groupedOffers}
                 typesPage={typesPage}
               />

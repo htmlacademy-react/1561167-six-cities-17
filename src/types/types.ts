@@ -89,6 +89,8 @@ type RatingType = 1 | 2 | 3 | 4 | 5 | null;
 
 type CommentType = string;
 
+type CurrentCityChangeType=(city: CityType) => void;
+
 export type {
   ImageSizeType,
   CitiesType,
@@ -108,5 +110,5 @@ export type {
   RatingType,
   CommentType,
   FavoritesType,
-  FavoritesListType,
+  FavoritesListType,CurrentCityChangeType
 };

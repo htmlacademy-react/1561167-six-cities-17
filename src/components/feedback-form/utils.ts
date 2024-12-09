@@ -6,10 +6,8 @@ const isValidValues = (comment: CommentType, rating: RatingType): boolean => {
     typeof comment === 'string' &&
     comment.length >= CommentLengthLimits.Min &&
     comment.length <= CommentLengthLimits.Max;
-  const isValidRating =
-    typeof rating === 'number' && rating >= 1 && rating <= 5;
 
-  return isValidComment && isValidRating;
+  return isValidComment && typeof rating === 'number';
 };
 
 export { isValidValues };

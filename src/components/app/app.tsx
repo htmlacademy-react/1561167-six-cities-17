@@ -5,15 +5,17 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import { AuthStatus, Path } from '../../const';
+import { AuthStatus, DEFAULT_CURRENT_CITY, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import {
   AuthStatusEnum,
+  CityType,
   FavoritesListType,
   OfferListType,
   ShortOfferType,
 } from '../../types/types';
+import { useState } from 'react';
 
 type AppPageProps = {
   shortOffers: ShortOfferType[];
@@ -22,7 +24,17 @@ type AppPageProps = {
 };
 
 function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
+  const [currentCity, setCurrentCity] =
+    useState<CityType>(DEFAULT_CURRENT_CITY);
+  const handleCurrentCityChange = (city: CityType): void => {
+    if (city === currentCity) {
+      return;
+    }
+    setCurrentCity(city);
+  };
+
   const authStatus: AuthStatusEnum = AuthStatus.Auth;
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -32,6 +44,8 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
             path={Path.Root}
             element={
               <MainPage
+                currentCity={currentCity}
+                onCurrentCityChange={handleCurrentCityChange}
                 shortOffers={shortOffers}
                 favorites={favorites}
                 isLoggedIn={authStatus === AuthStatus.Auth}
@@ -45,7 +59,10 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
                 isLoggedIn={authStatus !== AuthStatus.Auth}
                 toPath={Path.Root}
               >
-                <LoginPage />
+                <LoginPage
+                  currentCity={currentCity}
+                  onCurrentCityChange={handleCurrentCityChange}
+                />
               </PrivateRoute>
             }
           />
@@ -57,6 +74,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
                 toPath={Path.Login}
               >
                 <FavoritesPage
+                  onCurrentCityChange={handleCurrentCityChange}
                   favorites={favorites}
                   isLoggedIn={authStatus === AuthStatus.Auth}
                 />
