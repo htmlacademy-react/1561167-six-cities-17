@@ -1,5 +1,9 @@
-import { CityProps, CityType, CurrentCityChangeType } from '../../types/types';
-import LocationsItemLink from '../locations-item-link/locations-item-link';
+import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
+import {
+  CityProps,
+  CityType,
+  CurrentCityChangeType,
+} from '../../../../types/types';
 
 function LocationsItem(
   props: CityProps & {
@@ -10,7 +14,7 @@ function LocationsItem(
   const { city, currentCity, onCurrentCityChange, typesPage } = props;
 
   return (
-    <li onClick={()=>onCurrentCityChange(city)} className="locations__item">
+    <li onClick={() => onCurrentCityChange(city)} className="locations__item">
       <LocationsItemLink
         city={city}
         typesPage={typesPage}

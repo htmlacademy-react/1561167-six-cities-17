@@ -1,5 +1,5 @@
-import { CommentLengthLimits } from '../../const';
-import { CommentType, RatingType } from '../../types/types';
+import { CommentLengthLimits } from '../../../../const';
+import { CommentType, RatingType } from '../../../../types/types';
 
 const isValidValues = (comment: CommentType, rating: RatingType): boolean => {
   const isValidComment =

@@ -1,5 +1,5 @@
-import { ReviewListType } from '../../types/types';
-import ReviewsItem from '../reviews-item/reviews-item';
+import { ReviewListType } from '../../../../types/types';
+import ReviewsItem from '../../../offer-page/components/reviews-item/reviews-item';
 
 type ReviewsListProps = {
   reviews: ReviewListType;
@@ -16,4 +16,3 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
 }
 
 export default ReviewsList;
-

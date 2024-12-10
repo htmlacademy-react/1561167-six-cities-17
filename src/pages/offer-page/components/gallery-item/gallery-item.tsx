@@ -1,4 +1,4 @@
-import { OfferType } from '../../types/types';
+import { OfferType } from '../../../../types/types';
 
 type GalleryItemProps = {
   src: OfferType['images'][number];

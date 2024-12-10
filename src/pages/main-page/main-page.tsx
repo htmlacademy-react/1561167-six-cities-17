@@ -3,18 +3,19 @@ import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
-import Sort from '../../components/sort/sort';
+import Sort from './components/sort/sort';
 import { CITIES, DEFAULT_SORTING_TYPE, TypesPage } from '../../const';
 import {
-  CityProps,
   CityType,
   FavoritesListType,
   ShortOfferListType,
   TypesPageEnum,
 } from '../../types/types';
-import { ReactNode, useState } from 'react';
-import { LocationsList } from '../../components/locations-list/locations-list';
-import { LocationsItem } from '../../components/locations-item/locations-item';
+import { useState } from 'react';
+import { LocationsList } from './components/locations-list/locations-list';
+import { LocationsItem } from './components/locations-item/locations-item';
+import { MainEmpty } from './components/main-empty/main-empty';
+import { MainContent } from './components/main-content.tsx/main-content';
 
 type MainPageProps = {
   currentCity: CityType;
@@ -23,39 +24,6 @@ type MainPageProps = {
   shortOffers: ShortOfferListType;
   favorites: FavoritesListType;
 };
-
-type MainEmptyProps = Pick<CityProps, 'city'>;
-
-type MainContentProps = {
-  currentCity: CityType;
-  offersCount: number;
-  children: ReactNode[];
-};
-
-function MainEmpty({ city }: MainEmptyProps): JSX.Element {
-  return (
-    <div className="cities__status-wrapper tabs__content">
-      <b className="cities__status">No places to stay available</b>
-      <p className="cities__status-description">
-        We could not find any property available at the moment in {city}
-      </p>
-    </div>
-  );
-}
-
-function MainContent(props: MainContentProps): JSX.Element {
-  const { currentCity, offersCount, children } = props;
-  const lastCharacter = offersCount !== 1 ? 's' : '';
-  return (
-    <>
-      <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">
-        {offersCount} {`place${lastCharacter}`} to stay in {currentCity}
-      </b>
-      {children}
-    </>
-  );
-}
 
 function MainPage({
   currentCity,

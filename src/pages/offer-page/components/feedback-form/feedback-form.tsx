@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
-import { CommentLengthLimits, RATING_VALUES } from '../../const';
-import { CommentType, RatingType } from '../../types/types';
 import { isValidValues } from './utils';
+import { CommentType, RatingType } from '../../../../types/types';
+import { CommentLengthLimits, RATING_VALUES } from '../../../../const';
 
 type onRatingChangeType = (e: ChangeEvent<HTMLInputElement>) => void;
 

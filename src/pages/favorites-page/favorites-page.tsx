@@ -3,83 +3,22 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Nav from '../../components/nav/nav';
 import Logo from '../../components/logo/logo';
-import CardsList from '../../components/cards-list/cards-list';
-import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
 import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import {
-  CityType,
   CurrentCityChangeType,
   FavoritesListType,
-  GroupedOffersType,
-  ShortOfferListType,
   TypesPageEnum,
 } from '../../types/types';
 import { groupByList } from './utils';
+import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
+import { FavoritesList } from './components/favorites-list/favorites-list';
 
 type FavoritePageProps = {
   favorites: FavoritesListType;
   isLoggedIn: boolean;
   onCurrentCityChange: CurrentCityChangeType;
 };
-
-type FavoritesListProps = {
-  typesPage: TypesPageEnum;
-  groupedOffers: GroupedOffersType;
-  onCurrentCityChange: CurrentCityChangeType;
-};
-
-type FavoritesItemProps = {
-  typesPage: TypesPageEnum;
-  offers: ShortOfferListType;
-  city: CityType;
-  onCurrentCityChange: CurrentCityChangeType;
-};
-
-function FavoriteEmpty(): JSX.Element {
-  return (
-    <div className="favorites__status-wrapper">
-      <b className="favorites__status">Nothing yet saved.</b>
-      <p className="favorites__status-description">
-        Save properties to narrow down search or plan your future trips.
-      </p>
-    </div>
-  );
-}
-
-function FavoritesItem(props: FavoritesItemProps): JSX.Element {
-  const { city, offers, typesPage, onCurrentCityChange } = props;
-  return (
-    <li className="favorites__locations-items">
-      <div className="favorites__locations locations locations--current">
-        <div
-          onClick={() => onCurrentCityChange(city)}
-          className="locations__item"
-        >
-          <LocationsItemLink city={city} typesPage={typesPage} />
-        </div>
-      </div>
-      <CardsList offers={offers} typesPage={typesPage} />
-    </li>
-  );
-}
-
-function FavoritesList(props: FavoritesListProps): JSX.Element {
-  const { groupedOffers, typesPage, onCurrentCityChange } = props;
-  return (
-    <ul className="favorites__list">
-      {Object.keys(groupedOffers).map((key) => (
-        <FavoritesItem
-          key={key as CityType}
-          city={key as CityType}
-          onCurrentCityChange={onCurrentCityChange}
-          offers={groupedOffers[key]}
-          typesPage={typesPage}
-        />
-      ))}
-    </ul>
-  );
-}
 
 function FavoritesPage(props: FavoritePageProps): JSX.Element {
   const { favorites, isLoggedIn, onCurrentCityChange } = props;

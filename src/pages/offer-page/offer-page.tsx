@@ -4,12 +4,9 @@ import { nanoid } from 'nanoid';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import Gallery from '../../components/gallery/gallery';
 import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
-import ReviewsList from '../../components/reviews-list/reviews-list';
 import Mark from '../../components/mark/mark';
-import FeedbackForm from '../../components/feedback-form/feedback-form';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { TypesPage } from '../../const';
@@ -22,6 +19,9 @@ import {
   TypesPageEnum,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
+import Gallery from './components/gallery/gallery';
+import ReviewsList from './components/reviews-list/reviews-list';
+import FeedbackForm from './components/feedback-form/feedback-form';
 
 type InsideItemProps = {
   item: string;
@@ -175,10 +175,7 @@ function OfferPage({
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList
-                offers={nearbyOffers}
-                typesPage={typesPage}
-              />
+              <CardsList offers={nearbyOffers} typesPage={typesPage} />
             </div>
           </section>
         </div>
