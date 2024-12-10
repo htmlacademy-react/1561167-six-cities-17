@@ -4,7 +4,7 @@ import Nav from '../../components/nav/nav';
 import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
-import { DEFAULT_SORTING_TYPE, TypesPage } from '../../const';
+import { CITIES, DEFAULT_SORTING_TYPE, TypesPage } from '../../const';
 import {
   CityProps,
   CityType,
@@ -14,6 +14,7 @@ import {
 } from '../../types/types';
 import { ReactNode, useState } from 'react';
 import { LocationsList } from '../../components/locations-list/locations-list';
+import { LocationsItem } from '../../components/locations-item/locations-item';
 
 type MainPageProps = {
   currentCity: CityType;
@@ -93,11 +94,17 @@ function MainPage({
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList
-              currentCity={currentCity}
-              onCurrentCityChange={onCurrentCityChange}
-              typesPage={typesPage}
-            />
+            <LocationsList>
+              {CITIES.map((city) => (
+                <LocationsItem
+                  key={city}
+                  city={city}
+                  currentCity={currentCity}
+                  onCurrentCityChange={onCurrentCityChange}
+                  typesPage={typesPage}
+                />
+              ))}
+            </LocationsList>
           </section>
         </div>
         <div className="cities">
