@@ -3,11 +3,20 @@ import LocationsItemLink from '../../components/locations-item-link/locations-it
 import SignIn from '../../components/sign-in/sign-in';
 import { Title } from '../../components/title/title';
 import { TypesPage } from '../../const';
-import { TypesPageEnum } from '../../types/types';
+import {
+  CityType,
+  CurrentCityChangeType,
+  TypesPageEnum,
+} from '../../types/types';
 
-function LoginPage(): JSX.Element {
+type LoginPageProps = {
+  currentCity: CityType;
+  onCurrentCityChange: CurrentCityChangeType;
+};
+
+function LoginPage(props: LoginPageProps): JSX.Element {
+  const { currentCity, onCurrentCityChange } = props;
   const typesPage: TypesPageEnum = TypesPage.Login;
-  const location = 'Amsterdam';
   return (
     <div className="page page--gray page--login">
       <Title typesPage={typesPage} />
@@ -19,8 +28,11 @@ function LoginPage(): JSX.Element {
             <SignIn />
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <LocationsItemLink location={location} typesPage={typesPage} />
+            <div
+              onClick={() => onCurrentCityChange(currentCity)}
+              className="locations__item"
+            >
+              <LocationsItemLink city={currentCity} typesPage={typesPage} />
             </div>
           </section>
         </div>

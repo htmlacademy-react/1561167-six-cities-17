@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { TypesSort } from '../../const';
+import { TypesSort } from '../../../../const';
 
 type ItemSortProps = {
   item: string;

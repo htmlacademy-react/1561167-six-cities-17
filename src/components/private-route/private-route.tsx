@@ -6,6 +6,7 @@ type PrivateRouteProps = {
   isLoggedIn: boolean;
   children: JSX.Element;
 };
+
 function PrivateRoute({
   isLoggedIn,
   children,

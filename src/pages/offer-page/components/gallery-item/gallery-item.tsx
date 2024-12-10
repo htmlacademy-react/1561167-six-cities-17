@@ -1,5 +1,7 @@
+import { OfferType } from '../../../../types/types';
+
 type GalleryItemProps = {
-  src: string;
+  src: OfferType['images'][number];
   alt: string;
 };
 
