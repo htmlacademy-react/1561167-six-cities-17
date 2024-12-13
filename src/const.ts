@@ -61,6 +61,8 @@ const TextTitle = {
   [TypesPage.Offer]: 'offer',
 } as const;
 
+const REVIEWS_COUNT_LIMITED = 10;
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -75,4 +77,5 @@ export {
   DEFAULT_PREFIX_TITLE,
   TextTitle,
   RATING_VALUES,
+  REVIEWS_COUNT_LIMITED,
 };
