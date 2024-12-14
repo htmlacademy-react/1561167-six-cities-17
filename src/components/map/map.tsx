@@ -1,9 +1,27 @@
+import cn from 'classnames';
+import { CityType, ShortOfferListType, TypesPageEnum } from '../../types/types';
+import styles from './style.module.css';
+import { TypesPage } from '../../const';
+
 type MapProps = {
-  className: string;
+  typesPage: TypesPageEnum;
+  city: CityType;
+  offers: ShortOfferListType;
 };
 
-function Map({ className }: MapProps): JSX.Element {
-  return <section className={`${className} map`}></section>;
+function Map({ typesPage, city, offers }: MapProps): JSX.Element {
+  const classesMap = cn('map', {
+    ['cities__map']: typesPage === TypesPage.Main,
+    ['offer__map']: typesPage === TypesPage.Offer,
+  });
+
+  console.log('Map ~ offers:', offers);
+
+  return (
+    <section className={`${classesMap} ${styles.wrapper}`}>
+      <span className="visually-hidden">{city}</span>
+    </section>
+  );
 }
 
 export default Map;

@@ -63,6 +63,19 @@ const TextTitle = {
 
 const REVIEWS_COUNT_LIMITED = 10;
 
+const Layer = {
+  Url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+} as const;
+
+const Pin = {
+  DefaultUrl:
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+  CurrentUrl:
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+} as const;
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -78,4 +91,6 @@ export {
   TextTitle,
   RATING_VALUES,
   REVIEWS_COUNT_LIMITED,
+  Layer,
+  Pin,
 };

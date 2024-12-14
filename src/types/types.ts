@@ -118,5 +118,5 @@ export type {
   FavoritesListType,
   CurrentCityChangeType,
   ClientReviewType,
-  ClientReviewListType,
+  ClientReviewListType,OfferCityType,LocationType
 };

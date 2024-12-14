@@ -34,6 +34,9 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
   };
 
   const authStatus: AuthStatusEnum = AuthStatus.Auth;
+  const cityOffers = shortOffers.filter(
+    ({ city }) => city.name === currentCity
+  );
 
   return (
     <HelmetProvider>
@@ -46,7 +49,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
               <MainPage
                 currentCity={currentCity}
                 onCurrentCityChange={handleCurrentCityChange}
-                shortOffers={shortOffers}
+                cityOffers={cityOffers}
                 favorites={favorites}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />
@@ -85,6 +88,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
             path={Path.Offer}
             element={
               <OfferPage
+                currentCity={currentCity}
                 offers={offers}
                 favorites={favorites}
                 nearbyOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}

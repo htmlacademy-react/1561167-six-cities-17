@@ -10,6 +10,7 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { REVIEWS_COUNT_LIMITED, TypesPage } from '../../const';
 import {
+  CityType,
   FavoritesListType,
   OfferListType,
   ReviewListType,
@@ -24,18 +25,15 @@ import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
 
 type OfferPageProps = {
+  currentCity: CityType;
   offers: OfferListType;
   favorites: FavoritesListType;
   nearbyOffers: ShortOfferType[];
   isLoggedIn: boolean;
 };
 
-function OfferPage({
-  offers,
-  favorites,
-  nearbyOffers,
-  isLoggedIn,
-}: OfferPageProps): JSX.Element {
+function OfferPage(props: OfferPageProps): JSX.Element {
+  const { offers, favorites, nearbyOffers, isLoggedIn, currentCity } = props;
   const { offerId } = useParams();
   const offer = offers.find(({ id }) => id === offerId);
 
@@ -57,7 +55,7 @@ function OfferPage({
     description,
     host: { avatarUrl, name, isPro },
   } = offer;
-  const reviews: ReviewListType = offerReviews.slice(0,REVIEWS_COUNT_LIMITED);
+  const reviews: ReviewListType = offerReviews.slice(0, REVIEWS_COUNT_LIMITED);
   const typesPage: TypesPageEnum = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
@@ -125,7 +123,7 @@ function OfferPage({
               </section>
             </div>
           </div>
-          <Map className="offer__map" />
+          <Map city={currentCity} typesPage={typesPage} />
         </section>
         <div className="container">
           <section className="near-places places">
