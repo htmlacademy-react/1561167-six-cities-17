@@ -16,6 +16,7 @@ import {
   ShortOfferType,
 } from '../../types/types';
 import { useState } from 'react';
+import { getFilteredOffersForCity } from './utils';
 
 type AppPageProps = {
   shortOffers: ShortOfferType[];
@@ -34,9 +35,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
   };
 
   const authStatus: AuthStatusEnum = AuthStatus.Auth;
-  const cityOffers = shortOffers.filter(
-    ({ city }) => city.name === currentCity
-  );
+  const cityOffers = getFilteredOffersForCity(shortOffers, currentCity);
 
   return (
     <HelmetProvider>
@@ -88,7 +87,6 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
             path={Path.Offer}
             element={
               <OfferPage
-                currentCity={currentCity}
                 offers={offers}
                 favorites={favorites}
                 nearbyOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}

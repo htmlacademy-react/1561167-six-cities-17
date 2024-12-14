@@ -46,7 +46,7 @@ function MainPage({
   });
 
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
-  const handleCardChange = (id: string | null) => setActiveCardId(id);
+  const handleCardHover = (id: string | null) => setActiveCardId(id);
 
   return (
     <div className="page page--gray page--main">
@@ -88,14 +88,20 @@ function MainPage({
                   <Sort currentSortType={DEFAULT_SORTING_TYPE} />,
                   <CardsList
                     offers={cityOffers}
-                    onCardChange={handleCardChange}
+                    onCardHover={handleCardHover}
                     typesPage={typesPage}
                   />
                 </MainContent>
               )}
             </section>
             <div className="cities__right-section">
-              {isEmpty || <Map city={currentCity} offers={cityOffers} typesPage={typesPage} />}
+              {isEmpty || (
+                <Map
+                  offers={cityOffers}
+                  activeCardId={activeCardId}
+                  typesPage={typesPage}
+                />
+              )}
             </div>
           </div>
         </div>

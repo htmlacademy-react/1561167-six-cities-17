@@ -6,7 +6,7 @@ import { ImageSize } from './settings';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { generatePath, Link } from 'react-router-dom';
 import {
-  OnCardChangeType,
+  OnCardHoverType,
   ShortOfferType,
   TypesPageEnum,
 } from '../../types/types';
@@ -14,7 +14,7 @@ import {
 type CardProps = {
   typesPage: TypesPageEnum;
   offer: ShortOfferType;
-  onCardChange?: OnCardChangeType;
+  onCardHover?: OnCardHoverType;
 };
 
 type CardImageProps = {
@@ -55,7 +55,7 @@ function CardImage(props: CardImageProps): JSX.Element {
   );
 }
 
-function Card({ offer, onCardChange, typesPage }: CardProps): JSX.Element {
+function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
   const {
     id,
     isPremium,
@@ -74,8 +74,8 @@ function Card({ offer, onCardChange, typesPage }: CardProps): JSX.Element {
 
   return (
     <article
-      onMouseEnter={() => onCardChange && onCardChange(id)}
-      onMouseLeave={() => onCardChange && onCardChange(null)}
+      onMouseEnter={() => onCardHover && onCardHover(id)}
+      onMouseLeave={() => onCardHover && onCardHover(null)}
       className={articleClasses}
     >
       {isPremium && <Mark isCard />}

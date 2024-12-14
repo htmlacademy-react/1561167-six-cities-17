@@ -10,7 +10,6 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { REVIEWS_COUNT_LIMITED, TypesPage } from '../../const';
 import {
-  CityType,
   FavoritesListType,
   OfferListType,
   ReviewListType,
@@ -23,9 +22,9 @@ import ReviewsList from './components/reviews-list/reviews-list';
 import FeedbackForm from './components/feedback-form/feedback-form';
 import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
+import { getOfferById } from './utils';
 
 type OfferPageProps = {
-  currentCity: CityType;
   offers: OfferListType;
   favorites: FavoritesListType;
   nearbyOffers: ShortOfferType[];
@@ -33,9 +32,9 @@ type OfferPageProps = {
 };
 
 function OfferPage(props: OfferPageProps): JSX.Element {
-  const { offers, favorites, nearbyOffers, isLoggedIn, currentCity } = props;
+  const { offers, favorites, nearbyOffers, isLoggedIn } = props;
   const { offerId } = useParams();
-  const offer = offers.find(({ id }) => id === offerId);
+  const offer = getOfferById(offers, offerId);
 
   if (!offer) {
     throw new Error(`There is no ID:${offerId} element`);
@@ -123,7 +122,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={currentCity} typesPage={typesPage} />
+          <Map
+            offers={nearbyOffers}
+            activeCardId={null}
+            typesPage={typesPage}
+          />
         </section>
         <div className="container">
           <section className="near-places places">

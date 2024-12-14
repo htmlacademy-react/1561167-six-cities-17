@@ -3,12 +3,9 @@ import { Map, TileLayer } from 'leaflet';
 import { LocationType } from '../../../types/types';
 import { Layer } from '../../../const';
 
-type TMapRef=MutableRefObject<HTMLElement | null>;
+type TMapRef = MutableRefObject<HTMLElement | null>;
 
-function useMap(
-  mapRef: TMapRef,
-  location: LocationType
-): Map | null {
+function useMap(mapRef: TMapRef, location: LocationType): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
@@ -19,7 +16,7 @@ function useMap(
           lat: location.latitude,
           lng: location.longitude,
         },
-        zoom: location?.zoom,
+        zoom: location.zoom,
       });
 
       const layer = new TileLayer(Layer.Url, {

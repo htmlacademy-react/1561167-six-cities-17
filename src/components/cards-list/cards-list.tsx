@@ -2,7 +2,7 @@ import Card from '../card/card';
 import cn from 'classnames';
 import { TypesPage } from '../../const';
 import {
-  OnCardChangeType,
+  OnCardHoverType,
   ShortOfferListType,
   TypesPageEnum,
 } from '../../types/types';
@@ -10,12 +10,12 @@ import {
 type CardsListProps = {
   offers: ShortOfferListType;
   typesPage: TypesPageEnum;
-  onCardChange?: OnCardChangeType;
+  onCardHover?: OnCardHoverType;
 };
 
 function CardsList({
   offers,
-  onCardChange,
+  onCardHover,
   typesPage,
 }: CardsListProps): JSX.Element {
   const listClasses = cn({
@@ -30,7 +30,7 @@ function CardsList({
       {offers.map((offer) => (
         <Card
           key={offer.id}
-          onCardChange={onCardChange}
+          onCardHover={onCardHover}
           offer={offer}
           typesPage={typesPage}
         />

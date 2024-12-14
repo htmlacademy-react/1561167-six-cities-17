@@ -70,11 +70,11 @@ const Layer = {
 } as const;
 
 const Pin = {
-  DefaultUrl:
-    'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  CurrentUrl:
-    'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
-} as const;
+  DefaultUrl: 'public/img/pin.svg',
+  CurrentUrl: 'public/img/pin-active.svg',
+  Size: [40, 40],
+  Anchor: [20, 40],
+};
 
 export {
   Setting,
@@ -92,5 +92,5 @@ export {
   RATING_VALUES,
   REVIEWS_COUNT_LIMITED,
   Layer,
-  Pin,
+  Pin
 };

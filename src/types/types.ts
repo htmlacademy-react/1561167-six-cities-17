@@ -86,7 +86,7 @@ type ReviewListType = readonly ReviewType[];
 
 type ClientReviewListType = readonly ClientReviewType[];
 
-type OnCardChangeType = (id: string | null) => void;
+type OnCardHoverType = (id: string | null) => void;
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
 
@@ -110,7 +110,7 @@ export type {
   ReviewListType,
   OfferListType,
   ShortOfferListType,
-  OnCardChangeType,
+  OnCardHoverType,
   GroupedOffersType,
   RatingType,
   CommentType,
