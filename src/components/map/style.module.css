@@ -1,3 +1,7 @@
-.wrapper {
-  height: 1050px;
+.mainwrapper {
+  height: 100%;
+}
+
+.offerwrapper{
+  height: 580px;
 }
