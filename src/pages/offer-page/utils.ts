@@ -2,9 +2,9 @@ import { OfferListType, OfferType } from '../../types/types';
 
 const getOfferById = (
   offers: OfferListType,
-  id: string | undefined
+  id: string | null
 ): OfferType | undefined => {
-  if (id === undefined) {
+  if (id === null) {
     return;
   }
 

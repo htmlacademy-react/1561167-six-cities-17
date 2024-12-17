@@ -8,21 +8,20 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { REVIEWS_COUNT_LIMITED, TypesPage } from '../../const';
+import { TypesPage } from '../../const';
 import {
   FavoritesListType,
   OfferListType,
-  ReviewListType,
   ShortOfferType,
   TypesPageEnum,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
 import Gallery from './components/gallery/gallery';
-import ReviewsList from './components/reviews-list/reviews-list';
 import FeedbackForm from './components/feedback-form/feedback-form';
 import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
 import { getOfferById } from './utils';
+import ReviewsList from './components/reviews-list/reviews-list';
 
 type OfferPageProps = {
   offers: OfferListType;
@@ -31,9 +30,18 @@ type OfferPageProps = {
   isLoggedIn: boolean;
 };
 
+const useId = () => {
+  const { offerId } = useParams();
+  if (offerId === undefined) {
+    return { offerId: null };
+  }
+
+  return { offerId };
+};
+
 function OfferPage(props: OfferPageProps): JSX.Element {
   const { offers, favorites, nearbyOffers, isLoggedIn } = props;
-  const { offerId } = useParams();
+  const { offerId } = useId();
   const offer = getOfferById(offers, offerId);
 
   if (!offer) {
@@ -54,7 +62,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     description,
     host: { avatarUrl, name, isPro },
   } = offer;
-  const reviews: ReviewListType = offerReviews.slice(0, REVIEWS_COUNT_LIMITED);
+  const nearbyOffersWithExtension = [...nearbyOffers, offer];
   const typesPage: TypesPageEnum = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
@@ -117,14 +125,14 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                   Reviews ·{' '}
                   <span className="reviews__amount">{offerReviews.length}</span>
                 </h2>
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={offerReviews} />
                 {isLoggedIn && <FeedbackForm />}
               </section>
             </div>
           </div>
           <Map
-            offers={nearbyOffers}
-            activeCardId={null}
+            offers={nearbyOffersWithExtension}
+            activeCardId={offerId}
             typesPage={typesPage}
           />
         </section>

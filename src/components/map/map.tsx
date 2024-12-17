@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { ShortOfferListType, TypesPageEnum } from '../../types/types';
+import { OfferType, ShortOfferType, TypesPageEnum } from '../../types/types';
 import styles from './style.module.css';
 import { Pin, TypesPage } from '../../const';
 import useMap from './hooks/use-map';
@@ -10,7 +10,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   typesPage: TypesPageEnum;
-  offers: ShortOfferListType;
+  offers: (OfferType | ShortOfferType)[];
   activeCardId: string | null;
 };
 
