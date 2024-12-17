@@ -1,5 +1,6 @@
 import CardsList from '../../../../components/cards-list/cards-list';
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
+import { TypesSort } from '../../../../const';
 import {
   CityType,
   CurrentCityChangeType,
@@ -26,7 +27,11 @@ function FavoritesItem(props: FavoritesItemProps): JSX.Element {
           <LocationsItemLink city={city} typesPage={typesPage} />
         </div>
       </div>
-      <CardsList offers={offers} typesPage={typesPage} />
+      <CardsList
+        offers={offers}
+        currentSortKey={TypesSort.Popular}
+        typesPage={typesPage}
+      />
     </li>
   );
 }

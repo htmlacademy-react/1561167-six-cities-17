@@ -1,4 +1,4 @@
-import { AuthStatus, CITIES, Path, TypesPage } from '../const';
+import { AuthStatus, CITIES, Path, TypesPage, TypesSort } from '../const';
 
 type SizeType = {
   Width: number;
@@ -24,6 +24,8 @@ type TypesPageEnum = (typeof TypesPage)[keyof typeof TypesPage];
 type AuthStatusEnum = (typeof AuthStatus)[keyof typeof AuthStatus];
 
 type PathEnum = (typeof Path)[keyof typeof Path];
+
+type SortTypeKeys = keyof typeof TypesSort;
 
 type LocationType = {
   latitude: number;
@@ -118,5 +120,7 @@ export type {
   FavoritesListType,
   CurrentCityChangeType,
   ClientReviewType,
-  ClientReviewListType,OfferCityType,LocationType
+  ClientReviewListType,
+  OfferCityType,
+  LocationType,SortTypeKeys
 };

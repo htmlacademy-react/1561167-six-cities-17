@@ -4,11 +4,12 @@ import Nav from '../../components/nav/nav';
 import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Sort from './components/sort/sort';
-import { CITIES, DEFAULT_SORTING_TYPE, TypesPage } from '../../const';
+import { CITIES, DEFAULT_SORTING_KEY, TypesPage } from '../../const';
 import {
   CityType,
   FavoritesListType,
   ShortOfferListType,
+  SortTypeKeys,
   TypesPageEnum,
 } from '../../types/types';
 import { useState } from 'react';
@@ -48,6 +49,16 @@ function MainPage({
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const handleCardHover = (id: string | null) => setActiveCardId(id);
 
+  const [isOpenSorting, setIsOpenSorting] = useState<boolean>(false);
+  const handleSortChange = () => setIsOpenSorting((prev) => !prev);
+
+  const [currentSortKey, setCurrentSortKey] =
+    useState<SortTypeKeys>(DEFAULT_SORTING_KEY);
+  const handleSortKeyChange = (type: SortTypeKeys) => {
+    setCurrentSortKey(type);
+    setIsOpenSorting(false);
+  };
+
   return (
     <div className="page page--gray page--main">
       <span className="visually-hidden">{activeCardId}</span>
@@ -85,9 +96,16 @@ function MainPage({
                   currentCity={currentCity}
                   offersCount={cityOffers.length}
                 >
-                  <Sort currentSortType={DEFAULT_SORTING_TYPE} />,
+                  <Sort
+                    isOpenSorting={isOpenSorting}
+                    onSortChange={handleSortChange}
+                    onSortKeyChange={handleSortKeyChange}
+                    currentSortKey={currentSortKey}
+                  />
+                  ,
                   <CardsList
                     offers={cityOffers}
+                    currentSortKey={currentSortKey}
                     onCardHover={handleCardHover}
                     typesPage={typesPage}
                   />
