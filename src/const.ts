@@ -61,6 +61,21 @@ const TextTitle = {
   [TypesPage.Offer]: 'offer',
 } as const;
 
+const REVIEWS_COUNT_LIMITED = 10;
+
+const Layer = {
+  Url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+} as const;
+
+const Pin = {
+  DefaultUrl: 'public/img/pin.svg',
+  CurrentUrl: 'public/img/pin-active.svg',
+  Size: [40, 40],
+  Anchor: [20, 40],
+};
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -75,4 +90,7 @@ export {
   DEFAULT_PREFIX_TITLE,
   TextTitle,
   RATING_VALUES,
+  REVIEWS_COUNT_LIMITED,
+  Layer,
+  Pin
 };

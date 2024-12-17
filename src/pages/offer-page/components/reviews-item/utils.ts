@@ -8,4 +8,11 @@ const convertDate = (date: Date): string => {
   return dateString.split('/').reverse().join('-');
 };
 
-export { convertDate };
+const convertShortDate = (date: Date): string =>
+  date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+  });
+
+
+export { convertDate, convertShortDate };

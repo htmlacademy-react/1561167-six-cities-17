@@ -79,9 +79,14 @@ type ReviewType = {
   comment: string;
   rating: number;
 };
+
+type ClientReviewType = Omit<ReviewType, 'date'> & { date: Date };
+
 type ReviewListType = readonly ReviewType[];
 
-type OnCardChangeType = (id: string | null) => void;
+type ClientReviewListType = readonly ClientReviewType[];
+
+type OnCardHoverType = (id: string | null) => void;
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
 
@@ -89,7 +94,7 @@ type RatingType = 1 | 2 | 3 | 4 | 5 | null;
 
 type CommentType = string;
 
-type CurrentCityChangeType=(city: CityType) => void;
+type CurrentCityChangeType = (city: CityType) => void;
 
 export type {
   ImageSizeType,
@@ -105,10 +110,13 @@ export type {
   ReviewListType,
   OfferListType,
   ShortOfferListType,
-  OnCardChangeType,
+  OnCardHoverType,
   GroupedOffersType,
   RatingType,
   CommentType,
   FavoritesType,
-  FavoritesListType,CurrentCityChangeType
+  FavoritesListType,
+  CurrentCityChangeType,
+  ClientReviewType,
+  ClientReviewListType,OfferCityType,LocationType
 };

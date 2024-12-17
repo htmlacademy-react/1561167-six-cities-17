@@ -26,7 +26,7 @@ function Rating(props: RatingProps): JSX.Element {
   return (
     <div className={ratingClasses}>
       <div className={starsClasses}>
-        <span style={{ width: `${(rating / STARS_MAXIMUM) * 100}%` }}></span>
+        <span style={{ width: `${(Math.round(rating) / STARS_MAXIMUM) * 100}%` }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
       {children}

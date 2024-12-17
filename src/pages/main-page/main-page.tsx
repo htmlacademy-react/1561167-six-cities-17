@@ -21,21 +21,18 @@ type MainPageProps = {
   currentCity: CityType;
   onCurrentCityChange: (city: CityType) => void;
   isLoggedIn: boolean;
-  shortOffers: ShortOfferListType;
+  cityOffers: ShortOfferListType;
   favorites: FavoritesListType;
 };
 
 function MainPage({
   currentCity,
   onCurrentCityChange,
-  shortOffers,
+  cityOffers,
   isLoggedIn,
   favorites,
 }: MainPageProps): JSX.Element {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-  const handleCardChange = (id: string | null) => setActiveCardId(id);
-
-  const isEmpty = shortOffers.length === 0;
+  const isEmpty = cityOffers.length === 0;
   const typesPage: TypesPageEnum = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
@@ -47,6 +44,9 @@ function MainPage({
     ['cities__places places']: !isEmpty,
     ['cities__no-places']: isEmpty,
   });
+
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const handleCardHover = (id: string | null) => setActiveCardId(id);
 
   return (
     <div className="page page--gray page--main">
@@ -79,23 +79,29 @@ function MainPage({
           <div className={containerClasses}>
             <section className={sectionClasses}>
               {isEmpty ? (
-                <MainEmpty city={'Dusseldorf'} />
+                <MainEmpty city={currentCity} />
               ) : (
                 <MainContent
                   currentCity={currentCity}
-                  offersCount={shortOffers.length}
+                  offersCount={cityOffers.length}
                 >
                   <Sort currentSortType={DEFAULT_SORTING_TYPE} />,
                   <CardsList
-                    offers={shortOffers}
-                    onCardChange={handleCardChange}
+                    offers={cityOffers}
+                    onCardHover={handleCardHover}
                     typesPage={typesPage}
                   />
                 </MainContent>
               )}
             </section>
             <div className="cities__right-section">
-              {isEmpty || <Map className={'cities__map'} />}
+              {isEmpty || (
+                <Map
+                  offers={cityOffers}
+                  activeCardId={activeCardId}
+                  typesPage={typesPage}
+                />
+              )}
             </div>
           </div>
         </div>

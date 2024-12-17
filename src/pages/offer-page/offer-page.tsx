@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import cn from 'classnames';
-import { nanoid } from 'nanoid';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
@@ -13,23 +12,16 @@ import { TypesPage } from '../../const';
 import {
   FavoritesListType,
   OfferListType,
-  OfferType,
-  ReviewListType,
   ShortOfferType,
   TypesPageEnum,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
 import Gallery from './components/gallery/gallery';
-import ReviewsList from './components/reviews-list/reviews-list';
 import FeedbackForm from './components/feedback-form/feedback-form';
-
-type InsideItemProps = {
-  item: string;
-};
-
-type InsideListProps = {
-  internalOffers: string[];
-};
+import { Features } from './components/features/features';
+import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
+import { getOfferById } from './utils';
+import ReviewsList from './components/reviews-list/reviews-list';
 
 type OfferPageProps = {
   offers: OfferListType;
@@ -38,48 +30,19 @@ type OfferPageProps = {
   isLoggedIn: boolean;
 };
 
-type FeaturesProps = Pick<OfferType, 'type' | 'bedrooms' | 'maxAdults'>;
-
-function Features({ type, bedrooms, maxAdults }: FeaturesProps): JSX.Element {
-  return (
-    <ul className="offer__features">
-      <li className="offer__feature offer__feature--entire">{type}</li>
-      <li className="offer__feature offer__feature--bedrooms">
-        {bedrooms} Bedrooms
-      </li>
-      <li className="offer__feature offer__feature--adults">
-        Max {maxAdults} adults
-      </li>
-    </ul>
-  );
-}
-
-function OfferInsideItem({ item }: InsideItemProps): JSX.Element {
-  return <li className="offer__inside-item">{item}</li>;
-}
-
-function OfferInsideList(props: InsideListProps): JSX.Element {
-  const { internalOffers } = props;
-  return (
-    <div className="offer__inside">
-      <h2 className="offer__inside-title">What&apos;s inside</h2>
-      <ul className="offer__inside-list">
-        {internalOffers.map((item) => (
-          <OfferInsideItem key={nanoid()} item={item} />
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function OfferPage({
-  offers,
-  favorites,
-  nearbyOffers,
-  isLoggedIn,
-}: OfferPageProps): JSX.Element {
+const useId = () => {
   const { offerId } = useParams();
-  const offer = offers.find(({ id }) => id === offerId);
+  if (offerId === undefined) {
+    return { offerId: null };
+  }
+
+  return { offerId };
+};
+
+function OfferPage(props: OfferPageProps): JSX.Element {
+  const { offers, favorites, nearbyOffers, isLoggedIn } = props;
+  const { offerId } = useId();
+  const offer = getOfferById(offers, offerId);
 
   if (!offer) {
     throw new Error(`There is no ID:${offerId} element`);
@@ -99,7 +62,7 @@ function OfferPage({
     description,
     host: { avatarUrl, name, isPro },
   } = offer;
-  const reviews: ReviewListType = offerReviews;
+  const nearbyOffersWithExtension = [...nearbyOffers, offer];
   const typesPage: TypesPageEnum = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
@@ -160,14 +123,18 @@ function OfferPage({
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews ·{' '}
-                  <span className="reviews__amount">{reviews.length}</span>
+                  <span className="reviews__amount">{offerReviews.length}</span>
                 </h2>
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={offerReviews} />
                 {isLoggedIn && <FeedbackForm />}
               </section>
             </div>
           </div>
-          <Map className="offer__map" />
+          <Map
+            offers={nearbyOffersWithExtension}
+            activeCardId={offerId}
+            typesPage={typesPage}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
