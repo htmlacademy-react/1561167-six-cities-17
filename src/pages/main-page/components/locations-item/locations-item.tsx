@@ -1,13 +1,13 @@
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
 import {
   CityProps,
-  CityType,
+  CityKeys,
   CurrentCityChangeType,
 } from '../../../../types/types';
 
 function LocationsItem(
   props: CityProps & {
-    currentCity: CityType;
+    currentCity: CityKeys;
     onCurrentCityChange: CurrentCityChangeType;
   }
 ): JSX.Element {

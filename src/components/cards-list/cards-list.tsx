@@ -5,13 +5,13 @@ import {
   OnCardHoverType,
   ShortOfferListType,
   SortTypeKeys,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 import { sortOffers } from './utils';
 
 type CardsListProps = {
   offers: ShortOfferListType;
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   currentSortKey: SortTypeKeys;
   onCardHover?: OnCardHoverType;
 };

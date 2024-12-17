@@ -1,13 +1,13 @@
 import { FavoritesItem } from '../favorites-item/favorites-item';
 import {
-  CityType,
+  CityKeys,
   CurrentCityChangeType,
   GroupedOffersType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../../../types/types';
 
 type FavoritesListProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   groupedOffers: GroupedOffersType;
   onCurrentCityChange: CurrentCityChangeType;
 };
@@ -18,8 +18,8 @@ function FavoritesList(props: FavoritesListProps): JSX.Element {
     <ul className="favorites__list">
       {Object.keys(groupedOffers).map((key) => (
         <FavoritesItem
-          key={key as CityType}
-          city={key as CityType}
+          key={key as CityKeys}
+          city={key as CityKeys}
           onCurrentCityChange={onCurrentCityChange}
           offers={groupedOffers[key]}
           typesPage={typesPage}

@@ -2,16 +2,16 @@ import CardsList from '../../../../components/cards-list/cards-list';
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
 import { TypesSort } from '../../../../const';
 import {
-  CityType,
+  CityKeys,
   CurrentCityChangeType,
   ShortOfferListType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../../../types/types';
 
 type FavoritesItemProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   offers: ShortOfferListType;
-  city: CityType;
+  city: CityKeys;
   onCurrentCityChange: CurrentCityChangeType;
 };
 

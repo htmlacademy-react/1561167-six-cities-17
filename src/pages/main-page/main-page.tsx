@@ -6,11 +6,11 @@ import Map from '../../components/map/map';
 import Sort from './components/sort/sort';
 import { CITIES, DEFAULT_SORTING_KEY, TypesPage } from '../../const';
 import {
-  CityType,
+  CityKeys,
   FavoritesListType,
   ShortOfferListType,
   SortTypeKeys,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 import { useState } from 'react';
 import { LocationsList } from './components/locations-list/locations-list';
@@ -19,8 +19,8 @@ import { MainEmpty } from './components/main-empty/main-empty';
 import { MainContent } from './components/main-content.tsx/main-content';
 
 type MainPageProps = {
-  currentCity: CityType;
-  onCurrentCityChange: (city: CityType) => void;
+  currentCity: CityKeys;
+  onCurrentCityChange: (city: CityKeys) => void;
   isLoggedIn: boolean;
   cityOffers: ShortOfferListType;
   favorites: FavoritesListType;
@@ -34,7 +34,7 @@ function MainPage({
   favorites,
 }: MainPageProps): JSX.Element {
   const isEmpty = cityOffers.length === 0;
-  const typesPage: TypesPageEnum = TypesPage.Main;
+  const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
   });

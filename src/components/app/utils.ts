@@ -1,9 +1,8 @@
-import { CityType, ShortOfferListType } from '../../types/types';
+import { CityKeys, ShortOfferListType } from '../../types/types';
 
-const getFilteredOffersForCity = (
+const filterOffersByCity = (
   offers: ShortOfferListType,
-  city: CityType
-): ShortOfferListType =>
-  offers.filter((offer) => offer.city.name === city);
+  city: CityKeys
+): ShortOfferListType => offers.filter((offer) => offer.city.name === city);
 
-export { getFilteredOffersForCity };
+export { filterOffersByCity };

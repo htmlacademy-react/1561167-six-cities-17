@@ -13,7 +13,7 @@ import {
   FavoritesListType,
   OfferListType,
   ShortOfferType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
 import Gallery from './components/gallery/gallery';
@@ -63,7 +63,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     host: { avatarUrl, name, isPro },
   } = offer;
   const nearbyOffersWithExtension = [...nearbyOffers, offer];
-  const typesPage: TypesPageEnum = TypesPage.Offer;
+  const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
   });

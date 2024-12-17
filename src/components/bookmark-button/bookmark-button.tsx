@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { TypesPage } from '../../const';
 import { SvgSize } from './settings';
-import { TypesPageEnum } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 
 type BookmarkButtonProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   isActive?: boolean;
   isCard?: boolean;
 };

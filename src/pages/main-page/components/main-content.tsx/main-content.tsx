@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
-import { CityType } from '../../../../types/types';
+import { CityKeys } from '../../../../types/types';
 
 type MainContentProps = {
-  currentCity: CityType;
+  currentCity: CityKeys;
   offersCount: number;
   children: ReactNode[];
 };

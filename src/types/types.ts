@@ -10,20 +10,20 @@ type ImageSizeType = {
 };
 
 type CityProps = {
-  typesPage: TypesPageEnum;
-  city: CityType;
+  typesPage: TypesPageKeys;
+  city: CityKeys;
   isActive?: boolean;
 };
 
 type CitiesType = typeof CITIES;
 
-type CityType = CitiesType[number];
+type CityKeys = CitiesType[number];
 
-type TypesPageEnum = (typeof TypesPage)[keyof typeof TypesPage];
+type TypesPageKeys = (typeof TypesPage)[keyof typeof TypesPage];
 
-type AuthStatusEnum = (typeof AuthStatus)[keyof typeof AuthStatus];
+type AuthStatusKeys = (typeof AuthStatus)[keyof typeof AuthStatus];
 
-type PathEnum = (typeof Path)[keyof typeof Path];
+type PathKeys = (typeof Path)[keyof typeof Path];
 
 type SortTypeKeys = keyof typeof TypesSort;
 
@@ -40,7 +40,7 @@ type UserType = {
 };
 
 type OfferCityType = {
-  name: CityType;
+  name: CityKeys;
   location: LocationType;
 };
 
@@ -96,15 +96,15 @@ type RatingType = 1 | 2 | 3 | 4 | 5 | null;
 
 type CommentType = string;
 
-type CurrentCityChangeType = (city: CityType) => void;
+type CurrentCityChangeType = (city: CityKeys) => void;
 
 export type {
   ImageSizeType,
   CitiesType,
-  CityType,
-  TypesPageEnum,
-  AuthStatusEnum,
-  PathEnum,
+  CityKeys,
+  TypesPageKeys,
+  AuthStatusKeys,
+  PathKeys,
   CityProps,
   OfferType,
   ShortOfferType,
@@ -122,5 +122,6 @@ export type {
   ClientReviewType,
   ClientReviewListType,
   OfferCityType,
-  LocationType,SortTypeKeys
+  LocationType,
+  SortTypeKeys,
 };
