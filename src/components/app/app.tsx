@@ -9,14 +9,14 @@ import { AuthStatus, DEFAULT_CURRENT_CITY, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import {
-  AuthStatusEnum,
-  CityType,
+  AuthStatusKeys,
+  CityKeys,
   FavoritesListType,
   OfferListType,
   ShortOfferType,
 } from '../../types/types';
 import { useState } from 'react';
-import { getFilteredOffersForCity } from './utils';
+import { filterOffersByCity } from './utils';
 
 type AppPageProps = {
   shortOffers: ShortOfferType[];
@@ -26,16 +26,16 @@ type AppPageProps = {
 
 function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
   const [currentCity, setCurrentCity] =
-    useState<CityType>(DEFAULT_CURRENT_CITY);
-  const handleCurrentCityChange = (city: CityType): void => {
+    useState<CityKeys>(DEFAULT_CURRENT_CITY);
+  const handleCurrentCityChange = (city: CityKeys): void => {
     if (city === currentCity) {
       return;
     }
     setCurrentCity(city);
   };
 
-  const authStatus: AuthStatusEnum = AuthStatus.Auth;
-  const cityOffers = getFilteredOffersForCity(shortOffers, currentCity);
+  const authStatus: AuthStatusKeys = AuthStatus.Auth;
+  const cityOffers = filterOffersByCity(shortOffers, currentCity);
 
   return (
     <HelmetProvider>

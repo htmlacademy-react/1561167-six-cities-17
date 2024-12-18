@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import Logo from '../logo/logo';
-import { TypesPageEnum } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 
 type NavProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   children?: ReactNode;
 };
 

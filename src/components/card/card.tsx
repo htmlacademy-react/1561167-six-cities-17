@@ -8,11 +8,11 @@ import { generatePath, Link } from 'react-router-dom';
 import {
   OnCardHoverType,
   ShortOfferType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 
 type CardProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   offer: ShortOfferType;
   onCardHover?: OnCardHoverType;
 };
@@ -21,7 +21,7 @@ type CardImageProps = {
   id: string;
   src: string;
   title: string;
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
 };
 
 function CardImage(props: CardImageProps): JSX.Element {

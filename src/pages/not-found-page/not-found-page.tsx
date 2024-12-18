@@ -4,10 +4,10 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { Path, TypesPage } from '../../const';
 import styles from './style.module.css';
-import { TypesPageEnum } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 
 function NotFoundPage(): JSX.Element {
-  const typesPage: TypesPageEnum = TypesPage.Favorites;
+  const typesPage: TypesPageKeys = TypesPage.Favorites;
   return (
     <div className="page page--favorites-empty">
       <Header typesPage={typesPage} />

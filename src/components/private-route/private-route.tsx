@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { PathEnum } from '../../types/types';
+import { PathKeys } from '../../types/types';
 
 type PrivateRouteProps = {
-  toPath: PathEnum;
+  toPath: PathKeys;
   isLoggedIn: boolean;
   children: JSX.Element;
 };

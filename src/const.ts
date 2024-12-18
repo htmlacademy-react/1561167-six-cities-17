@@ -31,7 +31,7 @@ const TypesSort = {
   Rating: 'Top rated first',
 } as const;
 
-const DEFAULT_SORTING_TYPE = TypesSort.Popular;
+const DEFAULT_SORTING_KEY = 'Popular';
 
 const CommentLengthLimits = {
   Min: 50,
@@ -82,7 +82,7 @@ export {
   CITIES,
   TypesPage,
   TypesSort,
-  DEFAULT_SORTING_TYPE,
+  DEFAULT_SORTING_KEY,
   DEFAULT_CURRENT_CITY,
   CommentLengthLimits,
   Path,
