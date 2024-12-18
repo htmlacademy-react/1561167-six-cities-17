@@ -1,22 +1,19 @@
+import { useState } from 'react';
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
-import Sort from './components/sort/sort';
-import { CITIES, DEFAULT_SORTING_KEY, TypesPage } from '../../const';
-import {
-  CityKeys,
-  FavoritesListType,
-  ShortOfferListType,
-  SortTypeKeys,
-  TypesPageKeys,
-} from '../../types/types';
-import { useState } from 'react';
 import { LocationsList } from './components/locations-list/locations-list';
 import { LocationsItem } from './components/locations-item/locations-item';
 import { MainEmpty } from './components/main-empty/main-empty';
 import { MainContent } from './components/main-content.tsx/main-content';
+import { CITIES, TypesPage } from '../../const';
+import {
+  CityKeys,
+  FavoritesListType,
+  ShortOfferListType,
+  TypesPageKeys,
+} from '../../types/types';
 
 type MainPageProps = {
   currentCity: CityKeys;
@@ -48,16 +45,6 @@ function MainPage({
 
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const handleCardHover = (id: string | null) => setActiveCardId(id);
-
-  const [isOpenSorting, setIsOpenSorting] = useState<boolean>(false);
-  const handleSortChange = () => setIsOpenSorting((prev) => !prev);
-
-  const [currentSortKey, setCurrentSortKey] =
-    useState<SortTypeKeys>(DEFAULT_SORTING_KEY);
-  const handleSortKeyChange = (type: SortTypeKeys) => {
-    setCurrentSortKey(type);
-    setIsOpenSorting(false);
-  };
 
   return (
     <div className="page page--gray page--main">
@@ -94,22 +81,10 @@ function MainPage({
               ) : (
                 <MainContent
                   currentCity={currentCity}
-                  offersCount={cityOffers.length}
-                >
-                  <Sort
-                    isOpenSorting={isOpenSorting}
-                    onSortChange={handleSortChange}
-                    onSortKeyChange={handleSortKeyChange}
-                    currentSortKey={currentSortKey}
-                  />
-                  ,
-                  <CardsList
-                    offers={cityOffers}
-                    currentSortKey={currentSortKey}
-                    onCardHover={handleCardHover}
-                    typesPage={typesPage}
-                  />
-                </MainContent>
+                  onCardHover={handleCardHover}
+                  shortOffers={cityOffers}
+                  typesPage={typesPage}
+                />
               )}
             </section>
             <div className="cities__right-section">
