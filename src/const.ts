@@ -70,10 +70,10 @@ const Layer = {
 } as const;
 
 const Pin = {
-  DefaultUrl: 'public/img/pin.svg',
-  CurrentUrl: 'public/img/pin-active.svg',
-  Size: [40, 40],
-  Anchor: [20, 40],
+  DefaultUrl: '/img/pin.svg',
+  CurrentUrl: '/img/pin-active.svg',
+  Size: [40, 40] as [number, number],
+  Anchor: [20, 40] as [number, number],
 };
 
 export {
@@ -92,5 +92,5 @@ export {
   RATING_VALUES,
   REVIEWS_COUNT_LIMITED,
   Layer,
-  Pin
+  Pin,
 };

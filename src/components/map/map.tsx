@@ -15,14 +15,14 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: Pin.DefaultUrl,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: Pin.Size,
+  iconAnchor: Pin.Anchor,
 });
 
 const activeCustomIcon = new Icon({
   iconUrl: Pin.CurrentUrl,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: Pin.Size,
+  iconAnchor: Pin.Anchor,
 });
 
 function Map(props: MapProps): JSX.Element {
