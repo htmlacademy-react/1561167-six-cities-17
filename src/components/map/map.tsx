@@ -1,29 +1,28 @@
 import { useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { OfferType, ShortOfferType, TypesPageEnum } from '../../types/types';
+import { OfferType, ShortOfferType, TypesPageKeys } from '../../types/types';
 import styles from './style.module.css';
 import { Pin, TypesPage } from '../../const';
 import useMap from './hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 
-
 type MapProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   offers: (OfferType | ShortOfferType)[];
   activeCardId: string | null;
 };
 
 const defaultCustomIcon = new Icon({
   iconUrl: Pin.DefaultUrl,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: Pin.Size,
+  iconAnchor: Pin.Anchor,
 });
 
 const activeCustomIcon = new Icon({
   iconUrl: Pin.CurrentUrl,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: Pin.Size,
+  iconAnchor: Pin.Anchor,
 });
 
 function Map(props: MapProps): JSX.Element {

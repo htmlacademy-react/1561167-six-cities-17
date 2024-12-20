@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { DEFAULT_PREFIX_TITLE, TextTitle } from '../../const';
-import { TypesPageEnum } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 
 type TitleProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   isEmpty?: boolean;
 };
 

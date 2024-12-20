@@ -3,9 +3,9 @@ import { Map, TileLayer } from 'leaflet';
 import { LocationType } from '../../../types/types';
 import { Layer } from '../../../const';
 
-type TMapRef = MutableRefObject<HTMLElement | null>;
+type MapRefType = MutableRefObject<HTMLElement | null>;
 
-function useMap(mapRef: TMapRef, location: LocationType): Map | null {
+function useMap(mapRef: MapRefType, location: LocationType): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 

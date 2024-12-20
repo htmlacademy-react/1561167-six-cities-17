@@ -8,7 +8,7 @@ import { Title } from '../../components/title/title';
 import {
   CurrentCityChangeType,
   FavoritesListType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
@@ -22,7 +22,7 @@ type FavoritePageProps = {
 
 function FavoritesPage(props: FavoritePageProps): JSX.Element {
   const { favorites, isLoggedIn, onCurrentCityChange } = props;
-  const typesPage: TypesPageEnum = TypesPage.Favorites;
+  const typesPage: TypesPageKeys = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
 

@@ -1,25 +1,23 @@
+import { useState } from 'react';
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
-import Sort from './components/sort/sort';
-import { CITIES, DEFAULT_SORTING_TYPE, TypesPage } from '../../const';
-import {
-  CityType,
-  FavoritesListType,
-  ShortOfferListType,
-  TypesPageEnum,
-} from '../../types/types';
-import { useState } from 'react';
 import { LocationsList } from './components/locations-list/locations-list';
 import { LocationsItem } from './components/locations-item/locations-item';
 import { MainEmpty } from './components/main-empty/main-empty';
 import { MainContent } from './components/main-content.tsx/main-content';
+import { CITIES, TypesPage } from '../../const';
+import {
+  CityKeys,
+  FavoritesListType,
+  ShortOfferListType,
+  TypesPageKeys,
+} from '../../types/types';
 
 type MainPageProps = {
-  currentCity: CityType;
-  onCurrentCityChange: (city: CityType) => void;
+  currentCity: CityKeys;
+  onCurrentCityChange: (city: CityKeys) => void;
   isLoggedIn: boolean;
   cityOffers: ShortOfferListType;
   favorites: FavoritesListType;
@@ -33,7 +31,7 @@ function MainPage({
   favorites,
 }: MainPageProps): JSX.Element {
   const isEmpty = cityOffers.length === 0;
-  const typesPage: TypesPageEnum = TypesPage.Main;
+  const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
   });
@@ -83,15 +81,10 @@ function MainPage({
               ) : (
                 <MainContent
                   currentCity={currentCity}
-                  offersCount={cityOffers.length}
-                >
-                  <Sort currentSortType={DEFAULT_SORTING_TYPE} />,
-                  <CardsList
-                    offers={cityOffers}
-                    onCardHover={handleCardHover}
-                    typesPage={typesPage}
-                  />
-                </MainContent>
+                  onCardHover={handleCardHover}
+                  shortOffers={cityOffers}
+                  typesPage={typesPage}
+                />
               )}
             </section>
             <div className="cities__right-section">

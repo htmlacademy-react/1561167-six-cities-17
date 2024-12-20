@@ -31,7 +31,7 @@ const TypesSort = {
   Rating: 'Top rated first',
 } as const;
 
-const DEFAULT_SORTING_TYPE = TypesSort.Popular;
+const DEFAULT_SORTING_KEY = 'Popular';
 
 const CommentLengthLimits = {
   Min: 50,
@@ -70,10 +70,10 @@ const Layer = {
 } as const;
 
 const Pin = {
-  DefaultUrl: 'public/img/pin.svg',
-  CurrentUrl: 'public/img/pin-active.svg',
-  Size: [40, 40],
-  Anchor: [20, 40],
+  DefaultUrl: '/img/pin.svg',
+  CurrentUrl: '/img/pin-active.svg',
+  Size: [40, 40] as [number, number],
+  Anchor: [20, 40] as [number, number],
 };
 
 export {
@@ -82,7 +82,7 @@ export {
   CITIES,
   TypesPage,
   TypesSort,
-  DEFAULT_SORTING_TYPE,
+  DEFAULT_SORTING_KEY,
   DEFAULT_CURRENT_CITY,
   CommentLengthLimits,
   Path,
@@ -92,5 +92,5 @@ export {
   RATING_VALUES,
   REVIEWS_COUNT_LIMITED,
   Layer,
-  Pin
+  Pin,
 };

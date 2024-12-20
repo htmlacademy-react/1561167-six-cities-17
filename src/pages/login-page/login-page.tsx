@@ -4,19 +4,19 @@ import SignIn from '../../components/sign-in/sign-in';
 import { Title } from '../../components/title/title';
 import { TypesPage } from '../../const';
 import {
-  CityType,
+  CityKeys,
   CurrentCityChangeType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 
 type LoginPageProps = {
-  currentCity: CityType;
+  currentCity: CityKeys;
   onCurrentCityChange: CurrentCityChangeType;
 };
 
 function LoginPage(props: LoginPageProps): JSX.Element {
   const { currentCity, onCurrentCityChange } = props;
-  const typesPage: TypesPageEnum = TypesPage.Login;
+  const typesPage: TypesPageKeys = TypesPage.Login;
   return (
     <div className="page page--gray page--login">
       <Title typesPage={typesPage} />

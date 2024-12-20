@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import { Path, TypesPage } from '../../const';
 import { LogoSize } from './settings';
-import { TypesPageEnum } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 import { Link } from 'react-router-dom';
 
 type LogoProps = {
-  typesPage: TypesPageEnum;
+  typesPage: TypesPageKeys;
   isFooter?: boolean;
 };
 

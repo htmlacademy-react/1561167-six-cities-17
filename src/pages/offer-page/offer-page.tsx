@@ -8,12 +8,12 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { TypesPage } from '../../const';
+import { TypesPage, TypesSort } from '../../const';
 import {
   FavoritesListType,
   OfferListType,
   ShortOfferType,
-  TypesPageEnum,
+  TypesPageKeys,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
 import Gallery from './components/gallery/gallery';
@@ -63,7 +63,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     host: { avatarUrl, name, isPro },
   } = offer;
   const nearbyOffersWithExtension = [...nearbyOffers, offer];
-  const typesPage: TypesPageEnum = TypesPage.Offer;
+  const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
   });
@@ -142,7 +142,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList offers={nearbyOffers} typesPage={typesPage} />
+              <CardsList
+                offers={nearbyOffers}
+                currentSortKey={TypesSort.Popular}
+                typesPage={typesPage}
+              />
             </div>
           </section>
         </div>
