@@ -8,29 +8,21 @@ import { LocationsItem } from './components/locations-item/locations-item';
 import { MainEmpty } from './components/main-empty/main-empty';
 import { MainContent } from './components/main-content.tsx/main-content';
 import { CITIES, TypesPage } from '../../const';
-import {
-  CityKeys,
-  FavoritesListType,
-  ShortOfferListType,
-  TypesPageKeys,
-} from '../../types/types';
+import { FavoritesListType, TypesPageKeys } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { filterOffersByCity } from './utils';
 
 type MainPageProps = {
-  currentCity: CityKeys;
-  onCurrentCityChange: (city: CityKeys) => void;
   isLoggedIn: boolean;
-  cityOffers: ShortOfferListType;
   favorites: FavoritesListType;
 };
 
-function MainPage({
-  currentCity,
-  onCurrentCityChange,
-  cityOffers,
-  isLoggedIn,
-  favorites,
-}: MainPageProps): JSX.Element {
+function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const cityOffers = filterOffersByCity(offers, currentCity);
   const isEmpty = cityOffers.length === 0;
+
   const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
@@ -66,7 +58,6 @@ function MainPage({
                   key={city}
                   city={city}
                   currentCity={currentCity}
-                  onCurrentCityChange={onCurrentCityChange}
                   typesPage={typesPage}
                 />
               ))}

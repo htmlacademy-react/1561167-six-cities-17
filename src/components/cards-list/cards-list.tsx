@@ -18,13 +18,14 @@ type CardsListProps = {
 
 function CardsList(props: CardsListProps): JSX.Element {
   const { offers, onCardHover, typesPage, currentSortKey } = props;
+  const sortedOffers = sortOffers(offers, currentSortKey);
+
   const listClasses = cn({
     ['cities__places-list places__list tabs__content']:
       typesPage === TypesPage.Main,
     ['near-places__list places__list']: typesPage === TypesPage.Offer,
     ['favorites__places']: typesPage === TypesPage.Favorites,
   });
-  const sortedOffers = sortOffers(offers, currentSortKey);
 
   return (
     <div className={listClasses}>

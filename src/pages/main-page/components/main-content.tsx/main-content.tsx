@@ -19,14 +19,14 @@ type MainContentProps = {
 function MainContent(props: MainContentProps): JSX.Element {
   const { currentCity, shortOffers, typesPage, onCardHover } = props;
 
-  const [isOpenSorting, setIsOpenSorting] = useState<boolean>(false);
-  const handleSortChange = () => setIsOpenSorting((prev) => !prev);
+  const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);
+  const handleDropDownChange = () => setOpenDropDown((prev) => !prev);
 
   const [currentSortKey, setCurrentSortKey] =
     useState<SortTypeKeys>(DEFAULT_SORTING_KEY);
   const handleSortKeyChange = (type: SortTypeKeys) => {
     setCurrentSortKey(type);
-    setIsOpenSorting(false);
+    setOpenDropDown(false);
   };
 
   const lastCharacter = shortOffers.length !== 1 ? 's' : '';
@@ -38,8 +38,8 @@ function MainContent(props: MainContentProps): JSX.Element {
         {shortOffers.length} {`place${lastCharacter}`} to stay in {currentCity}
       </b>
       <Sort
-        isOpenSorting={isOpenSorting}
-        onSortChange={handleSortChange}
+        isOpenDropDown={isOpenDropDown}
+        onDropDownChange={handleDropDownChange}
         onSortKeyChange={handleSortKeyChange}
         currentSortKey={currentSortKey}
       />
