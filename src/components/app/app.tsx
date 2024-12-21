@@ -16,7 +16,6 @@ import {
   ShortOfferType,
 } from '../../types/types';
 import { useState } from 'react';
-import { filterOffersByCity } from './utils';
 
 type AppPageProps = {
   shortOffers: ShortOfferType[];
@@ -35,7 +34,6 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
   };
 
   const authStatus: AuthStatusKeys = AuthStatus.Auth;
-  const cityOffers = filterOffersByCity(shortOffers, currentCity);
 
   return (
     <HelmetProvider>
@@ -48,7 +46,6 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
               <MainPage
                 currentCity={currentCity}
                 onCurrentCityChange={handleCurrentCityChange}
-                cityOffers={cityOffers}
                 favorites={favorites}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />
