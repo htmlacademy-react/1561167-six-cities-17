@@ -1,50 +1,27 @@
 import cn from 'classnames';
+import { SortItem } from '../sort-item/sort-item';
 import { TypesSort } from '../../../../const';
 import { SortTypeKeys } from '../../../../types/types';
 
-type ItemSortProps = {
-  item: string;
-  isActive: boolean;
-  dataSort: SortTypeKeys;
-  onSortKeyChange: (type: SortTypeKeys) => void;
-};
-
 type SortProps = {
   currentSortKey: SortTypeKeys;
-  isOpenSorting: boolean;
-  onSortChange: () => void;
+  isOpenDropDown: boolean;
+  onDropDownChange: () => void;
   onSortKeyChange: (type: SortTypeKeys) => void;
 };
 
-function ItemSort(props: ItemSortProps): JSX.Element {
-  const { item, isActive, dataSort, onSortKeyChange } = props;
-  const classesItem = cn('places__option', {
-    ['places__option--active']: isActive,
-  });
-
-  return (
-    <li
-      onClick={() => onSortKeyChange(dataSort)}
-      className={classesItem}
-      tabIndex={0}
-    >
-      {item}
-    </li>
-  );
-}
-
 function Sort(props: SortProps): JSX.Element {
-  const { currentSortKey, isOpenSorting, onSortChange, onSortKeyChange } =
+  const { currentSortKey, isOpenDropDown, onDropDownChange, onSortKeyChange } =
     props;
   const classesList = cn('places__options places__options--custom', {
-    ['places__options--opened']: isOpenSorting,
+    ['places__options--opened']: isOpenDropDown,
   });
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>&nbsp;
       <span
-        onClick={onSortChange}
+        onClick={onDropDownChange}
         className="places__sorting-type"
         tabIndex={0}
       >
@@ -54,13 +31,12 @@ function Sort(props: SortProps): JSX.Element {
         </svg>
       </span>
       <ul className={classesList}>
-        {Object.keys(TypesSort).map((key) => (
-          <ItemSort
-            key={key}
+        {Object.keys(TypesSort).map((sortKey) => (
+          <SortItem
+            key={sortKey}
             onSortKeyChange={onSortKeyChange}
-            dataSort={key as SortTypeKeys}
-            item={TypesSort[key as SortTypeKeys]}
-            isActive={key === currentSortKey}
+            sortKey={sortKey as SortTypeKeys}
+            isActive={sortKey === currentSortKey}
           />
         ))}
       </ul>
