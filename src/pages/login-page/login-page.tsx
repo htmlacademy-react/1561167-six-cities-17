@@ -4,8 +4,8 @@ import SignIn from '../../components/sign-in/sign-in';
 import { Title } from '../../components/title/title';
 import { TypesPage } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { store } from '../../store';
-import { cityChange } from '../../store/action';
+// import { store } from '../../store';
+// import { cityChange } from '../../store/action';
 import { TypesPageKeys } from '../../types/types';
 
 function LoginPage(): JSX.Element {
@@ -25,7 +25,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div
-              onClick={() => store.dispatch(cityChange(currentCity))}
+              // onClick={() => store.dispatch(cityChange(currentCity))}
               className="locations__item"
             >
               <LocationsItemLink city={currentCity} typesPage={typesPage} />
