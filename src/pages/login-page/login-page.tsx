@@ -3,20 +3,16 @@ import LocationsItemLink from '../../components/locations-item-link/locations-it
 import SignIn from '../../components/sign-in/sign-in';
 import { Title } from '../../components/title/title';
 import { TypesPage } from '../../const';
-import {
-  CityKeys,
-  CurrentCityChangeType,
-  TypesPageKeys,
-} from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { store } from '../../store';
+import { cityChange } from '../../store/action';
+import { TypesPageKeys } from '../../types/types';
 
-type LoginPageProps = {
-  currentCity: CityKeys;
-  onCurrentCityChange: CurrentCityChangeType;
-};
+function LoginPage(): JSX.Element {
+  const currentCity = useAppSelector((state) => state.currentCity);
 
-function LoginPage(props: LoginPageProps): JSX.Element {
-  const { currentCity, onCurrentCityChange } = props;
   const typesPage: TypesPageKeys = TypesPage.Login;
+
   return (
     <div className="page page--gray page--login">
       <Title typesPage={typesPage} />
@@ -29,7 +25,7 @@ function LoginPage(props: LoginPageProps): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div
-              onClick={() => onCurrentCityChange(currentCity)}
+              onClick={() => store.dispatch(cityChange(currentCity))}
               className="locations__item"
             >
               <LocationsItemLink city={currentCity} typesPage={typesPage} />

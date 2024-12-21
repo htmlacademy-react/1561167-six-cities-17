@@ -1,20 +1,20 @@
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
+import { store } from '../../../../store';
+import { cityChange } from '../../../../store/action';
 import {
   CityProps,
   CityKeys,
-  CurrentCityChangeType,
 } from '../../../../types/types';
 
 function LocationsItem(
   props: CityProps & {
     currentCity: CityKeys;
-    onCurrentCityChange: CurrentCityChangeType;
   }
 ): JSX.Element {
-  const { city, currentCity, onCurrentCityChange, typesPage } = props;
+  const { city, currentCity, typesPage } = props;
 
   return (
-    <li onClick={() => onCurrentCityChange(city)} className="locations__item">
+    <li onClick={() => store.dispatch(cityChange(city))} className="locations__item">
       <LocationsItemLink
         city={city}
         typesPage={typesPage}
