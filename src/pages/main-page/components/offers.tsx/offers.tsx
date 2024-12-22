@@ -8,14 +8,14 @@ import CardsList from '../../../../components/cards-list/cards-list';
 import { useAppSelector } from '../../../../hooks';
 import { sortOffers } from './utils';
 
-type MainContentProps = {
+type OffersProps = {
   currentCity: CityKeys;
   offers: ShortOfferListType;
   typesPage: TypesPageKeys;
   onCardHover: (id: string | null) => void;
 };
 
-function MainContent(props: MainContentProps): JSX.Element {
+function Offers(props: OffersProps): JSX.Element {
   const { currentCity, offers, typesPage, onCardHover } = props;
 
   const currentSortKey = useAppSelector((state) => state.currentSortKey);
@@ -40,4 +40,4 @@ function MainContent(props: MainContentProps): JSX.Element {
   );
 }
 
-export { MainContent };
+export { Offers };

@@ -1,8 +1,8 @@
 import { CityProps } from '../../../../types/types';
 
-type MainEmptyProps = Pick<CityProps, 'city'>;
+type OffersEmptyProps = Pick<CityProps, 'city'>;
 
-function MainEmpty({ city }: MainEmptyProps): JSX.Element {
+function OffersEmpty({ city }: OffersEmptyProps): JSX.Element {
   return (
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">No places to stay available</b>
@@ -13,4 +13,4 @@ function MainEmpty({ city }: MainEmptyProps): JSX.Element {
   );
 }
 
-export { MainEmpty };
+export { OffersEmpty };
