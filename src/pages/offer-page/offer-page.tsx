@@ -8,7 +8,7 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { TypesPage, TypesSort } from '../../const';
+import { TypesPage} from '../../const';
 import {
   FavoritesListType,
   OfferListType,
@@ -144,7 +144,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
             <div className="near-places__list places__list">
               <CardsList
                 offers={nearbyOffers}
-                currentSortKey={TypesSort.Popular}
                 typesPage={typesPage}
               />
             </div>

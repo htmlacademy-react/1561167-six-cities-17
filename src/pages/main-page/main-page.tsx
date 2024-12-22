@@ -23,6 +23,9 @@ function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
   const cityOffers = filterOffersByCity(offers, currentCity);
   const isEmpty = cityOffers.length === 0;
 
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const handleCardHover = (id: string | null) => setActiveCardId(id);
+
   const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
@@ -34,9 +37,6 @@ function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
     ['cities__places places']: !isEmpty,
     ['cities__no-places']: isEmpty,
   });
-
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-  const handleCardHover = (id: string | null) => setActiveCardId(id);
 
   return (
     <div className="page page--gray page--main">

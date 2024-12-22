@@ -4,20 +4,21 @@ import { TypesPage } from '../../const';
 import {
   OnCardHoverType,
   ShortOfferListType,
-  SortTypeKeys,
   TypesPageKeys,
 } from '../../types/types';
 import { sortOffers } from './utils';
+import { useAppSelector } from '../../hooks';
 
 type CardsListProps = {
   offers: ShortOfferListType;
   typesPage: TypesPageKeys;
-  currentSortKey: SortTypeKeys;
   onCardHover?: OnCardHoverType;
 };
 
 function CardsList(props: CardsListProps): JSX.Element {
-  const { offers, onCardHover, typesPage, currentSortKey } = props;
+  const { offers, onCardHover, typesPage } = props;
+  const currentSortKey = useAppSelector((state) => state.currentSortKey);
+
   const sortedOffers = sortOffers(offers, currentSortKey);
 
   const listClasses = cn({

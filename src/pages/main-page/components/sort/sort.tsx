@@ -2,26 +2,39 @@ import cn from 'classnames';
 import { SortItem } from '../sort-item/sort-item';
 import { TypesSort } from '../../../../const';
 import { SortTypeKeys } from '../../../../types/types';
+import { useEffect, useRef, useState } from 'react';
+import { useAppSelector } from '../../../../hooks';
 
-type SortProps = {
-  currentSortKey: SortTypeKeys;
-  isOpenDropDown: boolean;
-  onDropDownChange: () => void;
-  onSortKeyChange: (type: SortTypeKeys) => void;
-};
+function Sort(): JSX.Element {
+  const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);
+  const sortingValueRef = useRef<HTMLElement | null>(null);
+  const currentSortKey = useAppSelector((state) => state.currentSortKey);
 
-function Sort(props: SortProps): JSX.Element {
-  const { currentSortKey, isOpenDropDown, onDropDownChange, onSortKeyChange } =
-    props;
   const classesList = cn('places__options places__options--custom', {
     ['places__options--opened']: isOpenDropDown,
+  });
+
+  useEffect(() => {
+    const handleDropDownChange = (evt: MouseEvent) => {
+      if (
+        evt.target instanceof HTMLElement &&
+        sortingValueRef.current &&
+        !sortingValueRef.current.contains(evt.target)
+      ) {
+        setOpenDropDown(false);
+      }
+    };
+    document.addEventListener('click', handleDropDownChange);
+
+    return () => document.removeEventListener('click', handleDropDownChange);
   });
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>&nbsp;
       <span
-        onClick={onDropDownChange}
+        ref={sortingValueRef}
+        onClick={() => setOpenDropDown((prev) => !prev)}
         className="places__sorting-type"
         tabIndex={0}
       >
@@ -34,7 +47,6 @@ function Sort(props: SortProps): JSX.Element {
         {Object.keys(TypesSort).map((sortKey) => (
           <SortItem
             key={sortKey}
-            onSortKeyChange={onSortKeyChange}
             sortKey={sortKey as SortTypeKeys}
             isActive={sortKey === currentSortKey}
           />

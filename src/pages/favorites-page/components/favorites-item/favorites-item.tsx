@@ -1,6 +1,5 @@
 import CardsList from '../../../../components/cards-list/cards-list';
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
-import { TypesSort } from '../../../../const';
 import { store } from '../../../../store';
 import { cityChange } from '../../../../store/action';
 import {
@@ -29,7 +28,6 @@ function FavoritesItem(props: FavoritesItemProps): JSX.Element {
       </div>
       <CardsList
         offers={offers}
-        currentSortKey={TypesSort.Popular}
         typesPage={typesPage}
       />
     </li>

@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import {
   CityKeys,
   ShortOfferListType,
-  SortTypeKeys,
   TypesPageKeys,
 } from '../../../../types/types';
 import Sort from '../sort/sort';
 import CardsList from '../../../../components/cards-list/cards-list';
-import { DEFAULT_SORTING_KEY } from '../../../../const';
 
 type MainContentProps = {
   currentCity: CityKeys;
@@ -19,16 +16,6 @@ type MainContentProps = {
 function MainContent(props: MainContentProps): JSX.Element {
   const { currentCity, shortOffers, typesPage, onCardHover } = props;
 
-  const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);
-  const handleDropDownChange = () => setOpenDropDown((prev) => !prev);
-
-  const [currentSortKey, setCurrentSortKey] =
-    useState<SortTypeKeys>(DEFAULT_SORTING_KEY);
-  const handleSortKeyChange = (type: SortTypeKeys) => {
-    setCurrentSortKey(type);
-    setOpenDropDown(false);
-  };
-
   const lastCharacter = shortOffers.length !== 1 ? 's' : '';
 
   return (
@@ -37,16 +24,10 @@ function MainContent(props: MainContentProps): JSX.Element {
       <b className="places__found">
         {shortOffers.length} {`place${lastCharacter}`} to stay in {currentCity}
       </b>
-      <Sort
-        isOpenDropDown={isOpenDropDown}
-        onDropDownChange={handleDropDownChange}
-        onSortKeyChange={handleSortKeyChange}
-        currentSortKey={currentSortKey}
-      />
+      <Sort />
       ,
       <CardsList
         offers={shortOffers}
-        currentSortKey={currentSortKey}
         onCardHover={onCardHover}
         typesPage={typesPage}
       />
