@@ -25,7 +25,6 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div
-              // onClick={() => store.dispatch(cityChange(currentCity))}
               className="locations__item"
             >
               <LocationsItemLink city={currentCity} typesPage={typesPage} />

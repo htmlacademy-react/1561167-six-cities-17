@@ -1,6 +1,6 @@
+import { useAppDispatch } from '../../../../hooks';
 import CardsList from '../../../../components/cards-list/cards-list';
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
-import { store } from '../../../../store';
 import { cityChange } from '../../../../store/action';
 import {
   CityKeys,
@@ -16,20 +16,19 @@ type FavoritesItemProps = {
 
 function FavoritesItem(props: FavoritesItemProps): JSX.Element {
   const { city, offers, typesPage } = props;
+  const dispatch = useAppDispatch();
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div
-          onClick={() => store.dispatch(cityChange(city))}
+          onClick={() => dispatch(cityChange(city))}
           className="locations__item"
         >
           <LocationsItemLink city={city} typesPage={typesPage} />
         </div>
       </div>
-      <CardsList
-        offers={offers}
-        typesPage={typesPage}
-      />
+      <CardsList offers={offers} typesPage={typesPage} />
     </li>
   );
 }

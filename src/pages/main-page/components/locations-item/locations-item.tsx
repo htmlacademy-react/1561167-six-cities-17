@@ -1,10 +1,7 @@
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
-import { store } from '../../../../store';
+import { useAppDispatch } from '../../../../hooks';
 import { cityChange } from '../../../../store/action';
-import {
-  CityProps,
-  CityKeys,
-} from '../../../../types/types';
+import { CityProps, CityKeys } from '../../../../types/types';
 
 function LocationsItem(
   props: CityProps & {
@@ -12,9 +9,10 @@ function LocationsItem(
   }
 ): JSX.Element {
   const { city, currentCity, typesPage } = props;
+  const dispatch = useAppDispatch();
 
   return (
-    <li onClick={() => store.dispatch(cityChange(city))} className="locations__item">
+    <li onClick={() => dispatch(cityChange(city))} className="locations__item">
       <LocationsItemLink
         city={city}
         typesPage={typesPage}

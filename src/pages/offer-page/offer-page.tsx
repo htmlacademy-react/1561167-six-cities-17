@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import cn from 'classnames';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
@@ -8,7 +8,7 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { TypesPage } from '../../const';
+import { Path, TypesPage } from '../../const';
 import {
   FavoritesListType,
   OfferListType,
@@ -45,8 +45,8 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const { offerId } = useId();
   const offer = getOfferById(offers, offerId);
 
-  if (!offer) {
-    throw new Error(`There is no ID:${offerId} element`);
+  if (offer === undefined) {
+    return <Navigate to={Path.NotFound} />;
   }
 
   const {
