@@ -72,8 +72,8 @@ const Layer = {
 const Pin = {
   DefaultUrl: '/img/pin.svg',
   CurrentUrl: '/img/pin-active.svg',
-  Size: [40, 40] as [number, number],
-  Anchor: [20, 40] as [number, number],
+  Size: [28, 40] as [number, number],
+  Anchor: [14, 40] as [number, number],
 } as const;
 
 export {

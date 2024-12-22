@@ -8,11 +8,11 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { TypesPage} from '../../const';
+import { TypesPage } from '../../const';
 import {
   FavoritesListType,
   OfferListType,
-  ShortOfferType,
+  ShortOfferListType,
   TypesPageKeys,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
@@ -22,11 +22,12 @@ import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
 import { getOfferById } from './utils';
 import ReviewsList from './components/reviews-list/reviews-list';
+import { adaptToMap } from '../../utils/utils';
 
 type OfferPageProps = {
   offers: OfferListType;
   favorites: FavoritesListType;
-  nearbyOffers: ShortOfferType[];
+  nearOffers: ShortOfferListType;
   isLoggedIn: boolean;
 };
 
@@ -40,7 +41,7 @@ const useId = () => {
 };
 
 function OfferPage(props: OfferPageProps): JSX.Element {
-  const { offers, favorites, nearbyOffers, isLoggedIn } = props;
+  const { offers, favorites, nearOffers, isLoggedIn } = props;
   const { offerId } = useId();
   const offer = getOfferById(offers, offerId);
 
@@ -62,7 +63,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     description,
     host: { avatarUrl, name, isPro },
   } = offer;
-  const nearbyOffersWithExtension = [...nearbyOffers, offer];
   const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
@@ -131,7 +131,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
             </div>
           </div>
           <Map
-            offers={nearbyOffersWithExtension}
+            points={adaptToMap(nearOffers, offer)}
             activeCardId={offerId}
             typesPage={typesPage}
           />
@@ -142,10 +142,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList
-                offers={nearbyOffers}
-                typesPage={typesPage}
-              />
+              <CardsList offers={nearOffers} typesPage={typesPage} />
             </div>
           </section>
         </div>

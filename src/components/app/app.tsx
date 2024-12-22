@@ -69,7 +69,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
               <OfferPage
                 offers={offers}
                 favorites={favorites}
-                nearbyOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
+                nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />
             }

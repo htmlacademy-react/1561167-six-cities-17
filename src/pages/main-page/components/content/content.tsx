@@ -8,6 +8,7 @@ import {
   ShortOfferListType,
   TypesPageKeys,
 } from '../../../../types/types';
+import { adaptToMap } from '../../../../utils/utils';
 
 type ContentPros = {
   currentCity: CityKeys;
@@ -47,7 +48,7 @@ function Content(props: ContentPros): JSX.Element {
       <div className="cities__right-section">
         {isEmpty || (
           <Map
-            offers={cityOffers}
+            points={adaptToMap(cityOffers)}
             activeCardId={activeCardId}
             typesPage={typesPage}
           />
