@@ -5,29 +5,34 @@ import {
 } from '../../../../types/types';
 import Sort from '../sort/sort';
 import CardsList from '../../../../components/cards-list/cards-list';
+import { useAppSelector } from '../../../../hooks';
+import { sortOffers } from './utils';
 
 type MainContentProps = {
   currentCity: CityKeys;
-  shortOffers: ShortOfferListType;
+  offers: ShortOfferListType;
   typesPage: TypesPageKeys;
   onCardHover: (id: string | null) => void;
 };
 
 function MainContent(props: MainContentProps): JSX.Element {
-  const { currentCity, shortOffers, typesPage, onCardHover } = props;
+  const { currentCity, offers, typesPage, onCardHover } = props;
 
-  const lastCharacter = shortOffers.length !== 1 ? 's' : '';
+  const currentSortKey = useAppSelector((state) => state.currentSortKey);
+  const sortedOffers = sortOffers(offers, currentSortKey);
+
+  const lastCharacter = offers.length !== 1 ? 's' : '';
 
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {shortOffers.length} {`place${lastCharacter}`} to stay in {currentCity}
+        {offers.length} {`place${lastCharacter}`} to stay in {currentCity}
       </b>
       <Sort />
       ,
       <CardsList
-        offers={shortOffers}
+        offers={sortedOffers}
         onCardHover={onCardHover}
         typesPage={typesPage}
       />

@@ -73,7 +73,7 @@ function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
                 <MainContent
                   currentCity={currentCity}
                   onCardHover={handleCardHover}
-                  shortOffers={cityOffers}
+                  offers={cityOffers}
                   typesPage={typesPage}
                 />
               )}

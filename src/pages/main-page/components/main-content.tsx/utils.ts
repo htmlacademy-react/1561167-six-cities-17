@@ -1,5 +1,5 @@
-import { TypesSort } from '../../const';
-import { ShortOfferListType, SortTypeKeys } from '../../types/types';
+import { TypesSort } from '../../../../const';
+import { ShortOfferListType, SortTypeKeys } from '../../../../types/types';
 
 const sortBy = {
   [TypesSort.Popular]: (offers: ShortOfferListType) => [...offers],
