@@ -10,7 +10,6 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
 import { Path, TypesPage } from '../../const';
 import {
-  FavoritesListType,
   OfferListType,
   ShortOfferListType,
   TypesPageKeys,
