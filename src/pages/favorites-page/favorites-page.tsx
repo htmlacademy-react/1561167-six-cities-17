@@ -5,11 +5,7 @@ import Nav from '../../components/nav/nav';
 import Logo from '../../components/logo/logo';
 import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
-import {
-  CurrentCityChangeType,
-  FavoritesListType,
-  TypesPageKeys,
-} from '../../types/types';
+import { FavoritesListType, TypesPageKeys } from '../../types/types';
 import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
@@ -17,11 +13,9 @@ import { FavoritesList } from './components/favorites-list/favorites-list';
 type FavoritePageProps = {
   favorites: FavoritesListType;
   isLoggedIn: boolean;
-  onCurrentCityChange: CurrentCityChangeType;
 };
 
-function FavoritesPage(props: FavoritePageProps): JSX.Element {
-  const { favorites, isLoggedIn, onCurrentCityChange } = props;
+function FavoritesPage({ favorites, isLoggedIn }: FavoritePageProps): JSX.Element {
   const typesPage: TypesPageKeys = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
@@ -44,7 +38,7 @@ function FavoritesPage(props: FavoritePageProps): JSX.Element {
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={favorites.length}
+          favoritesCount={favorites.length}
         />
       </Header>
       <Title typesPage={typesPage} isEmpty={isEmpty} />
@@ -58,7 +52,6 @@ function FavoritesPage(props: FavoritePageProps): JSX.Element {
               <FavoriteEmpty />
             ) : (
               <FavoritesList
-                onCurrentCityChange={onCurrentCityChange}
                 groupedOffers={groupedOffers}
                 typesPage={typesPage}
               />

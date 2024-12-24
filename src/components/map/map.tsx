@@ -1,15 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { OfferType, ShortOfferType, TypesPageKeys } from '../../types/types';
+import { MapPointsListType, TypesPageKeys } from '../../types/types';
 import styles from './style.module.css';
 import { Pin, TypesPage } from '../../const';
 import useMap from './hooks/use-map';
-import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   typesPage: TypesPageKeys;
-  offers: (OfferType | ShortOfferType)[];
+  points: MapPointsListType;
   activeCardId: string | null;
 };
 
@@ -26,28 +25,28 @@ const activeCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const { offers, activeCardId, typesPage } = props;
+  const { points, activeCardId, typesPage } = props;
   const classesMap = cn('map', {
     [`cities__map ${styles.mainwrapper}`]: typesPage === TypesPage.Main,
     [`offer__map ${styles.offerwrapper}`]: typesPage === TypesPage.Offer,
   });
-  const cityLocation = offers[0].city.location;
+  const cityLocation = points[0].city.location;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, cityLocation);
+  const map = useMap(mapRef, cityLocation, typesPage === TypesPage.Main);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      points.forEach((point) => {
         const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
+          lat: point.location.latitude,
+          lng: point.location.longitude,
         });
 
         marker
           .setIcon(
-            activeCardId !== null && offer.id === activeCardId
+            activeCardId !== null && point.id === activeCardId
               ? activeCustomIcon
               : defaultCustomIcon
           )
@@ -58,7 +57,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeCardId]);
+  }, [map, points, activeCardId]);
 
   return <section ref={mapRef} className={classesMap}></section>;
 }

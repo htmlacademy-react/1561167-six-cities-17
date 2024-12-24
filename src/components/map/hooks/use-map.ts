@@ -2,12 +2,26 @@ import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import { Map, TileLayer } from 'leaflet';
 import { LocationType } from '../../../types/types';
 import { Layer } from '../../../const';
+import 'leaflet/dist/leaflet.css';
 
 type MapRefType = MutableRefObject<HTMLElement | null>;
 
-function useMap(mapRef: MapRefType, location: LocationType): Map | null {
+function useMap(
+  mapRef: MapRefType,
+  location: LocationType,
+  isZoomChange: boolean
+): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (map) {
+      map.panTo({
+        lat: location.latitude,
+        lng: location.longitude,
+      });
+    }
+  }, [map, location]);
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
@@ -17,6 +31,7 @@ function useMap(mapRef: MapRefType, location: LocationType): Map | null {
           lng: location.longitude,
         },
         zoom: location.zoom,
+        scrollWheelZoom: isZoomChange,
       });
 
       const layer = new TileLayer(Layer.Url, {
@@ -28,7 +43,7 @@ function useMap(mapRef: MapRefType, location: LocationType): Map | null {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, location]);
+  }, [mapRef, location, isZoomChange]);
 
   return map;
 }

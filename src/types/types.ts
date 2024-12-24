@@ -61,6 +61,9 @@ type OfferType = {
   bedrooms: number;
   maxAdults: number;
 };
+
+type MapPointsListType = Pick<OfferType, 'id' | 'city' | 'location'>[];
+
 type OfferListType = OfferType[];
 
 type ShortOfferType = Omit<
@@ -124,4 +127,5 @@ export type {
   OfferCityType,
   LocationType,
   SortTypeKeys,
+  MapPointsListType,
 };

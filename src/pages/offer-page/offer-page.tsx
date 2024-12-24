@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import cn from 'classnames';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
@@ -8,11 +8,10 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { TypesPage, TypesSort } from '../../const';
+import { Path, TypesPage } from '../../const';
 import {
-  FavoritesListType,
   OfferListType,
-  ShortOfferType,
+  ShortOfferListType,
   TypesPageKeys,
 } from '../../types/types';
 import { offerReviews } from '../../mocks/offer-reviews';
@@ -22,11 +21,12 @@ import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
 import { getOfferById } from './utils';
 import ReviewsList from './components/reviews-list/reviews-list';
+import { adaptToMap } from '../../utils/utils';
 
 type OfferPageProps = {
   offers: OfferListType;
-  favorites: FavoritesListType;
-  nearbyOffers: ShortOfferType[];
+  favoritesCount: number;
+  nearOffers: ShortOfferListType;
   isLoggedIn: boolean;
 };
 
@@ -40,12 +40,12 @@ const useId = () => {
 };
 
 function OfferPage(props: OfferPageProps): JSX.Element {
-  const { offers, favorites, nearbyOffers, isLoggedIn } = props;
+  const { offers, favoritesCount, nearOffers, isLoggedIn } = props;
   const { offerId } = useId();
   const offer = getOfferById(offers, offerId);
 
-  if (!offer) {
-    throw new Error(`There is no ID:${offerId} element`);
+  if (offer === undefined) {
+    return <Navigate to={Path.NotFound} />;
   }
 
   const {
@@ -62,7 +62,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     description,
     host: { avatarUrl, name, isPro },
   } = offer;
-  const nearbyOffersWithExtension = [...nearbyOffers, offer];
   const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
@@ -74,7 +73,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={favorites.length}
+          favoritesCount={favoritesCount}
         />
       </Header>
       <main className="page__main page__main--offer">
@@ -131,7 +130,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
             </div>
           </div>
           <Map
-            offers={nearbyOffersWithExtension}
+            points={adaptToMap(nearOffers, offer)}
             activeCardId={offerId}
             typesPage={typesPage}
           />
@@ -142,11 +141,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList
-                offers={nearbyOffers}
-                currentSortKey={TypesSort.Popular}
-                typesPage={typesPage}
-              />
+              <CardsList offers={nearOffers} typesPage={typesPage} />
             </div>
           </section>
         </div>

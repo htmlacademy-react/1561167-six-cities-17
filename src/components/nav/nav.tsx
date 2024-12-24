@@ -4,20 +4,20 @@ import { Path } from '../../const';
 type UserProfileProps = {
   isLoggedIn: boolean;
   userName: string;
-  favoriteCount: number;
+  favoritesCount: number;
 };
 
 function UserProfile({
   isLoggedIn,
   userName,
-  favoriteCount,
+  favoritesCount,
 }: UserProfileProps): JSX.Element {
   if (isLoggedIn) {
     return (
       <>
         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
         <span className="header__user-name user__name">{userName}</span>
-        <span className="header__favorite-count">{favoriteCount}</span>
+        <span className="header__favorite-count">{favoritesCount}</span>
       </>
     );
   }
@@ -43,7 +43,7 @@ function Item(): JSX.Element {
 function Nav({
   isLoggedIn,
   userName,
-  favoriteCount,
+  favoritesCount,
 }: UserProfileProps): JSX.Element {
   return (
     <nav className="header__nav">
@@ -56,7 +56,7 @@ function Nav({
             <UserProfile
               isLoggedIn={isLoggedIn}
               userName={userName}
-              favoriteCount={favoriteCount}
+              favoritesCount={favoritesCount}
             />
           </Link>
         </li>

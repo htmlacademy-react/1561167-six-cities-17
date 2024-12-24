@@ -1,50 +1,41 @@
 import cn from 'classnames';
+import { SortItem } from '../sort-item/sort-item';
 import { TypesSort } from '../../../../const';
 import { SortTypeKeys } from '../../../../types/types';
+import { useEffect, useRef, useState } from 'react';
+import { useAppSelector } from '../../../../hooks';
+import { selectCurrentSortKey } from '../../../../store/selectors';
 
-type ItemSortProps = {
-  item: string;
-  isActive: boolean;
-  dataSort: SortTypeKeys;
-  onSortKeyChange: (type: SortTypeKeys) => void;
-};
+function Sort(): JSX.Element {
+  const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);
+  const sortingValueRef = useRef<HTMLElement | null>(null);
+  const currentSortKey = useAppSelector(selectCurrentSortKey);
 
-type SortProps = {
-  currentSortKey: SortTypeKeys;
-  isOpenSorting: boolean;
-  onSortChange: () => void;
-  onSortKeyChange: (type: SortTypeKeys) => void;
-};
-
-function ItemSort(props: ItemSortProps): JSX.Element {
-  const { item, isActive, dataSort, onSortKeyChange } = props;
-  const classesItem = cn('places__option', {
-    ['places__option--active']: isActive,
+  const classesList = cn('places__options places__options--custom', {
+    ['places__options--opened']: isOpenDropDown,
   });
 
-  return (
-    <li
-      onClick={() => onSortKeyChange(dataSort)}
-      className={classesItem}
-      tabIndex={0}
-    >
-      {item}
-    </li>
-  );
-}
+  useEffect(() => {
+    const handleDropDownChange = (evt: MouseEvent) => {
+      if (
+        evt.target instanceof HTMLElement &&
+        sortingValueRef.current &&
+        !sortingValueRef.current.contains(evt.target)
+      ) {
+        setOpenDropDown(false);
+      }
+    };
+    document.addEventListener('click', handleDropDownChange);
 
-function Sort(props: SortProps): JSX.Element {
-  const { currentSortKey, isOpenSorting, onSortChange, onSortKeyChange } =
-    props;
-  const classesList = cn('places__options places__options--custom', {
-    ['places__options--opened']: isOpenSorting,
+    return () => document.removeEventListener('click', handleDropDownChange);
   });
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>&nbsp;
       <span
-        onClick={onSortChange}
+        ref={sortingValueRef}
+        onClick={() => setOpenDropDown((prev) => !prev)}
         className="places__sorting-type"
         tabIndex={0}
       >
@@ -54,13 +45,11 @@ function Sort(props: SortProps): JSX.Element {
         </svg>
       </span>
       <ul className={classesList}>
-        {Object.keys(TypesSort).map((key) => (
-          <ItemSort
-            key={key}
-            onSortKeyChange={onSortKeyChange}
-            dataSort={key as SortTypeKeys}
-            item={TypesSort[key as SortTypeKeys]}
-            isActive={key === currentSortKey}
+        {Object.keys(TypesSort).map((sortKey) => (
+          <SortItem
+            key={sortKey}
+            sortKey={sortKey as SortTypeKeys}
+            isActive={sortKey === currentSortKey}
           />
         ))}
       </ul>
