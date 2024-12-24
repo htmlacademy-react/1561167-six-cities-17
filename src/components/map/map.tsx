@@ -38,6 +38,10 @@ function Map(props: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
+      map.setView(
+        [cityLocation.latitude, cityLocation.longitude],
+        cityLocation.zoom
+      );
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
@@ -57,7 +61,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, activeCardId]);
+  }, [map, points, activeCardId, cityLocation]);
 
   return <section ref={mapRef} className={classesMap}></section>;
 }

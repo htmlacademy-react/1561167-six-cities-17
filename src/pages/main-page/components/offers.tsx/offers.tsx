@@ -1,12 +1,11 @@
-import {
-  ShortOfferListType,
-  TypesPageKeys,
-} from '../../../../types/types';
+import { ShortOfferListType, TypesPageKeys } from '../../../../types/types';
 import Sort from '../sort/sort';
 import CardsList from '../../../../components/cards-list/cards-list';
 import { useAppSelector } from '../../../../hooks';
-import { sortOffers } from './utils';
-import { selectCurrentCity, selectCurrentSortKey } from '../../../../store/selectors';
+import {
+  selectCurrentCity,
+  selectFilteredSortedOffers,
+} from '../../../../store/selectors';
 
 type OffersProps = {
   offers: ShortOfferListType;
@@ -18,9 +17,7 @@ function Offers(props: OffersProps): JSX.Element {
   const { offers, typesPage, onCardHover } = props;
 
   const currentCity = useAppSelector(selectCurrentCity);
-
-  const currentSortKey = useAppSelector(selectCurrentSortKey);
-  const sortedOffers = sortOffers(offers, currentSortKey);
+  const sortedOffers = useAppSelector(selectFilteredSortedOffers);
 
   const lastCharacter = offers.length !== 1 ? 's' : '';
 
@@ -31,7 +28,6 @@ function Offers(props: OffersProps): JSX.Element {
         {offers.length} {`place${lastCharacter}`} to stay in {currentCity}
       </b>
       <Sort />
-      ,
       <CardsList
         offers={sortedOffers}
         onCardHover={onCardHover}
