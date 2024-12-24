@@ -1,4 +1,5 @@
 import {
+  CityKeys,
   MapPointsListType,
   OfferType,
   ShortOfferListType,
@@ -25,4 +26,9 @@ const adaptToMap = (
   return points;
 };
 
-export { adaptToMap };
+const filterOffersByCity = (
+  offers: ShortOfferListType,
+  city: CityKeys
+): ShortOfferListType => offers.filter((offer) => offer.city.name === city);
+
+export { adaptToMap,filterOffersByCity };
