@@ -61,7 +61,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, activeCardId]);
+  }, [map, points, activeCardId, cityLocation]);
 
   return <section ref={mapRef} className={classesMap}></section>;
 }
