@@ -38,6 +38,10 @@ function Map(props: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
+      map.setView(
+        [cityLocation.latitude, cityLocation.longitude],
+        cityLocation.zoom
+      );
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
