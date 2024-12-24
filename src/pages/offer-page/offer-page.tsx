@@ -26,7 +26,7 @@ import { adaptToMap } from '../../utils/utils';
 
 type OfferPageProps = {
   offers: OfferListType;
-  favorites: FavoritesListType;
+  favoritesCount: number;
   nearOffers: ShortOfferListType;
   isLoggedIn: boolean;
 };
@@ -41,7 +41,7 @@ const useId = () => {
 };
 
 function OfferPage(props: OfferPageProps): JSX.Element {
-  const { offers, favorites, nearOffers, isLoggedIn } = props;
+  const { offers, favoritesCount, nearOffers, isLoggedIn } = props;
   const { offerId } = useId();
   const offer = getOfferById(offers, offerId);
 
@@ -74,7 +74,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={favorites.length}
+          favoritesCount={favoritesCount}
         />
       </Header>
       <main className="page__main page__main--offer">

@@ -38,7 +38,7 @@ function FavoritesPage({ favorites, isLoggedIn }: FavoritePageProps): JSX.Elemen
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={favorites.length}
+          favoritesCount={favorites.length}
         />
       </Header>
       <Title typesPage={typesPage} isEmpty={isEmpty} />

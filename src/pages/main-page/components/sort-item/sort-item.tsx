@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { SortTypeKeys } from '../../../../types/types';
 import { TypesSort } from '../../../../const';
-import { currentSortKeyChange } from '../../../../store/action';
+import { changeSortKey } from '../../../../store/actions';
 import { useAppDispatch } from '../../../../hooks';
 
 type ItemSortProps = {
@@ -18,7 +18,7 @@ function SortItem({ isActive, sortKey }: ItemSortProps): JSX.Element {
 
   return (
     <li
-      onClick={() => dispatch(currentSortKeyChange(sortKey))}
+      onClick={() => dispatch(changeSortKey(sortKey))}
       className={classesItem}
       tabIndex={0}
     >

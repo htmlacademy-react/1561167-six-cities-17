@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_CURRENT_CITY, DEFAULT_SORTING_KEY } from '../const';
-import { cityChange, createShortOffers, currentSortKeyChange } from './action';
+import { changeCity, changeSortKey, getOffers } from './actions';
 import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
 
 const initialState = {
@@ -11,15 +11,17 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(createShortOffers, (state, action) => {
+    .addCase(getOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(cityChange, (state, action) => {
+    .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
     })
-    .addCase(currentSortKeyChange, (state, action) => {
+    .addCase(changeSortKey, (state, action) => {
       state.currentSortKey = action.payload;
     });
 });
 
 export { reducer };
+
+export type StateType = typeof initialState;

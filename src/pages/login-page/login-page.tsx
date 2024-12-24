@@ -4,12 +4,13 @@ import SignIn from '../../components/sign-in/sign-in';
 import { Title } from '../../components/title/title';
 import { TypesPage } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { selectCurrentCity } from '../../store/selectors';
 // import { store } from '../../store';
 // import { cityChange } from '../../store/action';
 import { TypesPageKeys } from '../../types/types';
 
 function LoginPage(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(selectCurrentCity);
 
   const typesPage: TypesPageKeys = TypesPage.Login;
 

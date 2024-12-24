@@ -4,21 +4,17 @@ import { OffersEmpty } from '../offers-empty/offers-empty';
 import { Offers } from '../offers.tsx/offers';
 import Map from '../../../../components/map/map';
 import {
-  CityKeys,
   ShortOfferListType,
   TypesPageKeys,
 } from '../../../../types/types';
 import { adaptToMap } from '../../../../utils/utils';
 
 type ContentPros = {
-  currentCity: CityKeys;
   cityOffers: ShortOfferListType;
   typesPage: TypesPageKeys;
 };
 
-function Content(props: ContentPros): JSX.Element {
-  const { cityOffers, currentCity, typesPage } = props;
-
+function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const handleCardHover = (id: string | null) => setActiveCardId(id);
 
@@ -35,10 +31,9 @@ function Content(props: ContentPros): JSX.Element {
     <div className={containerClasses}>
       <section className={sectionClasses}>
         {isEmpty ? (
-          <OffersEmpty city={currentCity} />
+          <OffersEmpty />
         ) : (
           <Offers
-            currentCity={currentCity}
             onCardHover={handleCardHover}
             offers={cityOffers}
             typesPage={typesPage}

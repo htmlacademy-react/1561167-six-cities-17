@@ -12,16 +12,17 @@ import {
   AuthStatusKeys,
   FavoritesListType,
   OfferListType,
-  ShortOfferType,
 } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/selectors';
 
 type AppPageProps = {
-  shortOffers: ShortOfferType[];
   offers: OfferListType;
   favorites: FavoritesListType;
 };
 
-function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
+function App({ offers, favorites }: AppPageProps): JSX.Element {
+  const shortOffers = useAppSelector(selectOffers);
   const authStatus: AuthStatusKeys = AuthStatus.Auth;
 
   return (
@@ -33,7 +34,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
             path={Path.Root}
             element={
               <MainPage
-                favorites={favorites}
+                favoritesCount={favorites.length}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />
             }
@@ -68,7 +69,7 @@ function App({ offers, shortOffers, favorites }: AppPageProps): JSX.Element {
             element={
               <OfferPage
                 offers={offers}
-                favorites={favorites}
+                favoritesCount={favorites.length}
                 nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
                 isLoggedIn={authStatus === AuthStatus.Auth}
               />

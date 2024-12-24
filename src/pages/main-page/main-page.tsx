@@ -4,19 +4,20 @@ import Nav from '../../components/nav/nav';
 import { LocationsList } from './components/locations-list/locations-list';
 import { LocationsItem } from './components/locations-item/locations-item';
 import { CITIES, TypesPage } from '../../const';
-import { FavoritesListType, TypesPageKeys } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { filterOffersByCity } from './utils';
 import { Content } from './components/content/content';
+import { selectCurrentCity, selectOffers } from '../../store/selectors';
 
 type MainPageProps = {
   isLoggedIn: boolean;
-  favorites: FavoritesListType;
+  favoritesCount: number;
 };
 
-function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const currentCity = useAppSelector((state) => state.currentCity);
+function MainPage({ isLoggedIn, favoritesCount }: MainPageProps): JSX.Element {
+  const offers = useAppSelector(selectOffers);
+  const currentCity = useAppSelector(selectCurrentCity);
   const cityOffers = filterOffersByCity(offers, currentCity);
   const isEmpty = cityOffers.length === 0;
 
@@ -32,7 +33,7 @@ function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
         <Nav
           isLoggedIn={isLoggedIn}
           userName={'Oliver.conner@gmail.com'}
-          favoriteCount={favorites.length}
+          favoritesCount={favoritesCount}
         />
       </Header>
       <main className={mainClasses}>
@@ -44,7 +45,6 @@ function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
                 <LocationsItem
                   key={city}
                   city={city}
-                  currentCity={currentCity}
                   typesPage={typesPage}
                 />
               ))}
@@ -54,7 +54,6 @@ function MainPage({ isLoggedIn, favorites }: MainPageProps): JSX.Element {
         <div className="cities">
           <Content
             cityOffers={cityOffers}
-            currentCity={currentCity}
             typesPage={typesPage}
           />
         </div>

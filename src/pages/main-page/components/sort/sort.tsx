@@ -4,11 +4,12 @@ import { TypesSort } from '../../../../const';
 import { SortTypeKeys } from '../../../../types/types';
 import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../../../hooks';
+import { selectCurrentSortKey } from '../../../../store/selectors';
 
 function Sort(): JSX.Element {
   const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);
   const sortingValueRef = useRef<HTMLElement | null>(null);
-  const currentSortKey = useAppSelector((state) => state.currentSortKey);
+  const currentSortKey = useAppSelector(selectCurrentSortKey);
 
   const classesList = cn('places__options places__options--custom', {
     ['places__options--opened']: isOpenDropDown,
