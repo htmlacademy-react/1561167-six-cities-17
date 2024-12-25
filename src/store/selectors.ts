@@ -1,12 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { StateType } from './reducer';
 import { filterOffersByCity, sortOffers } from '../utils/utils';
+import { State } from '../types/state';
 
-const selectOffers = (state: StateType) => state.offers;
+const selectOffers = (state: State) => state.offers;
 
-const selectCurrentCity = (state: StateType) => state.currentCity;
+const selectCurrentCity = (state: State) => state.currentCity;
 
-const selectCurrentSortKey = (state: StateType) => state.currentSortKey;
+const selectCurrentSortKey = (state: State) => state.currentSortKey;
 
 const selectFilteredOffers = createSelector(
   [selectOffers, selectCurrentCity],

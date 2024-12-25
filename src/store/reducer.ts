@@ -23,5 +23,3 @@ const reducer = createReducer(initialState, (builder) => {
 });
 
 export { reducer };
-
-export type StateType = typeof initialState;
