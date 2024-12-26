@@ -1,7 +1,10 @@
+import { TypesSort } from '../const';
 import {
+  CityKeys,
   MapPointsListType,
   OfferType,
   ShortOfferListType,
+  SortTypeKeys,
 } from '../types/types';
 
 const adaptToMap = (
@@ -25,4 +28,24 @@ const adaptToMap = (
   return points;
 };
 
-export { adaptToMap };
+const filterOffersByCity = (
+  offers: ShortOfferListType,
+  city: CityKeys
+): ShortOfferListType => offers.filter((offer) => offer.city.name === city);
+
+const sortBy = {
+  [TypesSort.Popular]: (offers: ShortOfferListType) => [...offers],
+  [TypesSort.HighToLow]: (offers: ShortOfferListType) =>
+    [...offers].sort((prev, next) => next.price - prev.price),
+  [TypesSort.LowToHigh]: (offers: ShortOfferListType) =>
+    [...offers].sort((prev, next) => prev.price - next.price),
+  [TypesSort.Rating]: (offers: ShortOfferListType) =>
+    [...offers].sort((prev, next) => next.rating - prev.rating),
+};
+
+const sortOffers = (
+  offers: ShortOfferListType,
+  key: SortTypeKeys
+): ShortOfferListType => sortBy[TypesSort[key]](offers);
+
+export { adaptToMap, filterOffersByCity, sortOffers };

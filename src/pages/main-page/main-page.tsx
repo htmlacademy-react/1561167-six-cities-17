@@ -3,12 +3,13 @@ import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import { LocationsList } from './components/locations-list/locations-list';
 import { LocationsItem } from './components/locations-item/locations-item';
-import { CITIES, TypesPage } from '../../const';
+import { CITIES, DEFAULT_SORTING_KEY, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
-import { useAppSelector } from '../../hooks';
-import { filterOffersByCity } from './utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
-import { selectCurrentCity, selectOffers } from '../../store/selectors';
+import { selectFilteredOffers } from '../../store/selectors';
+import { changeSortKey } from '../../store/actions';
+import { useEffect } from 'react';
 
 type MainPageProps = {
   isLoggedIn: boolean;
@@ -16,16 +17,19 @@ type MainPageProps = {
 };
 
 function MainPage({ isLoggedIn, favoritesCount }: MainPageProps): JSX.Element {
-  const offers = useAppSelector(selectOffers);
-  const currentCity = useAppSelector(selectCurrentCity);
-  const cityOffers = filterOffersByCity(offers, currentCity);
-  const isEmpty = cityOffers.length === 0;
+  const cityOffers = useAppSelector(selectFilteredOffers);
+  const dispatch = useAppDispatch();
 
+  const isEmpty = cityOffers.length === 0;
 
   const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
   });
+
+  useEffect(() => {
+    dispatch(changeSortKey(DEFAULT_SORTING_KEY));
+  }, [cityOffers, dispatch]);
 
   return (
     <div className="page page--gray page--main">
@@ -42,20 +46,13 @@ function MainPage({ isLoggedIn, favoritesCount }: MainPageProps): JSX.Element {
           <section className="locations container">
             <LocationsList>
               {CITIES.map((city) => (
-                <LocationsItem
-                  key={city}
-                  city={city}
-                  typesPage={typesPage}
-                />
+                <LocationsItem key={city} city={city} typesPage={typesPage} />
               ))}
             </LocationsList>
           </section>
         </div>
         <div className="cities">
-          <Content
-            cityOffers={cityOffers}
-            typesPage={typesPage}
-          />
+          <Content cityOffers={cityOffers} typesPage={typesPage} />
         </div>
       </main>
     </div>
