@@ -7,10 +7,9 @@ import { CITIES, DEFAULT_SORTING_KEY, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
-import {
-  selectFilteredOffers,
-} from '../../store/selectors';
+import { selectFilteredOffers } from '../../store/selectors';
 import { changeSortKey } from '../../store/actions';
+import { useEffect } from 'react';
 
 type MainPageProps = {
   isLoggedIn: boolean;
@@ -19,15 +18,19 @@ type MainPageProps = {
 
 function MainPage({ isLoggedIn, favoritesCount }: MainPageProps): JSX.Element {
   const cityOffers = useAppSelector(selectFilteredOffers);
-  const isEmpty = cityOffers.length === 0;
   const dispatch = useAppDispatch();
+
+  const isEmpty = cityOffers.length === 0;
 
   const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
   });
 
-  dispatch(changeSortKey(DEFAULT_SORTING_KEY));
+  useEffect(() => {
+    dispatch(changeSortKey(DEFAULT_SORTING_KEY));
+  }, [cityOffers, dispatch]);
+
   return (
     <div className="page page--gray page--main">
       <Header typesPage={typesPage}>

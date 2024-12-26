@@ -43,7 +43,9 @@ const sortBy = {
     [...offers].sort((prev, next) => next.rating - prev.rating),
 };
 
-const sortOffers = (offers: ShortOfferListType, key: SortTypeKeys) =>
-  sortBy[TypesSort[key]](offers);
+const sortOffers = (
+  offers: ShortOfferListType,
+  key: SortTypeKeys
+): ShortOfferListType => sortBy[TypesSort[key]](offers);
 
 export { adaptToMap, filterOffersByCity, sortOffers };

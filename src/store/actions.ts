@@ -7,4 +7,4 @@ const getOffers = createAction<ShortOfferListType>('offer/getOffers');
 
 const changeSortKey = createAction<SortTypeKeys>('sort/changeSortKey');
 
-export { changeCity, getOffers, changeSortKey};
+export { changeCity, getOffers, changeSortKey };

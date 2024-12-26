@@ -35,7 +35,6 @@ function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
         ) : (
           <Offers
             onCardHover={handleCardHover}
-            offers={cityOffers}
             typesPage={typesPage}
           />
         )}
