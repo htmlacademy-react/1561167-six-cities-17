@@ -5,16 +5,13 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import { AuthStatus, Path } from '../../const';
+import { AuthorizationStatus, Path } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
-import {
-  AuthStatusKeys,
-  FavoritesListType,
-  OfferListType,
-} from '../../types/types';
+import { FavoritesListType, OfferListType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { selectOffers } from '../../store/selectors';
+import { AuthorizationStatusKeys } from '../../types/user';
 
 type AppPageProps = {
   offers: OfferListType;
@@ -23,7 +20,7 @@ type AppPageProps = {
 
 function App({ offers, favorites }: AppPageProps): JSX.Element {
   const shortOffers = useAppSelector(selectOffers);
-  const authStatus: AuthStatusKeys = AuthStatus.Auth;
+  const authorizationStatus: AuthorizationStatusKeys = AuthorizationStatus.Auth;
 
   return (
     <HelmetProvider>
@@ -35,7 +32,7 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             element={
               <MainPage
                 favoritesCount={favorites.length}
-                isLoggedIn={authStatus === AuthStatus.Auth}
+                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
               />
             }
           />
@@ -43,7 +40,7 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             path={Path.Login}
             element={
               <PrivateRoute
-                isLoggedIn={authStatus !== AuthStatus.Auth}
+                isLoggedIn={authorizationStatus !== AuthorizationStatus.Auth}
                 toPath={Path.Root}
               >
                 <LoginPage />
@@ -54,12 +51,12 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             path={Path.Favorites}
             element={
               <PrivateRoute
-                isLoggedIn={authStatus === AuthStatus.Auth}
+                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
                 toPath={Path.Login}
               >
                 <FavoritesPage
                   favorites={favorites}
-                  isLoggedIn={authStatus === AuthStatus.Auth}
+                  isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
                 />
               </PrivateRoute>
             }
@@ -71,7 +68,7 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
                 offers={offers}
                 favoritesCount={favorites.length}
                 nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
-                isLoggedIn={authStatus === AuthStatus.Auth}
+                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
               />
             }
           />

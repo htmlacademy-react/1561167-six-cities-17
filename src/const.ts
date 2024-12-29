@@ -46,10 +46,10 @@ const Path = {
   NotFound: '*',
 } as const;
 
-const AuthStatus = {
-  Auth: 'auth',
-  NoAuth: 'no-auth',
-  Unknown: 'unknown',
+const AuthorizationStatus = {
+  Auth: 'Auth',
+  NoAuth: 'NoAuth',
+  Unknown: 'Unknown',
 } as const;
 
 const DEFAULT_PREFIX_TITLE = '6 cities:';
@@ -93,7 +93,7 @@ export {
   DEFAULT_CURRENT_CITY,
   CommentLengthLimits,
   Path,
-  AuthStatus,
+  AuthorizationStatus,
   DEFAULT_PREFIX_TITLE,
   TextTitle,
   RATING_VALUES,

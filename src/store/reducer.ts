@@ -1,12 +1,23 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { DEFAULT_CURRENT_CITY, DEFAULT_SORTING_KEY } from '../const';
-import { changeCity, changeSortKey, getOffers } from './actions';
+import {
+  AuthorizationStatus,
+  DEFAULT_CURRENT_CITY,
+  DEFAULT_SORTING_KEY,
+} from '../const';
+import {
+  changeCity,
+  changeSortKey,
+  getOffers,
+  setAuthorizationStatus,
+} from './actions';
 import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
+import { AuthorizationStatusKeys } from '../types/user';
 
 const initialState = {
   currentCity: DEFAULT_CURRENT_CITY as CityKeys,
   currentSortKey: DEFAULT_SORTING_KEY as SortTypeKeys,
   offers: [] as ShortOfferListType,
+  authorizationStatus: AuthorizationStatus.Unknown as AuthorizationStatusKeys,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -19,6 +30,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeSortKey, (state, action) => {
       state.currentSortKey = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
