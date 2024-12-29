@@ -81,6 +81,8 @@ const Server = {
   Timeout: 5000,
 } as const;
 
+const TOKEN_KEY = 'six-cities-token-key';
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -98,5 +100,5 @@ export {
   REVIEWS_COUNT_LIMITED,
   Layer,
   Pin,
-  Server,
+  Server,TOKEN_KEY
 };
