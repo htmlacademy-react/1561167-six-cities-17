@@ -76,6 +76,11 @@ const Pin = {
   Anchor: [14, 40] as [number, number],
 } as const;
 
+const Server = {
+  Url: 'https://16.design.htmlacademy.pro/six-cities',
+  Timeout: 5000,
+} as const;
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -93,4 +98,5 @@ export {
   REVIEWS_COUNT_LIMITED,
   Layer,
   Pin,
+  Server,
 };
