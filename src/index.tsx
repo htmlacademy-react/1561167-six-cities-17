@@ -6,13 +6,13 @@ import { shortOffers } from './mocks/short-offers';
 import { offers } from './mocks/offers';
 import { favorites } from './mocks/favorites';
 import { store } from './store';
-import { getOffers } from './store/actions';
+import { setOffers } from './store/actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(getOffers(shortOffers));
+store.dispatch(setOffers(shortOffers));
 
 root.render(
   <React.StrictMode>

@@ -4,7 +4,7 @@ import { AuthorizationStatusKeys } from '../types/user';
 
 const changeCity = createAction<CityKeys>('location/changeCity');
 
-const getOffers = createAction<ShortOfferListType>('offer/getOffers');
+const setOffers = createAction<ShortOfferListType>('offers/setOffers');
 
 const changeSortKey = createAction<SortTypeKeys>('sort/changeSortKey');
 
@@ -12,4 +12,4 @@ const setAuthorizationStatus = createAction<AuthorizationStatusKeys>(
   'user/setAuthorizationStatus'
 );
 
-export { changeCity, getOffers, changeSortKey, setAuthorizationStatus };
+export { changeCity, setOffers, changeSortKey, setAuthorizationStatus };

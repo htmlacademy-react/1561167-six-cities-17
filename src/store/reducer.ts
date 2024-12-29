@@ -7,7 +7,7 @@ import {
 import {
   changeCity,
   changeSortKey,
-  getOffers,
+  setOffers,
   setAuthorizationStatus,
 } from './actions';
 import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
@@ -22,7 +22,7 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(getOffers, (state, action) => {
+    .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(changeCity, (state, action) => {

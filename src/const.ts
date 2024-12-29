@@ -83,6 +83,12 @@ const Server = {
 
 const TOKEN_KEY = 'six-cities-token-key';
 
+const APIRoute = {
+  Offers: '/offers',
+  Login: '/login',
+  Logout: '/logout',
+};
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -100,5 +106,6 @@ export {
   REVIEWS_COUNT_LIMITED,
   Layer,
   Pin,
-  Server,TOKEN_KEY
+  Server,
+  TOKEN_KEY,APIRoute
 };
