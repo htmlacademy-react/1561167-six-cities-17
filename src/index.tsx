@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { shortOffers } from './mocks/short-offers';
 import { offers } from './mocks/offers';
 import { favorites } from './mocks/favorites';
 import { store } from './store';
-import { setOffers } from './store/actions';
+import { checkAuthorizationAction, uploadOffersAction } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(setOffers(shortOffers));
+store.dispatch(uploadOffersAction());
+store.dispatch(checkAuthorizationAction());
 
 root.render(
   <React.StrictMode>

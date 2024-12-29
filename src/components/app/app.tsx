@@ -10,8 +10,13 @@ import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { FavoritesListType, OfferListType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
-import { selectOffers } from '../../store/selectors';
+import {
+  selectAuthorizationStatus,
+  selectIsLoading,
+  selectOffers,
+} from '../../store/selectors';
 import { AuthorizationStatusKeys } from '../../types/user';
+import { LoadingPage } from '../../pages/loading-page/loadig-page';
 
 type AppPageProps = {
   offers: OfferListType;
@@ -19,8 +24,15 @@ type AppPageProps = {
 };
 
 function App({ offers, favorites }: AppPageProps): JSX.Element {
+  const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
+    selectAuthorizationStatus
+  );
+  const isLoading = useAppSelector(selectIsLoading);
   const shortOffers = useAppSelector(selectOffers);
-  const authorizationStatus: AuthorizationStatusKeys = AuthorizationStatus.Auth;
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <HelmetProvider>

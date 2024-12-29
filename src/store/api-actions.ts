@@ -3,11 +3,11 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { ShortOfferListType } from '../types/types';
-import { setAuthorizationStatus, setOffers } from './actions';
+import { setAuthorizationStatus, setOffers, setOffersLoadingStatus } from './actions';
 import { AuthorizationData, UserData } from '../types/user';
 import { dropToken, setToken } from '../services/token';
 
-const fetchOffersAction = createAsyncThunk<
+const uploadOffersAction = createAsyncThunk<
   void,
   undefined,
   {
@@ -16,7 +16,9 @@ const fetchOffersAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('offers/uploadOffers', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setOffersLoadingStatus(true));
   const { data } = await api.get<ShortOfferListType>(APIRoute.Offers);
+  dispatch(setOffersLoadingStatus(false));
   dispatch(setOffers(data));
 });
 
@@ -70,4 +72,4 @@ export const logoutAction = createAsyncThunk<
   dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
 });
 
-export { fetchOffersAction, checkAuthorizationAction, loginAction };
+export { uploadOffersAction, checkAuthorizationAction, loginAction };

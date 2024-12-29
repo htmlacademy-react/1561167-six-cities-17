@@ -9,6 +9,7 @@ import {
   changeSortKey,
   setOffers,
   setAuthorizationStatus,
+  setOffersLoadingStatus,
 } from './actions';
 import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys } from '../types/user';
@@ -18,6 +19,7 @@ const initialState = {
   currentSortKey: DEFAULT_SORTING_KEY as SortTypeKeys,
   offers: [] as ShortOfferListType,
   authorizationStatus: AuthorizationStatus.Unknown as AuthorizationStatusKeys,
+  isLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -33,6 +35,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setOffersLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
     });
 });
 

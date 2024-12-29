@@ -12,4 +12,15 @@ const setAuthorizationStatus = createAction<AuthorizationStatusKeys>(
   'user/setAuthorizationStatus'
 );
 
-export { changeCity, setOffers, changeSortKey, setAuthorizationStatus };
+
+const setOffersLoadingStatus = createAction<boolean>(
+  'offers/setOffersLoadingStatus'
+);
+
+export {
+  changeCity,
+  setOffers,
+  changeSortKey,
+  setAuthorizationStatus,
+  setOffersLoadingStatus
+};
