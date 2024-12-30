@@ -26,11 +26,14 @@ const selectAuthorizationStatus = (state: State): AuthorizationStatusKeys =>
 
 const selectIsLoading = (state: State): boolean => state.isLoading;
 
+const selectError = (state: State): string | null => state.error;
+
 export {
   selectOffers,
   selectCurrentCity,
   selectCurrentSortKey,
   selectFilteredOffers,
   selectSortedOffers,
-  selectAuthorizationStatus,selectIsLoading
+  selectAuthorizationStatus,
+  selectIsLoading,selectError,
 };

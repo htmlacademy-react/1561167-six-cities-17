@@ -89,6 +89,8 @@ const APIRoute = {
   Logout: '/logout',
 };
 
+const ERROR_SHOW_TIMEOUT = 2500;
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -107,5 +109,7 @@ export {
   Layer,
   Pin,
   Server,
-  TOKEN_KEY,APIRoute
+  TOKEN_KEY,
+  APIRoute,
+  ERROR_SHOW_TIMEOUT,
 };
