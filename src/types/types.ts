@@ -1,4 +1,4 @@
-import { AuthStatus, CITIES, Path, TypesPage, TypesSort } from '../const';
+import { CITIES, Path, TypesPage, TypesSort } from '../const';
 
 type SizeType = {
   Width: number;
@@ -20,8 +20,6 @@ type CitiesType = typeof CITIES;
 type CityKeys = CitiesType[number];
 
 type TypesPageKeys = (typeof TypesPage)[keyof typeof TypesPage];
-
-type AuthStatusKeys = (typeof AuthStatus)[keyof typeof AuthStatus];
 
 type PathKeys = (typeof Path)[keyof typeof Path];
 
@@ -106,7 +104,6 @@ export type {
   CitiesType,
   CityKeys,
   TypesPageKeys,
-  AuthStatusKeys,
   PathKeys,
   CityProps,
   OfferType,

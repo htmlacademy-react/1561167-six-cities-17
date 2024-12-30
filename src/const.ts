@@ -46,10 +46,10 @@ const Path = {
   NotFound: '*',
 } as const;
 
-const AuthStatus = {
-  Auth: 'auth',
-  NoAuth: 'no-auth',
-  Unknown: 'unknown',
+const AuthorizationStatus = {
+  Auth: 'Auth',
+  NoAuth: 'NoAuth',
+  Unknown: 'Unknown',
 } as const;
 
 const DEFAULT_PREFIX_TITLE = '6 cities:';
@@ -76,6 +76,21 @@ const Pin = {
   Anchor: [14, 40] as [number, number],
 } as const;
 
+const Server = {
+  Url: 'https://16.design.htmlacademy.pro/six-cities',
+  Timeout: 5000,
+} as const;
+
+const TOKEN_KEY = 'six-cities-token-key';
+
+const APIRoute = {
+  Offers: '/offers',
+  Login: '/login',
+  Logout: '/logout',
+};
+
+const ERROR_SHOW_TIMEOUT = 2500;
+
 export {
   Setting,
   STARS_MAXIMUM,
@@ -86,11 +101,15 @@ export {
   DEFAULT_CURRENT_CITY,
   CommentLengthLimits,
   Path,
-  AuthStatus,
+  AuthorizationStatus,
   DEFAULT_PREFIX_TITLE,
   TextTitle,
   RATING_VALUES,
   REVIEWS_COUNT_LIMITED,
   Layer,
   Pin,
+  Server,
+  TOKEN_KEY,
+  APIRoute,
+  ERROR_SHOW_TIMEOUT,
 };
