@@ -9,6 +9,7 @@ function SignIn() {
           name="email"
           placeholder="Email"
           required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
@@ -28,4 +29,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export {SignIn};
