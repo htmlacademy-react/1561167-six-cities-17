@@ -52,7 +52,6 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             path={Path.Login}
             element={
               <PrivateRoute
-                isLoggedIn={authorizationStatus !== AuthorizationStatus.Auth}
                 toPath={Path.Root}
               >
                 <LoginPage />
@@ -63,7 +62,6 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             path={Path.Favorites}
             element={
               <PrivateRoute
-                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
                 toPath={Path.Login}
               >
                 <FavoritesPage
