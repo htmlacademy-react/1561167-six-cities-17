@@ -3,23 +3,32 @@ import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import { LocationsList } from './components/locations-list/locations-list';
 import { LocationsItem } from './components/locations-item/locations-item';
-import { CITIES, DEFAULT_SORTING_KEY, TypesPage } from '../../const';
+import {
+  AuthorizationStatus,
+  CITIES,
+  DEFAULT_SORTING_KEY,
+  TypesPage,
+} from '../../const';
 import { TypesPageKeys } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
-import { selectFilteredOffers } from '../../store/selectors';
+import {
+  selectAuthorizationStatus,
+  selectFilteredOffers,
+} from '../../store/selectors';
 import { changeSortKey } from '../../store/actions';
 import { useEffect } from 'react';
 
 type MainPageProps = {
-  isLoggedIn: boolean;
   favoritesCount: number;
 };
 
-function MainPage({ isLoggedIn, favoritesCount }: MainPageProps): JSX.Element {
+function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
   const cityOffers = useAppSelector(selectFilteredOffers);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const dispatch = useAppDispatch();
 
+  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
   const isEmpty = cityOffers.length === 0;
 
   const typesPage: TypesPageKeys = TypesPage.Main;

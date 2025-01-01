@@ -1,18 +1,16 @@
 import { Navigate } from 'react-router-dom';
 import { PathKeys } from '../../types/types';
-import { useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus } from '../../store/selectors';
 
 type PrivateRouteProps = {
   toPath: PathKeys;
   children: JSX.Element;
+  isOpen: boolean;
 };
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const { children, toPath } = props;
-  const isLoggedIn = useAppSelector(selectAuthorizationStatus);
+  const { children, toPath, isOpen } = props;
 
-  return isLoggedIn ? children : <Navigate to={toPath} />;
+  return isOpen ? children : <Navigate to={toPath} />;
 }
 
 export { PrivateRoute };
