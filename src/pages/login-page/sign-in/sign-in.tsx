@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { AuthorizationData } from '../../../types/user';
 import { isValidValues } from './utils';
+import { useAppDispatch } from '../../../hooks';
+import { logIn } from '../../../store/api-actions';
 
 const initialUser: AuthorizationData = {
   login: '',
@@ -8,6 +10,7 @@ const initialUser: AuthorizationData = {
 };
 
 function SignIn() {
+  const dispatch = useAppDispatch();
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
 
   const handleValueChange = ({
@@ -18,6 +21,7 @@ function SignIn() {
 
   const handleFormSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    dispatch(logIn(signIn));
     setSignIn(initialUser);
   };
 
