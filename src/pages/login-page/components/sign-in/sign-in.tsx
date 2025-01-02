@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { AuthorizationData } from '../../../types/user';
+import { AuthorizationData } from '../../../../types/user';
 import { isValidValues } from './utils';
 
 const initialUser: AuthorizationData = {

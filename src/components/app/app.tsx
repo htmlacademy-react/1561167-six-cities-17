@@ -1,22 +1,22 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import MainPage from '../../pages/main-page/main-page';
-import FavoritesPage from '../../pages/favorites-page/favorites-page';
-import OfferPage from '../../pages/offer-page/offer-page';
-import LoginPage from '../../pages/login-page/login-page';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import { AuthorizationStatus, Path } from '../../const';
-import { PrivateRoute } from '../private-route/private-route';
-import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
-import { FavoritesListType, OfferListType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import {
   selectAuthorizationStatus,
   selectIsLoading,
   selectOffers,
 } from '../../store/selectors';
-import { AuthorizationStatusKeys } from '../../types/user';
+import MainPage from '../../pages/main-page/main-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
+import OfferPage from '../../pages/offer-page/offer-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { PrivateRoute } from '../private-route/private-route';
+import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
+import { LoginPage } from '../../pages/login-page/login-page';
+import { AuthorizationStatus, Path } from '../../const';
+import { FavoritesListType, OfferListType } from '../../types/types';
+import { AuthorizationStatusKeys } from '../../types/user';
 
 type AppPageProps = {
   offers: OfferListType;
