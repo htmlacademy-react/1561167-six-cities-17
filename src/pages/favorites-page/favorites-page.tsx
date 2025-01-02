@@ -3,19 +3,23 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Nav from '../../components/nav/nav';
 import Logo from '../../components/logo/logo';
-import { TypesPage } from '../../const';
+import { AuthorizationStatus, TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import { FavoritesListType, TypesPageKeys } from '../../types/types';
 import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
+import { useAppSelector } from '../../hooks';
+import { selectAuthorizationStatus } from '../../store/selectors';
 
 type FavoritePageProps = {
   favorites: FavoritesListType;
-  isLoggedIn: boolean;
 };
 
-function FavoritesPage({ favorites, isLoggedIn }: FavoritePageProps): JSX.Element {
+function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
+
   const typesPage: TypesPageKeys = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;

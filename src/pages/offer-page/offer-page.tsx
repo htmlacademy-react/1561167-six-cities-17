@@ -8,7 +8,7 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { Path, TypesPage } from '../../const';
+import { AuthorizationStatus, Path, TypesPage } from '../../const';
 import {
   OfferListType,
   ShortOfferListType,
@@ -22,12 +22,13 @@ import { OfferInsideList } from './components/offer-inside-list/offer-inside-lis
 import { getOfferById } from './utils';
 import ReviewsList from './components/reviews-list/reviews-list';
 import { adaptToMap } from '../../utils/utils';
+import { useAppSelector } from '../../hooks';
+import { selectAuthorizationStatus } from '../../store/selectors';
 
 type OfferPageProps = {
   offers: OfferListType;
   favoritesCount: number;
   nearOffers: ShortOfferListType;
-  isLoggedIn: boolean;
 };
 
 const useId = () => {
@@ -40,7 +41,11 @@ const useId = () => {
 };
 
 function OfferPage(props: OfferPageProps): JSX.Element {
-  const { offers, favoritesCount, nearOffers, isLoggedIn } = props;
+  const { offers, favoritesCount, nearOffers } = props;
+
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
+
   const { offerId } = useId();
   const offer = getOfferById(offers, offerId);
 

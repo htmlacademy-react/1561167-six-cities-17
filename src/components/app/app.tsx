@@ -41,19 +41,14 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
         <Routes>
           <Route
             path={Path.Root}
-            element={
-              <MainPage
-                favoritesCount={favorites.length}
-                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
-              />
-            }
+            element={<MainPage favoritesCount={favorites.length} />}
           />
           <Route
             path={Path.Login}
             element={
               <PrivateRoute
-                isLoggedIn={authorizationStatus !== AuthorizationStatus.Auth}
                 toPath={Path.Root}
+                isOpen={authorizationStatus === AuthorizationStatus.NoAuth}
               >
                 <LoginPage />
               </PrivateRoute>
@@ -63,13 +58,10 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             path={Path.Favorites}
             element={
               <PrivateRoute
-                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
                 toPath={Path.Login}
+                isOpen={authorizationStatus === AuthorizationStatus.Auth}
               >
-                <FavoritesPage
-                  favorites={favorites}
-                  isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
-                />
+                <FavoritesPage favorites={favorites} />
               </PrivateRoute>
             }
           />
@@ -80,7 +72,6 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
                 offers={offers}
                 favoritesCount={favorites.length}
                 nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
-                isLoggedIn={authorizationStatus === AuthorizationStatus.Auth}
               />
             }
           />

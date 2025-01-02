@@ -3,16 +3,14 @@ import { PathKeys } from '../../types/types';
 
 type PrivateRouteProps = {
   toPath: PathKeys;
-  isLoggedIn: boolean;
   children: JSX.Element;
+  isOpen: boolean;
 };
 
-function PrivateRoute({
-  isLoggedIn,
-  children,
-  toPath,
-}: PrivateRouteProps): JSX.Element {
-  return isLoggedIn ? children : <Navigate to={toPath} />;
+function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+  const { children, toPath, isOpen } = props;
+
+  return isOpen ? children : <Navigate to={toPath} />;
 }
 
 export { PrivateRoute };

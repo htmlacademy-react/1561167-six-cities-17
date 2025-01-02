@@ -1,10 +1,10 @@
 import Header from '../../components/header/header';
-import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
-import SignIn from '../../components/sign-in/sign-in';
-import { Title } from '../../components/title/title';
-import { TypesPage } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { selectCurrentCity } from '../../store/selectors';
+import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
+import { Title } from '../../components/title/title';
+import { TypesPage } from '../../const';
+import {SignIn} from './sign-in/sign-in';
 import { TypesPageKeys } from '../../types/types';
 
 function LoginPage(): JSX.Element {
