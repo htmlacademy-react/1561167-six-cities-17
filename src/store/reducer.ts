@@ -4,7 +4,7 @@ import {
   DEFAULT_CURRENT_CITY,
   DEFAULT_SORTING_KEY,
 } from '../const';
-import { changeCity, changeSortKey, setError } from './actions';
+import { changeCity, changeSortKey } from './actions';
 import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
@@ -21,7 +21,6 @@ type InitialState = {
   offers: ShortOfferListType;
   authorizationStatus: AuthorizationStatusKeys;
   isLoading: boolean;
-  error: string | null;
   userInfo: UserInfo | null;
 };
 
@@ -31,7 +30,6 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  error: null,
   userInfo: null,
 };
 
@@ -39,9 +37,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(changeSortKey, (state, action) => {
       state.currentSortKey = action.payload;
