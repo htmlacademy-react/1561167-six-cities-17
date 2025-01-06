@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { TypesSort } from '../const';
 import {
   CityKeys,
@@ -48,4 +49,6 @@ const sortOffers = (
   key: SortTypeKeys
 ): ShortOfferListType => sortBy[TypesSort[key]](offers);
 
-export { adaptToMap, filterOffersByCity, sortOffers };
+const notify = (message: string) => toast.warn(message);
+
+export { adaptToMap, filterOffersByCity, sortOffers, notify };
