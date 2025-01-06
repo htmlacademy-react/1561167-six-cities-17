@@ -3,6 +3,7 @@ function isValidValues(email: string, password: string) {
     email
   );
   const isPassword = /^.*(?=.*[a-zA-Z])(?=.*\d).*$/.test(password);
+
   return isEmail && isPassword;
 }
 
