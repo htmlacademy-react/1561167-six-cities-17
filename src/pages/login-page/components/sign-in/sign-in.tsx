@@ -1,6 +1,8 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { AuthorizationData } from '../../../../types/user';
 import { isValidValues } from './utils';
+// import { useAppDispatch } from '../../../../hooks';
+// import { logIn } from '../../../../store/api-actions';
 
 const initialUser: AuthorizationData = {
   login: '',
@@ -8,6 +10,7 @@ const initialUser: AuthorizationData = {
 };
 
 function SignIn() {
+  // const dispatch = useAppDispatch();
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
 
   const handleValueChange = ({
@@ -16,9 +19,12 @@ function SignIn() {
     setSignIn((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
-  const handleFormSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    setSignIn(initialUser);
+    // dispatch(logIn(signIn)).then((response) => {
+    //   console.log('handleFormSubmit ~ response:', response);
+    //   setSignIn(initialUser);
+    // });
   };
 
   return (
@@ -48,8 +54,10 @@ function SignIn() {
           type="password"
           name="password"
           placeholder="Password"
-          required
           value={signIn.password}
+          pattern="/^.*(?=.*[a-zA-Z])(?=.*\d).*$/"
+          title="Пароль состоит минимум из одной буквы и цифры."
+          required
         />
       </div>
       <button

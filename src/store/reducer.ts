@@ -6,8 +6,14 @@ import {
 } from '../const';
 import { changeCity, changeSortKey, setError } from './actions';
 import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
-import { AuthorizationStatusKeys } from '../types/user';
-import { checkAuthorizationStatus, logIn, logOut, uploadOffers } from './api-actions';
+import { AuthorizationStatusKeys, UserInfo } from '../types/user';
+
+import {
+  checkAuthorizationStatus,
+  logIn,
+  logOut,
+  uploadOffers,
+} from './api-actions';
 
 type InitialState = {
   currentCity: CityKeys;
@@ -15,7 +21,8 @@ type InitialState = {
   offers: ShortOfferListType;
   authorizationStatus: AuthorizationStatusKeys;
   isLoading: boolean;
-  error: string|null;
+  error: string | null;
+  userInfo: UserInfo | null;
 };
 
 const initialState: InitialState = {
@@ -24,7 +31,8 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  error:null,
+  error: null,
+  userInfo: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -54,14 +62,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(checkAuthorizationStatus.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
-    .addCase(logIn.fulfilled, (state) => {
+    .addCase(logIn.fulfilled, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
+      state.userInfo = action.payload;
     })
     .addCase(logIn.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.userInfo = null;
     })
     .addCase(logOut.fulfilled, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.userInfo = null;
     })
     .addCase(logOut.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;

@@ -7,8 +7,10 @@ export type AuthorizationData = {
   password: string;
 };
 
-export type UserData = {
-  id: number;
+export type UserInfo = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
   email: string;
   token: string;
 };
