@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { offers } from './mocks/offers';
 import { favorites } from './mocks/favorites';
 import { store } from './store';
 import { checkAuthorizationStatus, uploadOffers } from './store/api-actions';
@@ -20,7 +19,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer position="top-center" autoClose={ERROR_SHOW_TIMEOUT} theme="colored" />
-      <App offers={offers} favorites={favorites} />
+      <App favorites={favorites} />
     </Provider>
   </React.StrictMode>
 );

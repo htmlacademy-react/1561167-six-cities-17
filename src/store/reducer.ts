@@ -5,13 +5,14 @@ import {
   DEFAULT_SORTING_KEY,
 } from '../const';
 import { changeCity, changeSortKey } from './actions';
-import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
+import { CityKeys, OfferType, ShortOfferListType, SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
 import {
   checkAuthorizationStatus,
   logIn,
   logOut,
+  uploadExtendedOffer,
   uploadOffers,
 } from './api-actions';
 
@@ -22,6 +23,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatusKeys;
   isLoading: boolean;
   userInfo: UserInfo | null;
+  extendedOffer: OfferType | null;
 };
 
 const initialState: InitialState = {
@@ -31,6 +33,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
   userInfo: null,
+  extendedOffer: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -49,6 +52,16 @@ const reducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
     })
     .addCase(uploadOffers.rejected, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(uploadExtendedOffer.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(uploadExtendedOffer.fulfilled, (state, action) => {
+      state.extendedOffer = action.payload;
+      state.isLoading = false;
+    })
+    .addCase(uploadExtendedOffer.rejected, (state) => {
       state.isLoading = false;
     })
     .addCase(checkAuthorizationStatus.fulfilled, (state) => {

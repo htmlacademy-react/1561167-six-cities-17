@@ -2,9 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../const';
-import { ShortOfferListType } from '../types/types';
+import { OfferType, ShortOfferListType } from '../types/types';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { dropToken, setToken } from '../services/token';
+import { generatePath } from 'react-router-dom';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -16,6 +17,15 @@ const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
   'offers/uploadOffers',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<ShortOfferListType>(APIRoute.Offers);
+    return data;
+  }
+);
+
+const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
+  'offers/uploadExtendedOffer',
+  async (id, { extra: api }) => {
+    const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
+    const { data } = await api.get<OfferType>(path);
     return data;
   }
 );
@@ -45,4 +55,10 @@ const logOut = createAppAsyncThunk<void, undefined>(
   }
 );
 
-export { uploadOffers, checkAuthorizationStatus, logIn, logOut };
+export {
+  uploadOffers,
+  checkAuthorizationStatus,
+  logIn,
+  logOut,
+  uploadExtendedOffer,
+};

@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectAuthorizationStatus,
   selectIsLoading,
@@ -15,20 +15,27 @@ import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
-import { FavoritesListType, OfferListType } from '../../types/types';
+import { FavoritesListType } from '../../types/types';
 import { AuthorizationStatusKeys } from '../../types/user';
+import { uploadExtendedOffer } from '../../store/api-actions';
 
 type AppPageProps = {
-  offers: OfferListType;
   favorites: FavoritesListType;
 };
 
-function App({ offers, favorites }: AppPageProps): JSX.Element {
+function App({ favorites }: AppPageProps): JSX.Element {
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
   const isLoading = useAppSelector(selectIsLoading);
   const shortOffers = useAppSelector(selectOffers);
+
+  const dispatch = useAppDispatch();
+  const { offerId } = useParams();
+
+  if (offerId) {
+    dispatch(uploadExtendedOffer(offerId));
+  }
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
     return <LoadingPage />;
@@ -69,7 +76,6 @@ function App({ offers, favorites }: AppPageProps): JSX.Element {
             path={Path.Offer}
             element={
               <OfferPage
-                offers={offers}
                 favoritesCount={favorites.length}
                 nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
               />
