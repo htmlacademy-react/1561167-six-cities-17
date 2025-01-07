@@ -26,9 +26,10 @@ type InitialState = {
   currentSortKey: SortTypeKeys;
   offers: ShortOfferListType;
   authorizationStatus: AuthorizationStatusKeys;
-  isLoading: boolean;
+  isOffersLoading: boolean;
   userInfo: UserInfo | null;
   extendedOffer: OfferType | null;
+  isExtendedOfferLoading:boolean;
 };
 
 const initialState: InitialState = {
@@ -36,9 +37,10 @@ const initialState: InitialState = {
   currentSortKey: DEFAULT_SORTING_KEY,
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  isLoading: false,
+  isOffersLoading: false,
   userInfo: null,
   extendedOffer: null,
+  isExtendedOfferLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -50,24 +52,24 @@ const reducer = createReducer(initialState, (builder) => {
       state.currentSortKey = action.payload;
     })
     .addCase(uploadOffers.pending, (state) => {
-      state.isLoading = true;
+      state.isOffersLoading = true;
     })
     .addCase(uploadOffers.fulfilled, (state, action) => {
       state.offers = action.payload;
-      state.isLoading = false;
+      state.isOffersLoading = false;
     })
     .addCase(uploadOffers.rejected, (state) => {
-      state.isLoading = false;
+      state.isOffersLoading = false;
     })
     .addCase(uploadExtendedOffer.pending, (state) => {
-      state.isLoading = true;
+      state.isExtendedOfferLoading = true;
     })
     .addCase(uploadExtendedOffer.fulfilled, (state, action) => {
       state.extendedOffer = action.payload;
-      state.isLoading = false;
+      state.isExtendedOfferLoading = false;
     })
     .addCase(uploadExtendedOffer.rejected, (state) => {
-      state.isLoading = false;
+      state.isExtendedOfferLoading = false;
     })
     .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
       state.userInfo = action.payload;

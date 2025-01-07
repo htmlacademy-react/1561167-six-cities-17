@@ -29,7 +29,10 @@ const selectSortedOffers = createSelector(
 const selectAuthorizationStatus = (state: State): AuthorizationStatusKeys =>
   state.authorizationStatus;
 
-const selectIsLoading = (state: State): boolean => state.isLoading;
+const selectIsOffersLoading = (state: State): boolean => state.isOffersLoading;
+
+const selectIsExtendedOfferLoading = (state: State): boolean =>
+  state.isExtendedOfferLoading;
 
 const selectExtendedOffer = (state: State): OfferType | null =>
   state.extendedOffer;
@@ -44,7 +47,8 @@ export {
   selectFilteredOffers,
   selectSortedOffers,
   selectAuthorizationStatus,
-  selectIsLoading,
+  selectIsOffersLoading,
   selectExtendedOffer,
   selectUserEmail,
+  selectIsExtendedOfferLoading,
 };

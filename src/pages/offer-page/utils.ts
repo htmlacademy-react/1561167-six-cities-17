@@ -1,14 +1,9 @@
-import { OfferListType, OfferType } from '../../types/types';
+import { useParams } from 'react-router-dom';
 
-const getOfferById = (
-  offers: OfferListType,
-  id: string | null
-): OfferType | undefined => {
-  if (id === null) {
-    return;
-  }
+function useUrlId(): string | null {
+  const { offerId } = useParams();
 
-  return offers.find((offer) => offer.id === id);
-};
+  return offerId ?? null;
+}
 
-export { getOfferById };
+export { useUrlId };

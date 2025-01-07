@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import {
   selectAuthorizationStatus,
-  selectIsLoading,
+  selectIsOffersLoading,
   selectOffers,
 } from '../../store/selectors';
 import MainPage from '../../pages/main-page/main-page';
@@ -17,7 +17,6 @@ import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
 import { FavoritesListType } from '../../types/types';
 import { AuthorizationStatusKeys } from '../../types/user';
-import { uploadExtendedOffer } from '../../store/api-actions';
 
 type AppPageProps = {
   favorites: FavoritesListType;
@@ -27,17 +26,10 @@ function App({ favorites }: AppPageProps): JSX.Element {
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
-  const isLoading = useAppSelector(selectIsLoading);
+  const isOffersLoading = useAppSelector(selectIsOffersLoading);
   const shortOffers = useAppSelector(selectOffers);
 
-  const dispatch = useAppDispatch();
-  const { offerId } = useParams();
-
-  if (offerId) {
-    dispatch(uploadExtendedOffer(offerId));
-  }
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <LoadingPage />;
   }
 
