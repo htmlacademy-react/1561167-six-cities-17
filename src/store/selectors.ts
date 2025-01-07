@@ -34,6 +34,9 @@ const selectIsLoading = (state: State): boolean => state.isLoading;
 const selectExtendedOffer = (state: State): OfferType | null =>
   state.extendedOffer;
 
+const selectUserEmail = (state: State): string | undefined =>
+  state.userInfo?.email;
+
 export {
   selectOffers,
   selectCurrentCity,
@@ -43,4 +46,5 @@ export {
   selectAuthorizationStatus,
   selectIsLoading,
   selectExtendedOffer,
+  selectUserEmail,
 };

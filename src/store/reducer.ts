@@ -5,7 +5,12 @@ import {
   DEFAULT_SORTING_KEY,
 } from '../const';
 import { changeCity, changeSortKey } from './actions';
-import { CityKeys, OfferType, ShortOfferListType, SortTypeKeys } from '../types/types';
+import {
+  CityKeys,
+  OfferType,
+  ShortOfferListType,
+  SortTypeKeys,
+} from '../types/types';
 import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
 import {
@@ -64,7 +69,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(uploadExtendedOffer.rejected, (state) => {
       state.isLoading = false;
     })
-    .addCase(checkAuthorizationStatus.fulfilled, (state) => {
+    .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
+      state.userInfo = action.payload;
       state.authorizationStatus = AuthorizationStatus.Auth;
     })
     .addCase(checkAuthorizationStatus.rejected, (state) => {
@@ -75,15 +81,15 @@ const reducer = createReducer(initialState, (builder) => {
       state.userInfo = action.payload;
     })
     .addCase(logIn.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
       state.userInfo = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(logOut.fulfilled, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
       state.userInfo = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(logOut.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.authorizationStatus = AuthorizationStatus.Auth;
     });
 });
 

@@ -3,7 +3,7 @@ import { isValidValues } from './utils';
 import { CommentType, RatingType } from '../../../../types/types';
 import { CommentLengthLimits, RATING_VALUES } from '../../../../const';
 
-type onRatingChangeType = (e: ChangeEvent<HTMLInputElement>) => void;
+type onRatingChangeType = (evt: ChangeEvent<HTMLInputElement>) => void;
 
 type RatingProps = {
   onRatingChange: onRatingChangeType;
@@ -73,8 +73,8 @@ function FeedbackForm(): JSX.Element {
     }));
   };
 
-  const handleFormSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const handleFormSubmit = (evt: ChangeEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
     setFeedback(initialFeedback);
   };
 

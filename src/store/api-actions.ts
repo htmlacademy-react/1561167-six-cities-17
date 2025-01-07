@@ -30,9 +30,12 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
   }
 );
 
-const checkAuthorizationStatus = createAppAsyncThunk<void, undefined>(
+const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
   'user/checkAuthorizationStatus',
-  async (_arg, { extra: api }) => await api.get(APIRoute.Login)
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<UserInfo>(APIRoute.Login);
+    return data;
+  }
 );
 
 const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(

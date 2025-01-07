@@ -4,7 +4,6 @@ import Nav from '../../components/nav/nav';
 import { LocationsList } from './components/locations-list/locations-list';
 import { LocationsItem } from './components/locations-item/locations-item';
 import {
-  AuthorizationStatus,
   CITIES,
   DEFAULT_SORTING_KEY,
   TypesPage,
@@ -13,7 +12,6 @@ import { TypesPageKeys } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
 import {
-  selectAuthorizationStatus,
   selectFilteredOffers,
 } from '../../store/selectors';
 import { changeSortKey } from '../../store/actions';
@@ -25,10 +23,8 @@ type MainPageProps = {
 
 function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
   const cityOffers = useAppSelector(selectFilteredOffers);
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const dispatch = useAppDispatch();
 
-  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
   const isEmpty = cityOffers.length === 0;
 
   const typesPage: TypesPageKeys = TypesPage.Main;
@@ -44,8 +40,6 @@ function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
     <div className="page page--gray page--main">
       <Header typesPage={typesPage}>
         <Nav
-          isLoggedIn={isLoggedIn}
-          userName={'Oliver.conner@gmail.com'}
           favoritesCount={favoritesCount}
         />
       </Header>

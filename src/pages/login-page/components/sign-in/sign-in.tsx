@@ -4,8 +4,8 @@ import { isValidValues } from './utils';
 import { notify } from '../../../../utils/utils';
 import { useNavigate } from 'react-router-dom';
 import { Path } from '../../../../const';
-// import { useAppDispatch } from '../../../../hooks';
-// import { logIn } from '../../../../store/api-actions';
+import { useAppDispatch } from '../../../../hooks';
+import { logIn } from '../../../../store/api-actions';
 
 const initialUser: AuthorizationData = {
   login: '',
@@ -13,7 +13,7 @@ const initialUser: AuthorizationData = {
 };
 
 function SignIn() {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
   const [isValid, setValid] = useState<boolean>(true);
@@ -28,19 +28,20 @@ function SignIn() {
     setSignIn((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
 
     if (!isValid) {
       notify('Invalid email or password');
       return;
     }
 
-    // dispatch(logIn(signIn)).then((response) => {
-    //   console.log('handleFormSubmit ~ response:', response);
-    //   setSignIn(initialUser);
-    // });
-    navigate(Path.Root);
+    dispatch(logIn(signIn))
+      .unwrap()
+      .then(() => {
+        setSignIn(initialUser);
+        navigate(Path.Root);
+      });
   };
 
   return (
@@ -60,7 +61,6 @@ function SignIn() {
           placeholder="Email"
           required
           value={signIn.login}
-          pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">

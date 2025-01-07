@@ -3,22 +3,18 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Nav from '../../components/nav/nav';
 import Logo from '../../components/logo/logo';
-import { AuthorizationStatus, TypesPage } from '../../const';
+import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import { FavoritesListType, TypesPageKeys } from '../../types/types';
 import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
-import { useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus } from '../../store/selectors';
 
 type FavoritePageProps = {
   favorites: FavoritesListType;
 };
 
 function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
   const typesPage: TypesPageKeys = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
@@ -40,8 +36,6 @@ function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
     <div className={pageClasses}>
       <Header typesPage={typesPage}>
         <Nav
-          isLoggedIn={isLoggedIn}
-          userName={'Oliver.conner@gmail.com'}
           favoritesCount={favorites.length}
         />
       </Header>

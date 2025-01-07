@@ -67,8 +67,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     <div className="page">
       <Header typesPage={typesPage}>
         <Nav
-          isLoggedIn={isLoggedIn}
-          userName={'Oliver.conner@gmail.com'}
           favoritesCount={favoritesCount}
         />
       </Header>
