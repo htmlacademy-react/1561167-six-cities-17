@@ -1,7 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { filterOffersByCity, sortOffers } from '../utils/utils';
 import { State } from '../types/state';
-import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
+import {
+  CityKeys,
+  OfferType,
+  ShortOfferListType,
+  SortTypeKeys,
+} from '../types/types';
 import { AuthorizationStatusKeys } from '../types/user';
 
 const selectOffers = (state: State): ShortOfferListType => state.offers;
@@ -26,7 +31,11 @@ const selectAuthorizationStatus = (state: State): AuthorizationStatusKeys =>
 
 const selectIsLoading = (state: State): boolean => state.isLoading;
 
-const selectError = (state: State): string | null => state.error;
+const selectExtendedOffer = (state: State): OfferType | null =>
+  state.extendedOffer;
+
+const selectUserEmail = (state: State): string | undefined =>
+  state.userInfo?.email;
 
 export {
   selectOffers,
@@ -35,5 +44,7 @@ export {
   selectFilteredOffers,
   selectSortedOffers,
   selectAuthorizationStatus,
-  selectIsLoading,selectError,
+  selectIsLoading,
+  selectExtendedOffer,
+  selectUserEmail,
 };

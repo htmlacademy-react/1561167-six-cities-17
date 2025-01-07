@@ -87,6 +87,7 @@ const APIRoute = {
   Offers: '/offers',
   Login: '/login',
   Logout: '/logout',
+  ExtendedOffer:'/offers/:offerId',
 };
 
 const ERROR_SHOW_TIMEOUT = 2500;

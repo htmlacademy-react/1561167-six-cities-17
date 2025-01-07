@@ -4,10 +4,22 @@ import {
   DEFAULT_CURRENT_CITY,
   DEFAULT_SORTING_KEY,
 } from '../const';
-import { changeCity, changeSortKey, setError } from './actions';
-import { CityKeys, ShortOfferListType, SortTypeKeys } from '../types/types';
-import { AuthorizationStatusKeys } from '../types/user';
-import { checkAuthorizationStatus, logIn, logOut, uploadOffers } from './api-actions';
+import { changeCity, changeSortKey } from './actions';
+import {
+  CityKeys,
+  OfferType,
+  ShortOfferListType,
+  SortTypeKeys,
+} from '../types/types';
+import { AuthorizationStatusKeys, UserInfo } from '../types/user';
+
+import {
+  checkAuthorizationStatus,
+  logIn,
+  logOut,
+  uploadExtendedOffer,
+  uploadOffers,
+} from './api-actions';
 
 type InitialState = {
   currentCity: CityKeys;
@@ -15,7 +27,8 @@ type InitialState = {
   offers: ShortOfferListType;
   authorizationStatus: AuthorizationStatusKeys;
   isLoading: boolean;
-  error: string|null;
+  userInfo: UserInfo | null;
+  extendedOffer: OfferType | null;
 };
 
 const initialState: InitialState = {
@@ -24,16 +37,14 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  error:null,
+  userInfo: null,
+  extendedOffer: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(changeSortKey, (state, action) => {
       state.currentSortKey = action.payload;
@@ -48,23 +59,37 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(uploadOffers.rejected, (state) => {
       state.isLoading = false;
     })
-    .addCase(checkAuthorizationStatus.fulfilled, (state) => {
+    .addCase(uploadExtendedOffer.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(uploadExtendedOffer.fulfilled, (state, action) => {
+      state.extendedOffer = action.payload;
+      state.isLoading = false;
+    })
+    .addCase(uploadExtendedOffer.rejected, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
+      state.userInfo = action.payload;
       state.authorizationStatus = AuthorizationStatus.Auth;
     })
     .addCase(checkAuthorizationStatus.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
-    .addCase(logIn.fulfilled, (state) => {
+    .addCase(logIn.fulfilled, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
+      state.userInfo = action.payload;
     })
     .addCase(logIn.rejected, (state) => {
+      state.userInfo = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(logOut.fulfilled, (state) => {
+      state.userInfo = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(logOut.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.authorizationStatus = AuthorizationStatus.Auth;
     });
 });
 

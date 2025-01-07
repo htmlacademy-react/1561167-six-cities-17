@@ -12,10 +12,10 @@ import { FavoritesList } from './components/favorites-list/favorites-list';
 
 type FavoritePageProps = {
   favorites: FavoritesListType;
-  isLoggedIn: boolean;
 };
 
-function FavoritesPage({ favorites, isLoggedIn }: FavoritePageProps): JSX.Element {
+function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
+
   const typesPage: TypesPageKeys = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
@@ -36,8 +36,6 @@ function FavoritesPage({ favorites, isLoggedIn }: FavoritePageProps): JSX.Elemen
     <div className={pageClasses}>
       <Header typesPage={typesPage}>
         <Nav
-          isLoggedIn={isLoggedIn}
-          userName={'Oliver.conner@gmail.com'}
           favoritesCount={favorites.length}
         />
       </Header>

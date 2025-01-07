@@ -1,10 +1,10 @@
-import Header from '../../components/header/header';
-import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
-import SignIn from '../../components/sign-in/sign-in';
-import { Title } from '../../components/title/title';
-import { TypesPage } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { selectCurrentCity } from '../../store/selectors';
+import Header from '../../components/header/header';
+import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
+import { Title } from '../../components/title/title';
+import { SignIn } from './components/sign-in/sign-in';
+import { TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
 
 function LoginPage(): JSX.Element {
@@ -23,9 +23,7 @@ function LoginPage(): JSX.Element {
             <SignIn />
           </section>
           <section className="locations locations--login locations--current">
-            <div
-              className="locations__item"
-            >
+            <div className="locations__item">
               <LocationsItemLink city={currentCity} typesPage={typesPage} />
             </div>
           </section>
@@ -35,4 +33,4 @@ function LoginPage(): JSX.Element {
   );
 }
 
-export default LoginPage;
+export {LoginPage};

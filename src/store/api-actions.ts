@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { APIRoute, ERROR_SHOW_TIMEOUT } from '../const';
-import { ShortOfferListType } from '../types/types';
-import { AuthorizationData, UserData } from '../types/user';
+import { APIRoute } from '../const';
+import { OfferType, ShortOfferListType } from '../types/types';
+import { AuthorizationData, UserInfo } from '../types/user';
 import { dropToken, setToken } from '../services/token';
-import { setError } from './actions';
-import { store } from '.';
+import { generatePath } from 'react-router-dom';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -22,34 +21,47 @@ const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
   }
 );
 
-const checkAuthorizationStatus = createAppAsyncThunk<void, undefined>(
-  'user/checkAuthorizationStatus',
-  async (_arg, { extra: api }) => await api.get(APIRoute.Login)
+const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
+  'offers/uploadExtendedOffer',
+  async (id, { extra: api }) => {
+    const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
+    const { data } = await api.get<OfferType>(path);
+    return data;
+  }
 );
 
-const logIn = createAppAsyncThunk<void, AuthorizationData>(
-  'user/login',
+const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
+  'user/checkAuthorizationStatus',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<UserInfo>(APIRoute.Login);
+    return data;
+  }
+);
+
+const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(
+  'user/logIn',
   async ({ login: email, password }, { extra: api }) => {
-    const {
-      data: { token },
-    } = await api.post<UserData>(APIRoute.Login, { email, password });
-    setToken(token);
+    const { data } = await api.post<UserInfo>(APIRoute.Login, {
+      email,
+      password,
+    });
+    setToken(data.token);
+    return data;
   }
 );
 
 const logOut = createAppAsyncThunk<void, undefined>(
-  'user/logout',
+  'user/logOut',
   async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
   }
 );
 
-const clearError = createAppAsyncThunk<void, undefined>(
-  'app / clearError',
-  () => {
-    setTimeout(() => store.dispatch(setError(null)), ERROR_SHOW_TIMEOUT);
-  }
-);
-
-export { uploadOffers, checkAuthorizationStatus, logIn, logOut, clearError };
+export {
+  uploadOffers,
+  checkAuthorizationStatus,
+  logIn,
+  logOut,
+  uploadExtendedOffer,
+};
