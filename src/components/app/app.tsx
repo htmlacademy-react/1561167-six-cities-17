@@ -4,7 +4,6 @@ import { useAppSelector } from '../../hooks';
 import {
   selectAuthorizationStatus,
   selectIsOffersLoading,
-  selectOffers,
 } from '../../store/selectors';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -27,7 +26,6 @@ function App({ favorites }: AppPageProps): JSX.Element {
     selectAuthorizationStatus
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
-  const shortOffers = useAppSelector(selectOffers);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <LoadingPage />;
@@ -69,7 +67,6 @@ function App({ favorites }: AppPageProps): JSX.Element {
             element={
               <OfferPage
                 favoritesCount={favorites.length}
-                nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
               />
             }
           />

@@ -5,6 +5,8 @@ import {
   selectAuthorizationStatus,
   selectExtendedOffer,
   selectIsExtendedOfferLoading,
+  selectIsNearbyOffersLoading,
+  selectNearbyOffers,
 } from '../../store/selectors';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
@@ -21,37 +23,47 @@ import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
 import ReviewsList from './components/reviews-list/reviews-list';
 import { adaptToMap } from '../../utils/utils';
-import { uploadExtendedOffer } from '../../store/api-actions';
+import {
+  uploadExtendedOffer,
+  uploadNearbyOffers,
+} from '../../store/api-actions';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { LoadingPage } from '../loading-page/loadig-page';
-import { useUrlId } from './utils';
+import { getFirstThreeElements, useUrlId } from './utils';
 import { AuthorizationStatus, TypesPage } from '../../const';
-import { ShortOfferListType, TypesPageKeys } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 
 type OfferPageProps = {
   favoritesCount: number;
-  nearOffers: ShortOfferListType;
 };
 
 function OfferPage(props: OfferPageProps): JSX.Element {
-  const { favoritesCount, nearOffers } = props;
+  const { favoritesCount } = props;
 
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
   const dispatch = useAppDispatch();
   const offerId = useUrlId();
-  const IsExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
+  const isExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
   const offer = useAppSelector(selectExtendedOffer);
+  const isNearbyOffersLoading = useAppSelector(selectIsNearbyOffersLoading);
+  const nearbyOffers = getFirstThreeElements(
+    useAppSelector(selectNearbyOffers)
+  );
 
   useEffect(() => {
     if (!offerId) {
       return;
     }
-    dispatch(uploadExtendedOffer(offerId));
+    dispatch(uploadExtendedOffer(offerId))
+      .unwrap()
+      .then(() => {
+        dispatch(uploadNearbyOffers(offerId));
+      });
   }, [dispatch, offerId]);
 
-  if (IsExtendedOfferLoading) {
+  if (isExtendedOfferLoading || isNearbyOffersLoading) {
     return <LoadingPage />;
   }
 
@@ -71,10 +83,10 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     price,
     goods,
     description,
-    host,
+    host: { avatarUrl, name, isPro },
   } = offer;
 
-  const { avatarUrl, name, isPro } = host ?? {};
+  // const { avatarUrl, name, isPro } = host ?? {};
 
   const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
@@ -119,7 +131,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                       src={avatarUrl}
                       width={74}
                       height={74}
-                      alt="Host avatar"
+                      alt={name}
                     />
                   </div>
                   <span className="offer__user-name">{name}</span>
@@ -140,7 +152,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
             </div>
           </div>
           <Map
-            points={adaptToMap(nearOffers, offer)}
+            points={adaptToMap(nearbyOffers, offer)}
             activeCardId={offerId}
             typesPage={typesPage}
           />
@@ -151,7 +163,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList offers={nearOffers} typesPage={typesPage} />
+              <CardsList offers={nearbyOffers} typesPage={typesPage} />
             </div>
           </section>
         </div>

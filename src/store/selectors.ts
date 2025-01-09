@@ -37,6 +37,12 @@ const selectIsExtendedOfferLoading = (state: State): boolean =>
 const selectExtendedOffer = (state: State): OfferType | null =>
   state.extendedOffer;
 
+const selectIsNearbyOffersLoading = (state: State): boolean =>
+  state.isNearbyOffersLoading;
+
+const selectNearbyOffers = (state: State): ShortOfferListType =>
+  state.nearbyOffers;
+
 const selectUserEmail = (state: State): string | undefined =>
   state.userInfo?.email;
 
@@ -51,4 +57,6 @@ export {
   selectExtendedOffer,
   selectUserEmail,
   selectIsExtendedOfferLoading,
+  selectIsNearbyOffersLoading,
+  selectNearbyOffers,
 };

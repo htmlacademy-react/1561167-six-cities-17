@@ -30,6 +30,15 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
   }
 );
 
+const uploadNearbyOffers = createAppAsyncThunk<
+  ShortOfferListType,
+  string | undefined
+>('offers/uploadNearbyOffers', async (id, { extra: api }) => {
+  const path = generatePath(APIRoute.NearbyOffers, { offerId: id });
+  const { data } = await api.get<ShortOfferListType>(path);
+  return data;
+});
+
 const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
   'user/checkAuthorizationStatus',
   async (_arg, { extra: api }) => {
@@ -64,4 +73,5 @@ export {
   logIn,
   logOut,
   uploadExtendedOffer,
+  uploadNearbyOffers,
 };

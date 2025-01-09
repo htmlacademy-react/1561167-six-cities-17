@@ -18,6 +18,7 @@ import {
   logIn,
   logOut,
   uploadExtendedOffer,
+  uploadNearbyOffers,
   uploadOffers,
 } from './api-actions';
 
@@ -29,7 +30,9 @@ type InitialState = {
   isOffersLoading: boolean;
   userInfo: UserInfo | null;
   extendedOffer: OfferType | null;
-  isExtendedOfferLoading:boolean;
+  isExtendedOfferLoading: boolean;
+  nearbyOffers: ShortOfferListType;
+  isNearbyOffersLoading: boolean;
 };
 
 const initialState: InitialState = {
@@ -41,6 +44,8 @@ const initialState: InitialState = {
   userInfo: null,
   extendedOffer: null,
   isExtendedOfferLoading: false,
+  nearbyOffers: [],
+  isNearbyOffersLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -59,6 +64,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.isOffersLoading = false;
     })
     .addCase(uploadOffers.rejected, (state) => {
+      state.offers = [];
       state.isOffersLoading = false;
     })
     .addCase(uploadExtendedOffer.pending, (state) => {
@@ -69,7 +75,19 @@ const reducer = createReducer(initialState, (builder) => {
       state.isExtendedOfferLoading = false;
     })
     .addCase(uploadExtendedOffer.rejected, (state) => {
+      state.extendedOffer = null;
       state.isExtendedOfferLoading = false;
+    })
+    .addCase(uploadNearbyOffers.pending, (state) => {
+      state.isNearbyOffersLoading = true;
+    })
+    .addCase(uploadNearbyOffers.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload;
+      state.isNearbyOffersLoading = false;
+    })
+    .addCase(uploadNearbyOffers.rejected, (state) => {
+      state.nearbyOffers = [];
+      state.isNearbyOffersLoading = false;
     })
     .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
       state.userInfo = action.payload;
