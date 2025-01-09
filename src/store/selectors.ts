@@ -4,6 +4,7 @@ import { State } from '../types/state';
 import {
   CityKeys,
   OfferType,
+  ReviewListType,
   ShortOfferListType,
   SortTypeKeys,
 } from '../types/types';
@@ -43,6 +44,11 @@ const selectIsNearbyOffersLoading = (state: State): boolean =>
 const selectNearbyOffers = (state: State): ShortOfferListType =>
   state.nearbyOffers;
 
+const selectIsReviewsListLoading = (state: State): boolean =>
+  state.isReviewsListLoading;
+
+const selectReviewsList = (state: State): ReviewListType => state.reviewsList;
+
 const selectUserEmail = (state: State): string | undefined =>
   state.userInfo?.email;
 
@@ -59,4 +65,6 @@ export {
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
   selectNearbyOffers,
+  selectIsReviewsListLoading,
+  selectReviewsList,
 };

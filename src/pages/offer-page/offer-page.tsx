@@ -6,7 +6,9 @@ import {
   selectExtendedOffer,
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
+  selectIsReviewsListLoading,
   selectNearbyOffers,
+  selectReviewsList,
 } from '../../store/selectors';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
@@ -15,23 +17,22 @@ import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import Rating from '../../components/rating/rating';
-import { offerReviews } from '../../mocks/offer-reviews';
 import Gallery from './components/gallery/gallery';
-import FeedbackForm from './components/feedback-form/feedback-form';
 import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
-import ReviewsList from './components/reviews-list/reviews-list';
 import { adaptToMap } from '../../utils/utils';
 import {
   uploadExtendedOffer,
   uploadNearbyOffers,
+  uploadReviewsList,
 } from '../../store/api-actions';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { LoadingPage } from '../loading-page/loadig-page';
-import { getFirstThreeElements, useUrlId } from './utils';
+import { getFirstElements, useUrlId } from './utils';
 import { AuthorizationStatus, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
 import { NearbyOffers } from './components/nearby-offers/nearby-offers';
+import { OfferReviews } from './components/offer-reviews/offer-reviews';
 
 type OfferPageProps = {
   favoritesCount: number;
@@ -48,9 +49,9 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const isExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
   const offer = useAppSelector(selectExtendedOffer);
   const isNearbyOffersLoading = useAppSelector(selectIsNearbyOffersLoading);
-  const nearbyOffers = getFirstThreeElements(
-    useAppSelector(selectNearbyOffers)
-  );
+  const nearbyOffers = getFirstElements(useAppSelector(selectNearbyOffers));
+  const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
+  const reviewsList = useAppSelector(selectReviewsList);
 
   useEffect(() => {
     if (!offerId) {
@@ -60,10 +61,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
       .unwrap()
       .then(() => {
         dispatch(uploadNearbyOffers(offerId));
+        dispatch(uploadReviewsList(offerId));
       });
   }, [dispatch, offerId]);
 
-  if (isExtendedOfferLoading || isNearbyOffersLoading) {
+  if (isExtendedOfferLoading || isNearbyOffersLoading || isReviewsListLoading) {
     return <LoadingPage />;
   }
 
@@ -85,8 +87,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     description,
     host: { avatarUrl, name, isPro },
   } = offer;
-
-  // const { avatarUrl, name, isPro } = host ?? {};
 
   const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
@@ -141,14 +141,9 @@ function OfferPage(props: OfferPageProps): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews ·{' '}
-                  <span className="reviews__amount">{offerReviews.length}</span>
-                </h2>
-                <ReviewsList reviews={offerReviews} />
-                {isLoggedIn && <FeedbackForm />}
-              </section>
+              {(reviewsList.length > 0 || isLoggedIn) && (
+                <OfferReviews reviews={reviewsList} isLoggedIn={isLoggedIn} />
+              )}
             </div>
           </div>
           <Map

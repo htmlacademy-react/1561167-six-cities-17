@@ -8,6 +8,7 @@ import { changeCity, changeSortKey } from './actions';
 import {
   CityKeys,
   OfferType,
+  ReviewListType,
   ShortOfferListType,
   SortTypeKeys,
 } from '../types/types';
@@ -20,32 +21,37 @@ import {
   uploadExtendedOffer,
   uploadNearbyOffers,
   uploadOffers,
+  uploadReviewsList,
 } from './api-actions';
 
 type InitialState = {
   currentCity: CityKeys;
   currentSortKey: SortTypeKeys;
   offers: ShortOfferListType;
-  authorizationStatus: AuthorizationStatusKeys;
   isOffersLoading: boolean;
+  authorizationStatus: AuthorizationStatusKeys;
   userInfo: UserInfo | null;
   extendedOffer: OfferType | null;
   isExtendedOfferLoading: boolean;
   nearbyOffers: ShortOfferListType;
   isNearbyOffersLoading: boolean;
+  reviewsList: ReviewListType;
+  isReviewsListLoading: boolean;
 };
 
 const initialState: InitialState = {
   currentCity: DEFAULT_CURRENT_CITY,
   currentSortKey: DEFAULT_SORTING_KEY,
   offers: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
   isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
   userInfo: null,
   extendedOffer: null,
   isExtendedOfferLoading: false,
   nearbyOffers: [],
   isNearbyOffersLoading: false,
+  reviewsList: [],
+  isReviewsListLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -88,6 +94,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(uploadNearbyOffers.rejected, (state) => {
       state.nearbyOffers = [];
       state.isNearbyOffersLoading = false;
+    })
+    .addCase(uploadReviewsList.pending, (state) => {
+      state.isReviewsListLoading = true;
+    })
+    .addCase(uploadReviewsList.fulfilled, (state, action) => {
+      state.reviewsList = action.payload;
+      state.isReviewsListLoading = false;
+    })
+    .addCase(uploadReviewsList.rejected, (state) => {
+      state.reviewsList = [];
+      state.isReviewsListLoading = false;
     })
     .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
       state.userInfo = action.payload;

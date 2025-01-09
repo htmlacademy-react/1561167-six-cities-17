@@ -89,11 +89,12 @@ const APIRoute = {
   Logout: '/logout',
   ExtendedOffer: '/offers/:offerId',
   NearbyOffers: '/offers/:offerId/nearby',
+  Comments:'/comments/:offerId',
 };
 
 const ERROR_SHOW_TIMEOUT = 2500;
 
-const NEARBY_OFFERS_LIMIT = 3;
+const NEARBY_OFFERS_LIMITED = 3;
 
 export {
   Setting,
@@ -116,5 +117,5 @@ export {
   TOKEN_KEY,
   APIRoute,
   ERROR_SHOW_TIMEOUT,
-  NEARBY_OFFERS_LIMIT,
+  NEARBY_OFFERS_LIMITED,
 };

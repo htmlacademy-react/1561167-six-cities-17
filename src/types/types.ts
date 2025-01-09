@@ -85,7 +85,7 @@ type ReviewType = {
 
 type ClientReviewType = Omit<ReviewType, 'date'> & { date: Date };
 
-type ReviewListType = readonly ReviewType[];
+type ReviewListType = ReviewType[];
 
 type ClientReviewListType = readonly ClientReviewType[];
 

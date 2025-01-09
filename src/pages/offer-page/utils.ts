@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { ShortOfferListType } from '../../types/types';
-import { NEARBY_OFFERS_LIMIT } from '../../const';
+import { NEARBY_OFFERS_LIMITED } from '../../const';
 
 const useUrlId = (): string | null => {
   const { offerId } = useParams();
@@ -8,7 +8,9 @@ const useUrlId = (): string | null => {
   return offerId ?? null;
 };
 
-const getFirstThreeElements = (list: ShortOfferListType): ShortOfferListType =>
-  list.slice(0, NEARBY_OFFERS_LIMIT);
+const getFirstElements = (
+  list: ShortOfferListType,
+  count = NEARBY_OFFERS_LIMITED
+): ShortOfferListType => list.slice(0, count);
 
-export { useUrlId, getFirstThreeElements };
+export { useUrlId, getFirstElements };
