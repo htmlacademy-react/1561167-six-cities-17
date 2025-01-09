@@ -11,7 +11,6 @@ import {
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import Mark from '../../components/mark/mark';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
@@ -32,6 +31,7 @@ import { LoadingPage } from '../loading-page/loadig-page';
 import { getFirstThreeElements, useUrlId } from './utils';
 import { AuthorizationStatus, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
+import { NearbyOffers } from './components/nearby-offers/nearby-offers';
 
 type OfferPageProps = {
   favoritesCount: number;
@@ -157,16 +157,9 @@ function OfferPage(props: OfferPageProps): JSX.Element {
             typesPage={typesPage}
           />
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighbourhood
-            </h2>
-            <div className="near-places__list places__list">
-              <CardsList offers={nearbyOffers} typesPage={typesPage} />
-            </div>
-          </section>
-        </div>
+        {nearbyOffers.length !== 0 && (
+          <NearbyOffers offers={nearbyOffers} typesPage={typesPage} />
+        )}
       </main>
     </div>
   );
