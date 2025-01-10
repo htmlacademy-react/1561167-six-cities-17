@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { CITIES, Path, TypesPage, TypesSort } from '../const';
 
 type SizeType = {
@@ -87,7 +88,7 @@ type ClientReviewType = Omit<ReviewType, 'date'> & { date: Date };
 
 type ReviewListType = ReviewType[];
 
-type ClientReviewListType = readonly ClientReviewType[];
+type ClientReviewListType = ClientReviewType[];
 
 type OnCardHoverType = (id: string | null) => void;
 
@@ -98,6 +99,8 @@ type RatingType = 1 | 2 | 3 | 4 | 5 | null;
 type CommentType = string;
 
 type CurrentCityChangeType = (city: CityKeys) => void;
+
+type OnChangeEventType = (evt: ChangeEvent<HTMLInputElement>) => void;
 
 export type {
   ImageSizeType,
@@ -125,4 +128,5 @@ export type {
   LocationType,
   SortTypeKeys,
   MapPointsListType,
+  OnChangeEventType,
 };

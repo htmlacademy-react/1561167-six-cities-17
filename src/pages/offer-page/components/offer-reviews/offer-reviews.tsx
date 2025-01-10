@@ -1,6 +1,6 @@
 import { ReviewListType } from '../../../../types/types';
-import FeedbackForm from '../feedback-form/feedback-form';
-import ReviewsList from '../reviews-list/reviews-list';
+import { ReviewForm } from '../review-form/review-form';
+import { ReviewsList } from '../reviews-list/reviews-list';
 
 type OfferReviewsProps = {
   isLoggedIn: boolean;
@@ -21,7 +21,7 @@ function OfferReviews(props: OfferReviewsProps): JSX.Element {
         </span>
       </h2>
       <ReviewsList reviews={reviews} />
-      {isLoggedIn && <FeedbackForm />}
+      {isLoggedIn && <ReviewForm />}
     </section>
   );
 }

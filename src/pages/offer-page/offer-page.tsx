@@ -28,8 +28,12 @@ import {
 } from '../../store/api-actions';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { LoadingPage } from '../loading-page/loadig-page';
-import { getFirstElements, useUrlId } from './utils';
-import { AuthorizationStatus, TypesPage } from '../../const';
+import { useUrlId } from './utils';
+import {
+  AuthorizationStatus,
+  NEARBY_OFFERS_LIMITED,
+  TypesPage,
+} from '../../const';
 import { TypesPageKeys } from '../../types/types';
 import { NearbyOffers } from './components/nearby-offers/nearby-offers';
 import { OfferReviews } from './components/offer-reviews/offer-reviews';
@@ -49,7 +53,10 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const isExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
   const offer = useAppSelector(selectExtendedOffer);
   const isNearbyOffersLoading = useAppSelector(selectIsNearbyOffersLoading);
-  const nearbyOffers = getFirstElements(useAppSelector(selectNearbyOffers));
+  const nearbyOffers = useAppSelector(selectNearbyOffers).slice(
+    0,
+    NEARBY_OFFERS_LIMITED
+  );
   const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
   const reviewsList = useAppSelector(selectReviewsList);
 
