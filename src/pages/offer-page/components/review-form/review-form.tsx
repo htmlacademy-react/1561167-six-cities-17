@@ -1,24 +1,16 @@
 import { ChangeEvent, useState } from 'react';
 import { ReviewRating } from '../review-rating/review-rating';
 import { isValidValues } from './utils';
-import {
-  CommentType,
-  RatingType,
-} from '../../../../types/types';
 import { CommentLengthLimits } from '../../../../const';
+import { FeedbackType } from '../../../../types/review';
 
-type ReviewType = {
-  rating: RatingType;
-  review: CommentType;
-};
-
-const initialReview: ReviewType = {
+const initialReview: FeedbackType = {
   rating: null,
-  review: '',
+  comment: '',
 };
 
 function ReviewForm(): JSX.Element {
-  const [review, setFeedback] = useState<ReviewType>(initialReview);
+  const [review, setFeedback] = useState<FeedbackType>(initialReview);
 
   const handleValueChange = ({
     target,
@@ -52,9 +44,9 @@ function ReviewForm(): JSX.Element {
         onChange={handleValueChange}
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={review.review}
+        value={review.comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -69,7 +61,7 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValidValues(review.review, review.rating)}
+          disabled={!isValidValues(review.comment, review.rating)}
         >
           Submit
         </button>
@@ -78,4 +70,4 @@ function ReviewForm(): JSX.Element {
   );
 }
 
-export {ReviewForm};
+export { ReviewForm };

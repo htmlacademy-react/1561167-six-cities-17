@@ -4,11 +4,11 @@ import { State } from '../types/state';
 import {
   CityKeys,
   OfferType,
-  ReviewListType,
   ShortOfferListType,
   SortTypeKeys,
 } from '../types/types';
 import { AuthorizationStatusKeys } from '../types/user';
+import { ReviewsListType } from '../types/review';
 
 const selectOffers = (state: State): ShortOfferListType => state.offers;
 
@@ -47,7 +47,7 @@ const selectNearbyOffers = (state: State): ShortOfferListType =>
 const selectIsReviewsListLoading = (state: State): boolean =>
   state.isReviewsListLoading;
 
-const selectReviewsList = (state: State): ReviewListType => state.reviewsList;
+const selectReviewsList = (state: State): ReviewsListType => state.reviewsList;
 
 const selectUserEmail = (state: State): string | undefined =>
   state.userInfo?.email;

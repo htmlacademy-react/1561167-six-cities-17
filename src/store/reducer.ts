@@ -8,7 +8,6 @@ import { changeCity, changeSortKey } from './actions';
 import {
   CityKeys,
   OfferType,
-  ReviewListType,
   ShortOfferListType,
   SortTypeKeys,
 } from '../types/types';
@@ -23,6 +22,7 @@ import {
   uploadOffers,
   uploadReviewsList,
 } from './api-actions';
+import { ReviewsListType } from '../types/review';
 
 type InitialState = {
   currentCity: CityKeys;
@@ -35,7 +35,7 @@ type InitialState = {
   isExtendedOfferLoading: boolean;
   nearbyOffers: ShortOfferListType;
   isNearbyOffersLoading: boolean;
-  reviewsList: ReviewListType;
+  reviewsList: ReviewsListType;
   isReviewsListLoading: boolean;
 };
 

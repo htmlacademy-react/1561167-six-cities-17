@@ -2,10 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../const';
-import { OfferType, ReviewListType, ShortOfferListType } from '../types/types';
+import { OfferType, ShortOfferListType } from '../types/types';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { dropToken, setToken } from '../services/token';
 import { generatePath } from 'react-router-dom';
+import { ReviewsListType } from '../types/review';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -40,11 +41,11 @@ const uploadNearbyOffers = createAppAsyncThunk<
 });
 
 const uploadReviewsList = createAppAsyncThunk<
-  ReviewListType,
+  ReviewsListType,
   string | undefined
->('offers/uploadReviewsList', async (id, { extra: api }) => {
+>('reviews/uploadReviewsList', async (id, { extra: api }) => {
   const path = generatePath(APIRoute.Comments, { offerId: id });
-  const { data } = await api.get<ReviewListType>(path);
+  const { data } = await api.get<ReviewsListType>(path);
   return data;
 });
 
@@ -82,5 +83,6 @@ export {
   logIn,
   logOut,
   uploadExtendedOffer,
-  uploadNearbyOffers,uploadReviewsList,
+  uploadNearbyOffers,
+  uploadReviewsList,
 };

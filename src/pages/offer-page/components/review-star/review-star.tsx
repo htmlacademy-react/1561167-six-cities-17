@@ -1,4 +1,4 @@
-import { OnChangeEventType } from '../../../../types/types';
+import { OnChangeEventType } from '../../../../types/review';
 
 type ReviewStarProps = {
   number: number;

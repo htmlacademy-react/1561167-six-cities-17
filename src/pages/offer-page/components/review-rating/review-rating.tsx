@@ -1,6 +1,6 @@
 import { ReviewStar } from '../review-star/review-star';
 import { RATING_VALUES } from '../../../../const';
-import { OnChangeEventType } from '../../../../types/types';
+import { OnChangeEventType } from '../../../../types/review';
 
 type RatingProps = {
   onRatingChange: OnChangeEventType;

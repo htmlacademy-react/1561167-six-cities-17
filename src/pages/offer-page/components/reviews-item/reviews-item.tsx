@@ -1,5 +1,5 @@
 import Rating from '../../../../components/rating/rating';
-import { ClientReviewType } from '../../../../types/types';
+import { ClientReviewType } from '../../../../types/review';
 import { convertDate, convertShortDate } from './utils';
 
 type ReviewsItemProps = {

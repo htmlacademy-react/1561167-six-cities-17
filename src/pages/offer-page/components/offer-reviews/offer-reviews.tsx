@@ -1,10 +1,10 @@
-import { ReviewListType } from '../../../../types/types';
+import { ReviewsListType } from '../../../../types/review';
 import { ReviewForm } from '../review-form/review-form';
 import { ReviewsList } from '../reviews-list/reviews-list';
 
 type OfferReviewsProps = {
   isLoggedIn: boolean;
-  reviews: ReviewListType;
+  reviews: ReviewsListType;
 };
 
 function OfferReviews(props: OfferReviewsProps): JSX.Element {
