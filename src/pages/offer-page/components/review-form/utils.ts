@@ -1,13 +1,15 @@
 import { CommentLengthLimits } from '../../../../const';
-import { CommentType, RatingType } from '../../../../types/review';
+import { CommentType } from '../../../../types/review';
 
-const isValidValues = (comment: CommentType, rating: RatingType): boolean => {
+const isValidValues = (
+  comment: CommentType,
+  rating: number | null
+): boolean => {
   const isValidComment =
-    typeof comment === 'string' &&
     comment.length >= CommentLengthLimits.Min &&
     comment.length <= CommentLengthLimits.Max;
 
-  return isValidComment && typeof rating === 'number';
+  return isValidComment && typeof rating === 'number' && rating >= 1;
 };
 
 export { isValidValues };

@@ -15,7 +15,7 @@ const CITIES = [
 
 const DEFAULT_CURRENT_CITY = CITIES[0];
 
-const RATING_VALUES = ['one', 'two', 'three', 'four', 'five'] as const;
+const RATING_VALUES = ['terribly', 'badly', 'not bad', 'good', 'perfect'] as const;
 
 const TypesPage = {
   Main: 'main',

@@ -23,10 +23,14 @@ function Rating(props: RatingProps): JSX.Element {
     ['offer__stars']: isOffer,
   });
 
+  const style = {
+    width: `${(Math.round(rating ?? 0) / STARS_MAXIMUM) * 100}%`,
+  };
+
   return (
     <div className={ratingClasses}>
       <div className={starsClasses}>
-        <span style={{ width: `${(Math.round(rating) / STARS_MAXIMUM) * 100}%` }}></span>
+        <span style={style}></span>
         <span className="visually-hidden">Rating</span>
       </div>
       {children}

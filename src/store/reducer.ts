@@ -17,6 +17,7 @@ import {
   checkAuthorizationStatus,
   logIn,
   logOut,
+  submitReview,
   uploadExtendedOffer,
   uploadNearbyOffers,
   uploadOffers,
@@ -37,6 +38,7 @@ type InitialState = {
   isNearbyOffersLoading: boolean;
   reviewsList: ReviewsListType;
   isReviewsListLoading: boolean;
+  isSubmitReview: boolean;
 };
 
 const initialState: InitialState = {
@@ -52,6 +54,7 @@ const initialState: InitialState = {
   isNearbyOffersLoading: false,
   reviewsList: [],
   isReviewsListLoading: false,
+  isSubmitReview: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -105,6 +108,16 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(uploadReviewsList.rejected, (state) => {
       state.reviewsList = [];
       state.isReviewsListLoading = false;
+    })
+    .addCase(submitReview.pending, (state) => {
+      state.isSubmitReview = true;
+    })
+    .addCase(submitReview.fulfilled, (state, action) => {
+      state.reviewsList = [...state.reviewsList, action.payload];
+      state.isSubmitReview = false;
+    })
+    .addCase(submitReview.rejected, (state) => {
+      state.isSubmitReview = false;
     })
     .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
       state.userInfo = action.payload;
