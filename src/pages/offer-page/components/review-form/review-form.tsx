@@ -63,7 +63,7 @@ function ReviewForm(): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <ReviewRating onRatingChange={handleValueChange} />
+      <ReviewRating onRatingChange={handleValueChange} currentRating={review.rating} />
       <textarea
         onChange={handleValueChange}
         className="reviews__textarea form__textarea"

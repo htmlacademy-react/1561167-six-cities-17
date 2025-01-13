@@ -4,9 +4,12 @@ import { OnChangeEventType } from '../../../../types/review';
 
 type RatingProps = {
   onRatingChange: OnChangeEventType;
+  currentRating: number | null;
 };
 
-function ReviewRating({ onRatingChange }: RatingProps): JSX.Element {
+function ReviewRating(props: RatingProps): JSX.Element {
+  const { onRatingChange, currentRating } = props;
+
   return (
     <div className="reviews__rating-form form__rating">
       {RATING_VALUES.map((value, i) => (
@@ -14,6 +17,7 @@ function ReviewRating({ onRatingChange }: RatingProps): JSX.Element {
           key={value}
           onRatingChange={onRatingChange}
           number={RATING_VALUES.length - i}
+          currentRating={currentRating}
         />
       ))}
     </div>

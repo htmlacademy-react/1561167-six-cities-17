@@ -5,11 +5,12 @@ import { OnChangeEventType } from '../../../../types/review';
 
 type ReviewStarProps = {
   number: number;
+  currentRating: number | null;
   onRatingChange: OnChangeEventType;
 };
 
 function ReviewStar(props: ReviewStarProps): JSX.Element {
-  const { number, onRatingChange } = props;
+  const { number, onRatingChange, currentRating } = props;
   const isSubmitReview = useAppSelector(selectIsSubmitReview);
 
   return (
@@ -21,6 +22,7 @@ function ReviewStar(props: ReviewStarProps): JSX.Element {
         value={number}
         id={`${number}-stars`}
         type="radio"
+        checked={currentRating === number}
         disabled={isSubmitReview}
       />
       <label
