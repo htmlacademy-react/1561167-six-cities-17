@@ -12,11 +12,13 @@ import { FeedbackType } from '../../../../types/review';
 
 type ChangedFeedbackType = Omit<FeedbackType, 'rating'> & {
   rating: number | null;
+  isValid: boolean;
 };
 
 const initialReview: ChangedFeedbackType = {
   rating: null,
   comment: '',
+  isValid: false,
 };
 
 function ReviewForm(): JSX.Element {
@@ -32,11 +34,18 @@ function ReviewForm(): JSX.Element {
   }:
     | ChangeEvent<HTMLTextAreaElement>
     | ChangeEvent<HTMLInputElement>): void => {
-    setFeedback((prev) => ({
-      ...prev,
-      [target.name]:
-        target.name === 'comment' ? target.value : Number(target.value),
-    }));
+    setFeedback((prev) => {
+      const updated = {
+        ...prev,
+        [target.name]:
+          target.name === 'comment' ? target.value : Number(target.value),
+      };
+
+      return {
+        ...updated,
+        isValid: isValidValues(updated.comment, updated.rating),
+      };
+    });
   };
 
   const handleFormSubmit = (evt: ChangeEvent<HTMLFormElement>): void => {
@@ -63,7 +72,10 @@ function ReviewForm(): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <ReviewRating onRatingChange={handleValueChange} currentRating={review.rating} />
+      <ReviewRating
+        onRatingChange={handleValueChange}
+        currentRating={review.rating}
+      />
       <textarea
         onChange={handleValueChange}
         className="reviews__textarea form__textarea"
@@ -86,9 +98,7 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={
-            !isValidValues(review.comment, review.rating) || isSubmitReview
-          }
+          disabled={!review.isValid || isSubmitReview}
         >
           Submit
         </button>

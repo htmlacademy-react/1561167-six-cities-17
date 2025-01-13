@@ -16,7 +16,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 };
 
 const isShowError = (response: AxiosResponse) =>
-  !!StatusCodeMapping[response.status];
+  StatusCodeMapping[response.status];
 
 const createAPI = (): AxiosInstance => {
   const api = axios.create({ baseURL: Server.Url, timeout: Server.Timeout });
@@ -36,7 +36,6 @@ const createAPI = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && isShowError(error.response)) {
         const detailMessage = error.response.data;
-
         notify(detailMessage.message);
       }
 

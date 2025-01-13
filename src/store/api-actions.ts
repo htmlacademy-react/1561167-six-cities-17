@@ -6,11 +6,7 @@ import { OfferType, ShortOfferListType } from '../types/types';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { dropToken, setToken } from '../services/token';
 import { generatePath } from 'react-router-dom';
-import {
-  OfferReviewType,
-  ReviewsListType,
-  ReviewType,
-} from '../types/review';
+import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
