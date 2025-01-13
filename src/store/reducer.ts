@@ -17,28 +17,44 @@ import {
   checkAuthorizationStatus,
   logIn,
   logOut,
+  submitReview,
   uploadExtendedOffer,
+  uploadNearbyOffers,
   uploadOffers,
+  uploadReviewsList,
 } from './api-actions';
+import { ReviewsListType } from '../types/review';
 
 type InitialState = {
   currentCity: CityKeys;
   currentSortKey: SortTypeKeys;
   offers: ShortOfferListType;
+  isOffersLoading: boolean;
   authorizationStatus: AuthorizationStatusKeys;
-  isLoading: boolean;
   userInfo: UserInfo | null;
   extendedOffer: OfferType | null;
+  isExtendedOfferLoading: boolean;
+  nearbyOffers: ShortOfferListType;
+  isNearbyOffersLoading: boolean;
+  reviewsList: ReviewsListType;
+  isReviewsListLoading: boolean;
+  isSubmitReview: boolean;
 };
 
 const initialState: InitialState = {
   currentCity: DEFAULT_CURRENT_CITY,
   currentSortKey: DEFAULT_SORTING_KEY,
   offers: [],
+  isOffersLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  isLoading: false,
   userInfo: null,
   extendedOffer: null,
+  isExtendedOfferLoading: false,
+  nearbyOffers: [],
+  isNearbyOffersLoading: false,
+  reviewsList: [],
+  isReviewsListLoading: false,
+  isSubmitReview: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -50,24 +66,58 @@ const reducer = createReducer(initialState, (builder) => {
       state.currentSortKey = action.payload;
     })
     .addCase(uploadOffers.pending, (state) => {
-      state.isLoading = true;
+      state.isOffersLoading = true;
     })
     .addCase(uploadOffers.fulfilled, (state, action) => {
       state.offers = action.payload;
-      state.isLoading = false;
+      state.isOffersLoading = false;
     })
     .addCase(uploadOffers.rejected, (state) => {
-      state.isLoading = false;
+      state.offers = [];
+      state.isOffersLoading = false;
     })
     .addCase(uploadExtendedOffer.pending, (state) => {
-      state.isLoading = true;
+      state.isExtendedOfferLoading = true;
     })
     .addCase(uploadExtendedOffer.fulfilled, (state, action) => {
       state.extendedOffer = action.payload;
-      state.isLoading = false;
+      state.isExtendedOfferLoading = false;
     })
     .addCase(uploadExtendedOffer.rejected, (state) => {
-      state.isLoading = false;
+      state.extendedOffer = null;
+      state.isExtendedOfferLoading = false;
+    })
+    .addCase(uploadNearbyOffers.pending, (state) => {
+      state.isNearbyOffersLoading = true;
+    })
+    .addCase(uploadNearbyOffers.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload;
+      state.isNearbyOffersLoading = false;
+    })
+    .addCase(uploadNearbyOffers.rejected, (state) => {
+      state.nearbyOffers = [];
+      state.isNearbyOffersLoading = false;
+    })
+    .addCase(uploadReviewsList.pending, (state) => {
+      state.isReviewsListLoading = true;
+    })
+    .addCase(uploadReviewsList.fulfilled, (state, action) => {
+      state.reviewsList = action.payload;
+      state.isReviewsListLoading = false;
+    })
+    .addCase(uploadReviewsList.rejected, (state) => {
+      state.reviewsList = [];
+      state.isReviewsListLoading = false;
+    })
+    .addCase(submitReview.pending, (state) => {
+      state.isSubmitReview = true;
+    })
+    .addCase(submitReview.fulfilled, (state, action) => {
+      state.reviewsList = [...state.reviewsList, action.payload];
+      state.isSubmitReview = false;
+    })
+    .addCase(submitReview.rejected, (state) => {
+      state.isSubmitReview = false;
     })
     .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
       state.userInfo = action.payload;

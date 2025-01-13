@@ -8,6 +8,7 @@ import {
   SortTypeKeys,
 } from '../types/types';
 import { AuthorizationStatusKeys } from '../types/user';
+import { ReviewsListType } from '../types/review';
 
 const selectOffers = (state: State): ShortOfferListType => state.offers;
 
@@ -29,10 +30,26 @@ const selectSortedOffers = createSelector(
 const selectAuthorizationStatus = (state: State): AuthorizationStatusKeys =>
   state.authorizationStatus;
 
-const selectIsLoading = (state: State): boolean => state.isLoading;
+const selectIsOffersLoading = (state: State): boolean => state.isOffersLoading;
+
+const selectIsExtendedOfferLoading = (state: State): boolean =>
+  state.isExtendedOfferLoading;
 
 const selectExtendedOffer = (state: State): OfferType | null =>
   state.extendedOffer;
+
+const selectIsNearbyOffersLoading = (state: State): boolean =>
+  state.isNearbyOffersLoading;
+
+const selectNearbyOffers = (state: State): ShortOfferListType =>
+  state.nearbyOffers;
+
+const selectIsReviewsListLoading = (state: State): boolean =>
+  state.isReviewsListLoading;
+
+const selectReviewsList = (state: State): ReviewsListType => state.reviewsList;
+
+const selectIsSubmitReview = (state: State): boolean => state.isSubmitReview;
 
 const selectUserEmail = (state: State): string | undefined =>
   state.userInfo?.email;
@@ -44,7 +61,13 @@ export {
   selectFilteredOffers,
   selectSortedOffers,
   selectAuthorizationStatus,
-  selectIsLoading,
+  selectIsOffersLoading,
   selectExtendedOffer,
   selectUserEmail,
+  selectIsExtendedOfferLoading,
+  selectIsNearbyOffersLoading,
+  selectNearbyOffers,
+  selectIsReviewsListLoading,
+  selectReviewsList,
+  selectIsSubmitReview,
 };

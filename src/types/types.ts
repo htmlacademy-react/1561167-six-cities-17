@@ -75,27 +75,9 @@ type FavoritesType = OfferType & { previewImage: string };
 
 type FavoritesListType = FavoritesType[];
 
-type ReviewType = {
-  id: string;
-  date: string;
-  user: UserType;
-  comment: string;
-  rating: number;
-};
-
-type ClientReviewType = Omit<ReviewType, 'date'> & { date: Date };
-
-type ReviewListType = readonly ReviewType[];
-
-type ClientReviewListType = readonly ClientReviewType[];
-
 type OnCardHoverType = (id: string | null) => void;
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
-
-type RatingType = 1 | 2 | 3 | 4 | 5 | null;
-
-type CommentType = string;
 
 type CurrentCityChangeType = (city: CityKeys) => void;
 
@@ -108,21 +90,16 @@ export type {
   CityProps,
   OfferType,
   ShortOfferType,
-  ReviewType,
-  ReviewListType,
   OfferListType,
   ShortOfferListType,
   OnCardHoverType,
   GroupedOffersType,
-  RatingType,
-  CommentType,
   FavoritesType,
   FavoritesListType,
   CurrentCityChangeType,
-  ClientReviewType,
-  ClientReviewListType,
   OfferCityType,
   LocationType,
   SortTypeKeys,
   MapPointsListType,
+  UserType,
 };

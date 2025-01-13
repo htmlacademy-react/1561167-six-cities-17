@@ -6,6 +6,7 @@ import { OfferType, ShortOfferListType } from '../types/types';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { dropToken, setToken } from '../services/token';
 import { generatePath } from 'react-router-dom';
+import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -26,6 +27,36 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
   async (id, { extra: api }) => {
     const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
     const { data } = await api.get<OfferType>(path);
+    return data;
+  }
+);
+
+const uploadNearbyOffers = createAppAsyncThunk<
+  ShortOfferListType,
+  string | undefined
+>('offers/uploadNearbyOffers', async (id, { extra: api }) => {
+  const path = generatePath(APIRoute.NearbyOffers, { offerId: id });
+  const { data } = await api.get<ShortOfferListType>(path);
+  return data;
+});
+
+const uploadReviewsList = createAppAsyncThunk<
+  ReviewsListType,
+  string | undefined
+>('reviews/uploadReviewsList', async (id, { extra: api }) => {
+  const path = generatePath(APIRoute.Comments, { offerId: id });
+  const { data } = await api.get<ReviewsListType>(path);
+  return data;
+});
+
+const submitReview = createAppAsyncThunk<ReviewType, OfferReviewType>(
+  'reviews/submitReview',
+  async ({ offerId, review: { rating, comment } }, { extra: api }) => {
+    const path = generatePath(APIRoute.Comments, { offerId });
+    const { data } = await api.post<ReviewType>(path, {
+      rating,
+      comment,
+    });
     return data;
   }
 );
@@ -64,4 +95,7 @@ export {
   logIn,
   logOut,
   uploadExtendedOffer,
+  uploadNearbyOffers,
+  uploadReviewsList,
+  submitReview,
 };

@@ -1,7 +1,7 @@
 import { REVIEWS_COUNT_LIMITED } from '../../../../const';
-import { ClientReviewListType, ReviewListType } from '../../../../types/types';
+import { ClientReviewsListType, ReviewsListType } from '../../../../types/review';
 
-const adaptToClient = (reviews: ReviewListType): ClientReviewListType =>
+const adaptToClient = (reviews: ReviewsListType): ClientReviewsListType =>
   reviews
     .map((review) => ({ ...review, date: new Date(review.date) }))
     .sort((previous, next) => next.date.getTime() - previous.date.getTime())
