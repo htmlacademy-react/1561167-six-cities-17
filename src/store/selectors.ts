@@ -9,6 +9,7 @@ import {
 } from '../types/types';
 import { AuthorizationStatusKeys } from '../types/user';
 import { ReviewsListType } from '../types/review';
+import { NEARBY_OFFERS_LIMITED } from '../const';
 
 const selectOffers = (state: State): ShortOfferListType => state.offers;
 
@@ -44,6 +45,11 @@ const selectIsNearbyOffersLoading = (state: State): boolean =>
 const selectNearbyOffers = (state: State): ShortOfferListType =>
   state.nearbyOffers;
 
+const selectAdaptToNearbyOffers = createSelector(
+  [selectNearbyOffers],
+  (offers) => offers.slice(0, NEARBY_OFFERS_LIMITED)
+);
+
 const selectIsReviewsListLoading = (state: State): boolean =>
   state.isReviewsListLoading;
 
@@ -70,9 +76,9 @@ export {
   selectUserEmail,
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
-  selectNearbyOffers,
   selectIsReviewsListLoading,
   selectReviewsList,
   selectisSubmitReviewLoading,
   selectUserAvatarUrl,
+  selectAdaptToNearbyOffers,
 };

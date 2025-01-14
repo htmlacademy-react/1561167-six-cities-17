@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
+  selectAdaptToNearbyOffers,
   selectAuthorizationStatus,
   selectExtendedOffer,
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
   selectIsReviewsListLoading,
-  selectNearbyOffers,
   selectReviewsList,
 } from '../../store/selectors';
 import { Title } from '../../components/title/title';
@@ -31,7 +31,6 @@ import { LoadingPage } from '../loading-page/loadig-page';
 import { useUrlId } from './utils';
 import {
   AuthorizationStatus,
-  NEARBY_OFFERS_LIMITED,
   TypesPage,
 } from '../../const';
 import { TypesPageKeys } from '../../types/types';
@@ -53,10 +52,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const isExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
   const offer = useAppSelector(selectExtendedOffer);
   const isNearbyOffersLoading = useAppSelector(selectIsNearbyOffersLoading);
-  const nearbyOffers = useAppSelector(selectNearbyOffers).slice(
-    0,
-    NEARBY_OFFERS_LIMITED
-  );
+  const nearbyOffers = useAppSelector(selectAdaptToNearbyOffers);
   const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
   const reviewsList = useAppSelector(selectReviewsList);
 
