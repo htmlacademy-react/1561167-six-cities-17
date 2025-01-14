@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { submitReview } from '../../../../store/api-actions';
 import {
   selectExtendedOffer,
-  selectIsSubmitReview,
+  selectisSubmitReviewLoading,
 } from '../../../../store/selectors';
 import { FeedbackType } from '../../../../types/review';
 
@@ -23,7 +23,7 @@ const initialReview: ChangedFeedbackType = {
 
 function ReviewForm(): JSX.Element {
   const offerId = useAppSelector(selectExtendedOffer)?.id ?? '';
-  const isSubmitReview = useAppSelector(selectIsSubmitReview);
+  const isSubmitReviewLoading = useAppSelector(selectisSubmitReviewLoading);
 
   const dispatch = useAppDispatch();
 
@@ -83,7 +83,7 @@ function ReviewForm(): JSX.Element {
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review.comment}
-        disabled={isSubmitReview}
+        disabled={isSubmitReviewLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -98,7 +98,7 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!review.isValid || isSubmitReview}
+          disabled={!review.isValid || isSubmitReviewLoading}
         >
           Submit
         </button>

@@ -1,6 +1,6 @@
 import { RATING_VALUES } from '../../../../const';
 import { useAppSelector } from '../../../../hooks';
-import { selectIsSubmitReview } from '../../../../store/selectors';
+import { selectisSubmitReviewLoading } from '../../../../store/selectors';
 import { OnChangeEventType } from '../../../../types/review';
 
 type ReviewStarProps = {
@@ -11,7 +11,7 @@ type ReviewStarProps = {
 
 function ReviewStar(props: ReviewStarProps): JSX.Element {
   const { number, onRatingChange, currentRating } = props;
-  const isSubmitReview = useAppSelector(selectIsSubmitReview);
+  const isSubmitReviewLoading = useAppSelector(selectisSubmitReviewLoading);
 
   return (
     <>
@@ -23,7 +23,7 @@ function ReviewStar(props: ReviewStarProps): JSX.Element {
         id={`${number}-stars`}
         type="radio"
         checked={currentRating === number}
-        disabled={isSubmitReview}
+        disabled={isSubmitReviewLoading}
       />
       <label
         htmlFor={`${number}-stars`}

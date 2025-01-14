@@ -49,7 +49,8 @@ const selectIsReviewsListLoading = (state: State): boolean =>
 
 const selectReviewsList = (state: State): ReviewsListType => state.reviewsList;
 
-const selectIsSubmitReview = (state: State): boolean => state.isSubmitReview;
+const selectisSubmitReviewLoading = (state: State): boolean =>
+  state.isSubmitReviewLoading;
 
 const selectUserEmail = (state: State): string | undefined =>
   state.userInfo?.email;
@@ -72,6 +73,6 @@ export {
   selectNearbyOffers,
   selectIsReviewsListLoading,
   selectReviewsList,
-  selectIsSubmitReview,
+  selectisSubmitReviewLoading,
   selectUserAvatarUrl,
 };
