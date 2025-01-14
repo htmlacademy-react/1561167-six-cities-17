@@ -3,6 +3,7 @@ import { AuthorizationStatus, Path } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectAuthorizationStatus,
+  selectUserAvatarUrl,
   selectUserEmail,
 } from '../../store/selectors';
 import { logOut } from '../../store/api-actions';
@@ -16,15 +17,20 @@ type UserProfileProps = {
   isLoggedIn: boolean;
 } & NavProps;
 
-function UserProfile({
-  isLoggedIn,
-  favoritesCount,
-}: UserProfileProps): JSX.Element {
+function UserProfile(props: UserProfileProps): JSX.Element {
+  const { isLoggedIn, favoritesCount } = props;
   const userEmail = useAppSelector(selectUserEmail);
+  const userAvatarUrl = useAppSelector(selectUserAvatarUrl);
+  const backgroundImage = {
+    backgroundImage: `url(${userAvatarUrl})`,
+    borderRadius: '50%',
+  };
+  const avatarClasses = 'header__avatar-wrapper user__avatar-wrapper';
+
   if (isLoggedIn) {
     return (
       <>
-        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+        <div className={avatarClasses} style={backgroundImage}></div>
         <span className="header__user-name user__name">{userEmail}</span>
         <span className="header__favorite-count">{favoritesCount}</span>
       </>
@@ -33,7 +39,7 @@ function UserProfile({
 
   return (
     <>
-      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+      <div className={avatarClasses}></div>
       <span className="header__login">Sign in</span>
     </>
   );

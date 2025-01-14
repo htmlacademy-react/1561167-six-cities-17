@@ -54,6 +54,9 @@ const selectIsSubmitReview = (state: State): boolean => state.isSubmitReview;
 const selectUserEmail = (state: State): string | undefined =>
   state.userInfo?.email;
 
+const selectUserAvatarUrl = (state: State): string | undefined =>
+  state.userInfo?.avatarUrl;
+
 export {
   selectOffers,
   selectCurrentCity,
@@ -70,4 +73,5 @@ export {
   selectIsReviewsListLoading,
   selectReviewsList,
   selectIsSubmitReview,
+  selectUserAvatarUrl,
 };
