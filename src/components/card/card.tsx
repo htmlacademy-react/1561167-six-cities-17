@@ -7,9 +7,9 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 import { generatePath, Link } from 'react-router-dom';
 import {
   OnCardHoverType,
-  ShortOfferType,
   TypesPageKeys,
 } from '../../types/types';
+import { ShortOfferType } from '../../types/offers';
 
 type CardProps = {
   typesPage: TypesPageKeys;

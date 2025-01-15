@@ -1,32 +1,41 @@
 import { ChangeEvent } from 'react';
-import { UserType } from './types';
+import { HostType } from './offers';
 
-export type RatingType = 1 | 2 | 3 | 4 | 5 | null;
+type CommentType = string;
 
-export type CommentType = string;
-
-export type ReviewType = {
+type ReviewType = {
   id: string;
   date: string;
-  user: UserType;
+  user: HostType;
   comment: CommentType;
   rating: number;
 };
 
-export type ReviewsListType = ReviewType[];
+type ReviewsListType = ReviewType[];
 
-export type ClientReviewType = Omit<ReviewType, 'date'> & { date: Date };
+type ClientReviewType = Omit<ReviewType, 'date'> & { date: Date };
 
-export type ClientReviewsListType = ClientReviewType[];
+type ClientReviewsListType = ClientReviewType[];
 
-export type FeedbackType = {
+type FeedbackType = {
   rating: number;
   comment: CommentType;
 };
 
-export type OfferReviewType = {
+type OfferReviewType = {
   offerId: string;
   review: FeedbackType;
 };
 
-export type OnChangeEventType = (evt: ChangeEvent<HTMLInputElement>) => void;
+type OnChangeEventType = (evt: ChangeEvent<HTMLInputElement>) => void;
+
+export type {
+  CommentType,
+  ReviewType,
+  ReviewsListType,
+  ClientReviewType,
+  ClientReviewsListType,
+  FeedbackType,
+  OfferReviewType,
+  OnChangeEventType,
+};

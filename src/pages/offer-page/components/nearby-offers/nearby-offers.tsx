@@ -1,5 +1,6 @@
 import CardsList from '../../../../components/cards-list/cards-list';
-import { ShortOfferListType, TypesPageKeys } from '../../../../types/types';
+import { ShortOfferListType } from '../../../../types/offers';
+import { TypesPageKeys } from '../../../../types/types';
 
 type NearbyOffersProps = {
   offers: ShortOfferListType;

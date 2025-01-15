@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../const';
-import { OfferType, ShortOfferListType } from '../types/types';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { dropToken, setToken } from '../services/token';
 import { generatePath } from 'react-router-dom';
 import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
+import { OfferType, ShortOfferListType } from '../types/offers';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;

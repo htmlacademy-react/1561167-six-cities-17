@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Path, TypesPage } from '../../const';
-import { CityProps } from '../../types/types';
+import { CityProps } from '../../types/cities';
 
 function LocationsItemLink(props: CityProps): JSX.Element {
   const { city, typesPage, isActive = false } = props;

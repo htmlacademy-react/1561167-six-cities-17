@@ -5,12 +5,7 @@ import {
   DEFAULT_SORTING_KEY,
 } from '../const';
 import { changeCity, changeSortKey } from './actions';
-import {
-  CityKeys,
-  OfferType,
-  ShortOfferListType,
-  SortTypeKeys,
-} from '../types/types';
+import { SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
 import {
@@ -24,6 +19,8 @@ import {
   uploadReviewsList,
 } from './api-actions';
 import { ReviewsListType } from '../types/review';
+import { CityKeys } from '../types/cities';
+import { OfferType, ShortOfferListType } from '../types/offers';
 
 type InitialState = {
   currentCity: CityKeys;

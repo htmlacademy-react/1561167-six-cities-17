@@ -1,15 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { filterOffersByCity, sortOffers } from '../utils/utils';
 import { State } from '../types/state';
-import {
-  CityKeys,
-  OfferType,
-  ShortOfferListType,
-  SortTypeKeys,
-} from '../types/types';
+import { SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys } from '../types/user';
 import { ReviewsListType } from '../types/review';
 import { NEARBY_OFFERS_LIMITED } from '../const';
+import { OfferType, ShortOfferListType } from '../types/offers';
+import { CityKeys } from '../types/cities';
 
 const selectOffers = (state: State): ShortOfferListType => state.offers;
 

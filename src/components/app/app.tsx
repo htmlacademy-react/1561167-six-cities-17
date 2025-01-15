@@ -14,8 +14,8 @@ import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
-import { FavoritesListType } from '../../types/types';
 import { AuthorizationStatusKeys } from '../../types/user';
+import { FavoritesListType } from '../../types/favorites';
 
 type AppPageProps = {
   favorites: FavoritesListType;
@@ -64,11 +64,7 @@ function App({ favorites }: AppPageProps): JSX.Element {
           />
           <Route
             path={Path.Offer}
-            element={
-              <OfferPage
-                favoritesCount={favorites.length}
-              />
-            }
+            element={<OfferPage favoritesCount={favorites.length} />}
           />
           <Route path={Path.NotFound} element={<NotFoundPage />} />
         </Routes>
