@@ -55,7 +55,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const nearbyOffers = useAppSelector(selectAdaptToNearbyOffers);
   const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
   const reviewsList = useAppSelector(selectReviewsList);
-  const isNetworkError = useAppSelector(selectIsError);
+  const isError = useAppSelector(selectIsError);
   const errorMessage = useAppSelector(selectErrorMessage);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
       });
   }, [dispatch, offerId]);
 
-  if (isNetworkError) {
+  if (isError) {
     return (
       <div className="page">
         <Header typesPage={typesPage}>

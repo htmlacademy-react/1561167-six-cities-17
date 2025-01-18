@@ -1,11 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { logIn } from '../../../../store/api-actions';
 import { isValidValues } from './utils';
 import { notify } from '../../../../utils/utils';
 import { Path } from '../../../../const';
 import { AuthorizationData } from '../../../../types/user';
+import { setNetworkError } from '../../../../store/actions';
+import { selectErrorMessage, selectIsError } from '../../../../store/selectors';
+import styles from './style.module.css';
 
 const initialUser: AuthorizationData = {
   login: '',
@@ -15,6 +18,9 @@ const initialUser: AuthorizationData = {
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isError = useAppSelector(selectIsError);
+  const errorMessage = useAppSelector(selectErrorMessage);
+
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
   const [isValid, setValid] = useState<boolean>(false);
 
@@ -43,7 +49,8 @@ function SignIn() {
       .then(() => {
         setSignIn(initialUser);
         navigate(Path.Root);
-      });
+      })
+      .catch(({ message }) => dispatch(setNetworkError(message as string)));
   };
 
   return (
@@ -86,6 +93,9 @@ function SignIn() {
       >
         Sign in
       </button>
+      {isError && (
+        <p className={`${styles.error}`}>{errorMessage}. Try again later.</p>
+      )}
     </form>
   );
 }
