@@ -9,6 +9,7 @@ import {
 import { isValidValues } from './utils';
 import { CommentLengthLimits } from '../../../../const';
 import { FeedbackType } from '../../../../types/review';
+import { setNetworkError } from '../../../../store/actions';
 
 type ChangedFeedbackType = Omit<FeedbackType, 'rating'> & {
   rating: number | null;
@@ -57,7 +58,8 @@ function ReviewForm(): JSX.Element {
       .unwrap()
       .then(() => {
         setFeedback(initialReview);
-      });
+      })
+      .catch(({ message }) => dispatch(setNetworkError(message as string)));
   };
 
   return (

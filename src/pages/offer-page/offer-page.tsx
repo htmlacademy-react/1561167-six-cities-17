@@ -4,7 +4,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectAdaptToNearbyOffers,
   selectAuthorizationStatus,
+  selectErrorMessage,
   selectExtendedOffer,
+  selectIsError,
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
   selectIsReviewsListLoading,
@@ -31,10 +33,7 @@ import {
 } from '../../store/api-actions';
 import { useUrlId } from './utils';
 import { adaptToMap } from '../../utils/utils';
-import {
-  AuthorizationStatus,
-  TypesPage,
-} from '../../const';
+import { AuthorizationStatus, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
 
 type OfferPageProps = {
@@ -43,6 +42,7 @@ type OfferPageProps = {
 
 function OfferPage(props: OfferPageProps): JSX.Element {
   const { favoritesCount } = props;
+  const typesPage: TypesPageKeys = TypesPage.Offer;
 
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
@@ -55,6 +55,8 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const nearbyOffers = useAppSelector(selectAdaptToNearbyOffers);
   const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
   const reviewsList = useAppSelector(selectReviewsList);
+  const isNetworkError = useAppSelector(selectIsError);
+  const errorMessage = useAppSelector(selectErrorMessage);
 
   useEffect(() => {
     if (!offerId) {
@@ -67,6 +69,20 @@ function OfferPage(props: OfferPageProps): JSX.Element {
         dispatch(uploadReviewsList(offerId));
       });
   }, [dispatch, offerId]);
+
+  if (isNetworkError) {
+    return (
+      <div className="page">
+        <Header typesPage={typesPage}>
+          <Nav favoritesCount={favoritesCount} />
+        </Header>
+        <main className="page__main page__main--offer container">
+          <Title typesPage={typesPage} />
+          <p>{errorMessage}</p>
+        </main>
+      </div>
+    );
+  }
 
   if (isExtendedOfferLoading || isNearbyOffersLoading || isReviewsListLoading) {
     return <LoadingPage />;
@@ -91,7 +107,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
     host: { avatarUrl, name, isPro },
   } = offer;
 
-  const typesPage: TypesPageKeys = TypesPage.Offer;
   const avatarClasses = cn('offer__avatar-wrapper user__avatar-wrapper', {
     ['offer__avatar-wrapper--pro']: isPro,
   });
