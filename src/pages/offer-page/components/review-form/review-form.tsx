@@ -12,13 +12,11 @@ import { FeedbackType } from '../../../../types/review';
 
 type ChangedFeedbackType = Omit<FeedbackType, 'rating'> & {
   rating: number | null;
-  isValid: boolean;
 };
 
 const initialReview: ChangedFeedbackType = {
   rating: null,
   comment: '',
-  isValid: false,
 };
 
 function ReviewForm(): JSX.Element {
@@ -28,6 +26,7 @@ function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [review, setFeedback] = useState<ChangedFeedbackType>(initialReview);
+  const [isValid, setValid] = useState<boolean>(false);
 
   const handleValueChange = ({
     target,
@@ -41,10 +40,9 @@ function ReviewForm(): JSX.Element {
           target.name === 'comment' ? target.value : Number(target.value),
       };
 
-      return {
-        ...updated,
-        isValid: isValidValues(updated.comment, updated.rating),
-      };
+      setValid(isValidValues(updated.comment, updated.rating));
+
+      return updated;
     });
   };
 
@@ -98,7 +96,7 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!review.isValid || isSubmitReviewLoading}
+          disabled={!isValid || isSubmitReviewLoading}
         >
           Submit
         </button>
