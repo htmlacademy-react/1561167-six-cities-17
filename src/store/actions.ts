@@ -6,6 +6,6 @@ const changeCity = createAction<CityKeys>('location/changeCity');
 
 const changeSortKey = createAction<SortTypeKeys>('sort/changeSortKey');
 
-const setNetworkError = createAction<string>('app/setNetworkError');
+const setError = createAction<string | null>('error/setError');
 
-export { changeCity, changeSortKey, setNetworkError };
+export { changeCity, changeSortKey, setError };

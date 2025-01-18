@@ -61,9 +61,7 @@ const selectUserEmail = (state: State): string | undefined =>
 const selectUserAvatarUrl = (state: State): string | undefined =>
   state.userInfo?.avatarUrl;
 
-const selectIsError = (state: State): boolean => state.isError;
-
-const selectErrorMessage = (state: State): string => state.errorMessage;
+const selectErrorMessage = (state: State): string | null => state.error;
 
 export {
   selectOffers,
@@ -82,6 +80,5 @@ export {
   selectisSubmitReviewLoading,
   selectUserAvatarUrl,
   selectAdaptToNearbyOffers,
-  selectIsError,
   selectErrorMessage,
 };

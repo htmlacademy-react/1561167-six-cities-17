@@ -4,7 +4,7 @@ import {
   DEFAULT_CURRENT_CITY,
   DEFAULT_SORTING_KEY,
 } from '../const';
-import { changeCity, changeSortKey, setNetworkError } from './actions';
+import { changeCity, changeSortKey, setError } from './actions';
 import { SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
@@ -36,8 +36,7 @@ type InitialState = {
   reviewsList: ReviewsListType;
   isReviewsListLoading: boolean;
   isSubmitReviewLoading: boolean;
-  isError: boolean;
-  errorMessage: string;
+  error: string | null;
 };
 
 const initialState: InitialState = {
@@ -54,8 +53,7 @@ const initialState: InitialState = {
   reviewsList: [],
   isReviewsListLoading: false,
   isSubmitReviewLoading: false,
-  isError: false,
-  errorMessage: '',
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -142,9 +140,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(logOut.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
     })
-    .addCase(setNetworkError, (state, action) => {
-      state.isError = true;
-      state.errorMessage = action.payload;
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 

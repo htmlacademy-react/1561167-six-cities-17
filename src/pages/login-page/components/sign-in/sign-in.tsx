@@ -6,9 +6,9 @@ import { isValidValues } from './utils';
 import { notify } from '../../../../utils/utils';
 import { Path } from '../../../../const';
 import { AuthorizationData } from '../../../../types/user';
-import { setNetworkError } from '../../../../store/actions';
-import { selectErrorMessage, selectIsError } from '../../../../store/selectors';
+import { selectErrorMessage } from '../../../../store/selectors';
 import styles from './style.module.css';
+import { processErrorHandle } from '../../../../services/process-error-handle';
 
 const initialUser: AuthorizationData = {
   login: '',
@@ -18,8 +18,8 @@ const initialUser: AuthorizationData = {
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isError = useAppSelector(selectIsError);
   const errorMessage = useAppSelector(selectErrorMessage);
+  const isError = !!errorMessage;
 
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
   const [isValid, setValid] = useState<boolean>(false);
@@ -50,7 +50,7 @@ function SignIn() {
         setSignIn(initialUser);
         navigate(Path.Root);
       })
-      .catch(({ message }) => dispatch(setNetworkError(message as string)));
+      .catch(({ message }) => processErrorHandle(message as string));
   };
 
   return (

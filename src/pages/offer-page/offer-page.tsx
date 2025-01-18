@@ -4,9 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectAdaptToNearbyOffers,
   selectAuthorizationStatus,
-  selectErrorMessage,
   selectExtendedOffer,
-  selectIsError,
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
   selectIsReviewsListLoading,
@@ -55,8 +53,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   const nearbyOffers = useAppSelector(selectAdaptToNearbyOffers);
   const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
   const reviewsList = useAppSelector(selectReviewsList);
-  const isError = useAppSelector(selectIsError);
-  const errorMessage = useAppSelector(selectErrorMessage);
 
   useEffect(() => {
     if (!offerId) {
@@ -69,20 +65,6 @@ function OfferPage(props: OfferPageProps): JSX.Element {
         dispatch(uploadReviewsList(offerId));
       });
   }, [dispatch, offerId]);
-
-  if (isError) {
-    return (
-      <div className="page">
-        <Header typesPage={typesPage}>
-          <Nav favoritesCount={favoritesCount} />
-        </Header>
-        <main className="page__main page__main--offer container">
-          <Title typesPage={typesPage} />
-          <p>{errorMessage}</p>
-        </main>
-      </div>
-    );
-  }
 
   if (isExtendedOfferLoading || isNearbyOffersLoading || isReviewsListLoading) {
     return <LoadingPage />;

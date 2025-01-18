@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/state';
+import { generatePath } from 'react-router-dom';
 import { AxiosInstance } from 'axios';
+import { dropToken, setToken } from '../services/token';
 import { APIRoute } from '../const';
 import { AuthorizationData, UserInfo } from '../types/user';
-import { dropToken, setToken } from '../services/token';
-import { generatePath } from 'react-router-dom';
 import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
 import { OfferType, ShortOfferListType } from '../types/offers';
+import { AppDispatch, State } from '../types/state';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -88,6 +88,7 @@ const logOut = createAppAsyncThunk<void, undefined>(
     dropToken();
   }
 );
+
 
 export {
   uploadOffers,
