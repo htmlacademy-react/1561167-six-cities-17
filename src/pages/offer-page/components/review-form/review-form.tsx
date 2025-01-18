@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import { ReviewRating } from '../review-rating/review-rating';
-import { isValidValues } from './utils';
-import { CommentLengthLimits } from '../../../../const';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { submitReview } from '../../../../store/api-actions';
 import {
   selectExtendedOffer,
   selectisSubmitReviewLoading,
 } from '../../../../store/selectors';
+import { isValidValues } from './utils';
+import { CommentLengthLimits } from '../../../../const';
 import { FeedbackType } from '../../../../types/review';
 
 type ChangedFeedbackType = Omit<FeedbackType, 'rating'> & {

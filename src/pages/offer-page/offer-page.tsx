@@ -20,22 +20,22 @@ import Rating from '../../components/rating/rating';
 import Gallery from './components/gallery/gallery';
 import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
-import { adaptToMap } from '../../utils/utils';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { LoadingPage } from '../loading-page/loadig-page';
+import { NearbyOffers } from './components/nearby-offers/nearby-offers';
+import { OfferReviews } from './components/offer-reviews/offer-reviews';
 import {
   uploadExtendedOffer,
   uploadNearbyOffers,
   uploadReviewsList,
 } from '../../store/api-actions';
-import NotFoundPage from '../not-found-page/not-found-page';
-import { LoadingPage } from '../loading-page/loadig-page';
 import { useUrlId } from './utils';
+import { adaptToMap } from '../../utils/utils';
 import {
   AuthorizationStatus,
   TypesPage,
 } from '../../const';
 import { TypesPageKeys } from '../../types/types';
-import { NearbyOffers } from './components/nearby-offers/nearby-offers';
-import { OfferReviews } from './components/offer-reviews/offer-reviews';
 
 type OfferPageProps = {
   favoritesCount: number;
