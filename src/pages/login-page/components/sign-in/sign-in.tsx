@@ -1,11 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { AuthorizationData } from '../../../../types/user';
-import { isValidValues } from './utils';
-import { notify } from '../../../../utils/utils';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Path } from '../../../../const';
 import { useAppDispatch } from '../../../../hooks';
 import { logIn } from '../../../../store/api-actions';
+import { isValidValues } from './utils';
+import { notify } from '../../../../utils/utils';
+import { Path } from '../../../../const';
+import { AuthorizationData } from '../../../../types/user';
 
 const initialUser: AuthorizationData = {
   login: '',
@@ -16,16 +16,18 @@ function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
-  const [isValid, setValid] = useState<boolean>(true);
-
-  useEffect(() => {
-    setValid(isValidValues(signIn.login, signIn.password));
-  }, [signIn]);
+  const [isValid, setValid] = useState<boolean>(false);
 
   const handleValueChange = ({
     target,
   }: ChangeEvent<HTMLInputElement>): void => {
-    setSignIn((prev) => ({ ...prev, [target.name]: target.value }));
+    setSignIn((prev) => {
+      const updated = { ...prev, [target.name]: target.value };
+
+      setValid(isValidValues(updated.login, updated.password));
+
+      return updated;
+    });
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
@@ -77,7 +79,11 @@ function SignIn() {
           required
         />
       </div>
-      <button className="login__submit form__submit button" type="submit">
+      <button
+        className="login__submit form__submit button"
+        disabled={!isValid}
+        type="submit"
+      >
         Sign in
       </button>
     </form>
