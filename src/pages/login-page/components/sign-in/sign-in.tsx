@@ -1,13 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useAppDispatch } from '../../../../hooks';
 import { logIn } from '../../../../store/api-actions';
 import { isValidValues } from './utils';
 import { notify } from '../../../../utils/utils';
 import { Path } from '../../../../const';
 import { AuthorizationData } from '../../../../types/user';
-import { selectErrorMessage } from '../../../../store/selectors';
-import styles from './style.module.css';
 import { processErrorHandle } from '../../../../services/process-error-handle';
 
 const initialUser: AuthorizationData = {
@@ -18,8 +16,6 @@ const initialUser: AuthorizationData = {
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const errorMessage = useAppSelector(selectErrorMessage);
-  const isError = !!errorMessage;
 
   const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
   const [isValid, setValid] = useState<boolean>(false);
@@ -93,9 +89,6 @@ function SignIn() {
       >
         Sign in
       </button>
-      {isError && (
-        <p className={`${styles.error}`}>{errorMessage}. Try again later.</p>
-      )}
     </form>
   );
 }

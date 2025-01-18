@@ -3,15 +3,14 @@ import { ReviewRating } from '../review-rating/review-rating';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { submitReview } from '../../../../store/api-actions';
 import {
-  selectErrorMessage,
   selectExtendedOffer,
   selectisSubmitReviewLoading,
 } from '../../../../store/selectors';
 import { isValidValues } from './utils';
 import { CommentLengthLimits } from '../../../../const';
 import { FeedbackType } from '../../../../types/review';
-import styles from './style.module.css';
 import { processErrorHandle } from '../../../../services/process-error-handle';
+import { notify } from '../../../../utils/utils';
 
 type ChangedFeedbackType = Omit<FeedbackType, 'rating'> & {
   rating: number | null;
@@ -25,8 +24,6 @@ const initialReview: ChangedFeedbackType = {
 function ReviewForm(): JSX.Element {
   const offerId = useAppSelector(selectExtendedOffer)?.id ?? '';
   const isSubmitReviewLoading = useAppSelector(selectisSubmitReviewLoading);
-  const errorMessage = useAppSelector(selectErrorMessage);
-  const isError = !!errorMessage;
 
   const dispatch = useAppDispatch();
 
@@ -53,6 +50,12 @@ function ReviewForm(): JSX.Element {
 
   const handleFormSubmit = (evt: ChangeEvent<HTMLFormElement>): void => {
     evt.preventDefault();
+
+    if (!isValid) {
+      notify('Invalid rating or comment');
+      return;
+    }
+
     dispatch(
       submitReview({
         offerId,
@@ -107,9 +110,6 @@ function ReviewForm(): JSX.Element {
           Submit
         </button>
       </div>
-      {isError && (
-        <p className={`${styles.error}`}>{errorMessage}. Try again later.</p>
-      )}
     </form>
   );
 }
