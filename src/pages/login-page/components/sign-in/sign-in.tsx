@@ -46,7 +46,7 @@ function SignIn() {
         setSignIn(initialUser);
         navigate(Path.Root);
       })
-      .catch(({ message }) => processErrorHandle(message as string));
+      .catch(({ message }) => processErrorHandle(`${message}. Try again later.`));
   };
 
   return (
