@@ -33,6 +33,11 @@ import { useUrlId } from './utils';
 import { adaptToMap } from '../../utils/utils';
 import { AuthorizationStatus, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
+import {
+  clearExtendedOffer,
+  clearNearbyOffers,
+  clearReviewsList,
+} from '../../store/actions';
 
 type OfferPageProps = {
   favoritesCount: number;
@@ -64,6 +69,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
         dispatch(uploadNearbyOffers(offerId));
         dispatch(uploadReviewsList(offerId));
       });
+    return () => {
+      dispatch(clearExtendedOffer());
+      dispatch(clearNearbyOffers());
+      dispatch(clearReviewsList());
+    };
   }, [dispatch, offerId]);
 
   if (isExtendedOfferLoading || isNearbyOffersLoading || isReviewsListLoading) {

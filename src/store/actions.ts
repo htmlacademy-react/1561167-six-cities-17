@@ -8,4 +8,17 @@ const changeSortKey = createAction<SortTypeKeys>('sort/changeSortKey');
 
 const setError = createAction<string | null>('error/setError');
 
-export { changeCity, changeSortKey, setError };
+const clearExtendedOffer = createAction('offer/clearExtendedOffer');
+
+const clearNearbyOffers = createAction('offers/clearNearbyOffers');
+
+const clearReviewsList = createAction('reviews/clearReviewsList');
+
+export {
+  changeCity,
+  changeSortKey,
+  setError,
+  clearExtendedOffer,
+  clearNearbyOffers,
+  clearReviewsList,
+};

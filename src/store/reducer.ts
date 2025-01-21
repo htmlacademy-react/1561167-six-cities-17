@@ -4,7 +4,7 @@ import {
   DEFAULT_CURRENT_CITY,
   DEFAULT_SORTING_KEY,
 } from '../const';
-import { changeCity, changeSortKey, setError } from './actions';
+import { changeCity, changeSortKey, clearExtendedOffer, clearNearbyOffers, clearReviewsList, setError } from './actions';
 import { SortTypeKeys } from '../types/types';
 import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
@@ -86,6 +86,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.extendedOffer = null;
       state.isExtendedOfferLoading = false;
     })
+    .addCase(clearExtendedOffer, (state) => {
+      state.extendedOffer = null;
+      state.isExtendedOfferLoading = false;
+    })
     .addCase(uploadNearbyOffers.pending, (state) => {
       state.isNearbyOffersLoading = true;
     })
@@ -97,6 +101,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.nearbyOffers = [];
       state.isNearbyOffersLoading = false;
     })
+    .addCase(clearNearbyOffers, (state) => {
+      state.nearbyOffers = [];
+      state.isNearbyOffersLoading = false;
+    })
     .addCase(uploadReviewsList.pending, (state) => {
       state.isReviewsListLoading = true;
     })
@@ -105,6 +113,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.isReviewsListLoading = false;
     })
     .addCase(uploadReviewsList.rejected, (state) => {
+      state.reviewsList = [];
+      state.isReviewsListLoading = false;
+    })
+    .addCase(clearReviewsList, (state) => {
       state.reviewsList = [];
       state.isReviewsListLoading = false;
     })
