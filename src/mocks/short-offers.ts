@@ -1,4 +1,4 @@
-import { ShortOfferListType } from '../types/types';
+import { ShortOfferListType } from '../types/offers';
 
 const shortOffers: ShortOfferListType = [
   {

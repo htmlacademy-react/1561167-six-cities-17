@@ -1,7 +1,5 @@
-import {
-  GroupedOffersType,
-  ShortOfferListType,
-} from '../../types/types';
+import { GroupedOffersType } from '../../types/favorites';
+import { ShortOfferListType } from '../../types/offers';
 
 const groupByList = (offers: ShortOfferListType) =>
   offers.reduce((accumulator: GroupedOffersType, offer) => {

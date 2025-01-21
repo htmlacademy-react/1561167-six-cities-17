@@ -1,4 +1,4 @@
-import { OfferType } from '../../../../types/types';
+import { OfferType } from '../../../../types/offers';
 import GalleryItem from '../gallery-item/gallery-item';
 
 type GalleryProps = Pick<OfferType, 'images'>;

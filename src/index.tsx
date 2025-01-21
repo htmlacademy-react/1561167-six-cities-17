@@ -18,7 +18,11 @@ store.dispatch(checkAuthorizationStatus());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer position="top-center" autoClose={ERROR_SHOW_TIMEOUT} theme="colored" />
+      <ToastContainer
+        position="top-center"
+        autoClose={ERROR_SHOW_TIMEOUT}
+        theme="colored"
+      />
       <App favorites={favorites} />
     </Provider>
   </React.StrictMode>

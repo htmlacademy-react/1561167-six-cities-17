@@ -33,4 +33,4 @@ function LoginPage(): JSX.Element {
   );
 }
 
-export {LoginPage};
+export { LoginPage };

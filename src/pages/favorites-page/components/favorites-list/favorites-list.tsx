@@ -1,9 +1,9 @@
 import { FavoritesItem } from '../favorites-item/favorites-item';
 import {
-  CityKeys,
-  GroupedOffersType,
   TypesPageKeys,
 } from '../../../../types/types';
+import { GroupedOffersType } from '../../../../types/favorites';
+import { CityKeys } from '../../../../types/cities';
 
 type FavoritesListProps = {
   typesPage: TypesPageKeys;

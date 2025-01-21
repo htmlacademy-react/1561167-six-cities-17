@@ -1,16 +1,16 @@
 import { AuthorizationStatus } from '../const';
+import { HostType } from './offers';
 
-export type AuthorizationStatusKeys = keyof typeof AuthorizationStatus;
+type AuthorizationStatusKeys = keyof typeof AuthorizationStatus;
 
-export type AuthorizationData = {
+type AuthorizationData = {
   login: string;
   password: string;
 };
 
-export type UserInfo = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
+type UserInfo = HostType & {
   email: string;
   token: string;
 };
+
+export type { AuthorizationStatusKeys, AuthorizationData, UserInfo };

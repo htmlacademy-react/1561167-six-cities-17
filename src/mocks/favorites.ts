@@ -1,4 +1,4 @@
-import { FavoritesListType } from '../types/types';
+import { FavoritesListType } from '../types/favorites';
 
 const favorites: FavoritesListType = [
   {

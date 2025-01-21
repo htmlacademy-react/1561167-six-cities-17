@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { MapPointsListType, TypesPageKeys } from '../../types/types';
+import { TypesPageKeys } from '../../types/types';
 import styles from './style.module.css';
 import { Pin, TypesPage } from '../../const';
 import useMap from './hooks/use-map';
+import { MapPointsListType } from '../../types/map';
 
 type MapProps = {
   typesPage: TypesPageKeys;

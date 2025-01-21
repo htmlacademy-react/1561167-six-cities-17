@@ -2,7 +2,7 @@ import LocationsItemLink from '../../../../components/locations-item-link/locati
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { changeCity } from '../../../../store/actions';
 import { selectCurrentCity } from '../../../../store/selectors';
-import { CityProps } from '../../../../types/types';
+import { CityProps } from '../../../../types/cities';
 
 function LocationsItem({ city, typesPage }: CityProps): JSX.Element {
   const currentCity = useAppSelector(selectCurrentCity);

@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/state';
-import { AxiosInstance } from 'axios';
-import { APIRoute } from '../const';
-import { OfferType, ShortOfferListType } from '../types/types';
-import { AuthorizationData, UserInfo } from '../types/user';
-import { dropToken, setToken } from '../services/token';
 import { generatePath } from 'react-router-dom';
+import { AxiosInstance } from 'axios';
+import { dropToken, setToken } from '../services/token';
+import { APIRoute } from '../const';
+import { AuthorizationData, UserInfo } from '../types/user';
+import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
+import { OfferType, ShortOfferListType } from '../types/offers';
+import { AppDispatch, State } from '../types/state';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -26,6 +27,36 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
   async (id, { extra: api }) => {
     const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
     const { data } = await api.get<OfferType>(path);
+    return data;
+  }
+);
+
+const uploadNearbyOffers = createAppAsyncThunk<
+  ShortOfferListType,
+  string | undefined
+>('offers/uploadNearbyOffers', async (id, { extra: api }) => {
+  const path = generatePath(APIRoute.NearbyOffers, { offerId: id });
+  const { data } = await api.get<ShortOfferListType>(path);
+  return data;
+});
+
+const uploadReviewsList = createAppAsyncThunk<
+  ReviewsListType,
+  string | undefined
+>('reviews/uploadReviewsList', async (id, { extra: api }) => {
+  const path = generatePath(APIRoute.Comments, { offerId: id });
+  const { data } = await api.get<ReviewsListType>(path);
+  return data;
+});
+
+const submitReview = createAppAsyncThunk<ReviewType, OfferReviewType>(
+  'reviews/submitReview',
+  async ({ offerId, review: { rating, comment } }, { extra: api }) => {
+    const path = generatePath(APIRoute.Comments, { offerId });
+    const { data } = await api.post<ReviewType>(path, {
+      rating,
+      comment,
+    });
     return data;
   }
 );
@@ -58,10 +89,14 @@ const logOut = createAppAsyncThunk<void, undefined>(
   }
 );
 
+
 export {
   uploadOffers,
   checkAuthorizationStatus,
   logIn,
   logOut,
   uploadExtendedOffer,
+  uploadNearbyOffers,
+  uploadReviewsList,
+  submitReview,
 };

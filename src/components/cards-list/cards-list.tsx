@@ -3,9 +3,9 @@ import cn from 'classnames';
 import { TypesPage } from '../../const';
 import {
   OnCardHoverType,
-  ShortOfferListType,
   TypesPageKeys,
 } from '../../types/types';
+import { ShortOfferListType } from '../../types/offers';
 
 type CardsListProps = {
   offers: ShortOfferListType;

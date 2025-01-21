@@ -4,10 +4,10 @@ import { OffersEmpty } from '../offers-empty/offers-empty';
 import { Offers } from '../offers.tsx/offers';
 import Map from '../../../../components/map/map';
 import {
-  ShortOfferListType,
   TypesPageKeys,
 } from '../../../../types/types';
 import { adaptToMap } from '../../../../utils/utils';
+import { ShortOfferListType } from '../../../../types/offers';
 
 type ContentPros = {
   cityOffers: ShortOfferListType;

@@ -15,7 +15,7 @@ const CITIES = [
 
 const DEFAULT_CURRENT_CITY = CITIES[0];
 
-const RATING_VALUES = ['one', 'two', 'three', 'four', 'five'] as const;
+const RATING_VALUES = ['terribly', 'badly', 'not bad', 'good', 'perfect'] as const;
 
 const TypesPage = {
   Main: 'main',
@@ -87,10 +87,14 @@ const APIRoute = {
   Offers: '/offers',
   Login: '/login',
   Logout: '/logout',
-  ExtendedOffer:'/offers/:offerId',
+  ExtendedOffer: '/offers/:offerId',
+  NearbyOffers: '/offers/:offerId/nearby',
+  Comments:'/comments/:offerId',
 };
 
 const ERROR_SHOW_TIMEOUT = 2500;
+
+const NEARBY_OFFERS_LIMITED = 3;
 
 export {
   Setting,
@@ -113,4 +117,5 @@ export {
   TOKEN_KEY,
   APIRoute,
   ERROR_SHOW_TIMEOUT,
+  NEARBY_OFFERS_LIMITED,
 };

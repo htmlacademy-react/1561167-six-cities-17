@@ -1,10 +1,9 @@
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import {
   selectAuthorizationStatus,
-  selectIsLoading,
-  selectOffers,
+  selectIsOffersLoading,
 } from '../../store/selectors';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -15,9 +14,8 @@ import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
-import { FavoritesListType } from '../../types/types';
 import { AuthorizationStatusKeys } from '../../types/user';
-import { uploadExtendedOffer } from '../../store/api-actions';
+import { FavoritesListType } from '../../types/favorites';
 
 type AppPageProps = {
   favorites: FavoritesListType;
@@ -27,17 +25,9 @@ function App({ favorites }: AppPageProps): JSX.Element {
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
-  const isLoading = useAppSelector(selectIsLoading);
-  const shortOffers = useAppSelector(selectOffers);
+  const isOffersLoading = useAppSelector(selectIsOffersLoading);
 
-  const dispatch = useAppDispatch();
-  const { offerId } = useParams();
-
-  if (offerId) {
-    dispatch(uploadExtendedOffer(offerId));
-  }
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <LoadingPage />;
   }
 
@@ -74,12 +64,7 @@ function App({ favorites }: AppPageProps): JSX.Element {
           />
           <Route
             path={Path.Offer}
-            element={
-              <OfferPage
-                favoritesCount={favorites.length}
-                nearOffers={[shortOffers[1], shortOffers[3], shortOffers[2]]}
-              />
-            }
+            element={<OfferPage favoritesCount={favorites.length} />}
           />
           <Route path={Path.NotFound} element={<NotFoundPage />} />
         </Routes>
