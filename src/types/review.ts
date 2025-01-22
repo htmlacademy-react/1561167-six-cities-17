@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
-import { HostType } from './offers';
+import { InitialState } from './state';
+import { HostType } from './offer';
 
 type CommentType = string;
 
@@ -29,6 +30,11 @@ type OfferReviewType = {
 
 type OnChangeEventType = (evt: ChangeEvent<HTMLInputElement>) => void;
 
+type ReviewsState = Pick<
+  InitialState,
+  'reviewsList' | 'isReviewsListLoading' | 'isSubmitReviewLoading'
+>;
+
 export type {
   CommentType,
   ReviewType,
@@ -38,4 +44,5 @@ export type {
   FeedbackType,
   OfferReviewType,
   OnChangeEventType,
+  ReviewsState,
 };
