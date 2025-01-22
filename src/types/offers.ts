@@ -1,4 +1,5 @@
 import { CityKeys } from './cities';
+import { InitialState } from './state';
 
 type LocationType = {
   latitude: number;
@@ -44,6 +45,11 @@ type ShortOfferType = Omit<
 
 type ShortOfferListType = ShortOfferType[];
 
+type OffersState = Pick<
+  InitialState,
+  'offers' | 'isOffersLoading' | 'nearbyOffers' | 'isNearbyOffersLoading'
+>;
+
 export type {
   OfferType,
   ShortOfferType,
@@ -52,4 +58,5 @@ export type {
   OfferCityType,
   HostType,
   LocationType,
+  OffersState,
 };

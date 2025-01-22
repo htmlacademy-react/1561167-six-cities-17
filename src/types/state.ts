@@ -2,7 +2,7 @@ import { store } from '../store';
 import { CityKeys } from './cities';
 import { OfferType, ShortOfferListType } from './offers';
 import { ReviewsListType } from './review';
-import { SortTypeKeys } from './types';
+import { SortTypeKeys } from './sort';
 import { AuthorizationStatusKeys, UserInfo } from './user';
 
 type InitialState = {

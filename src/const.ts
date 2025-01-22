@@ -104,6 +104,9 @@ const NEARBY_OFFERS_LIMITED = 3;
 
 const NameSpace = {
   User: 'user',
+  Offers: 'offers',
+  City: 'city',
+  Sort: 'sort',
 } as const;
 
 export {

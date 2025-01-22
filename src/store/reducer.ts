@@ -4,17 +4,19 @@ import {
   DEFAULT_CURRENT_CITY,
   DEFAULT_SORTING_KEY,
 } from '../const';
-import { changeCity, changeSortKey, clearExtendedOffer, clearNearbyOffers, clearReviewsList, setError } from './actions';
+import {
+  clearExtendedOffer,
+  clearNearbyOffers,
+  clearReviewsList,
+  setError,
+} from './actions';
 
 import {
   submitReview,
   uploadExtendedOffer,
-  uploadNearbyOffers,
-  uploadOffers,
   uploadReviewsList,
 } from './api-actions';
 import { InitialState } from '../types/state';
-
 
 const initialState: InitialState = {
   currentCity: DEFAULT_CURRENT_CITY,
@@ -35,23 +37,6 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, action) => {
-      state.currentCity = action.payload;
-    })
-    .addCase(changeSortKey, (state, action) => {
-      state.currentSortKey = action.payload;
-    })
-    .addCase(uploadOffers.pending, (state) => {
-      state.isOffersLoading = true;
-    })
-    .addCase(uploadOffers.fulfilled, (state, action) => {
-      state.offers = action.payload;
-      state.isOffersLoading = false;
-    })
-    .addCase(uploadOffers.rejected, (state) => {
-      state.offers = [];
-      state.isOffersLoading = false;
-    })
     .addCase(uploadExtendedOffer.pending, (state) => {
       state.isExtendedOfferLoading = true;
     })
@@ -66,17 +51,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(clearExtendedOffer, (state) => {
       state.extendedOffer = null;
       state.isExtendedOfferLoading = false;
-    })
-    .addCase(uploadNearbyOffers.pending, (state) => {
-      state.isNearbyOffersLoading = true;
-    })
-    .addCase(uploadNearbyOffers.fulfilled, (state, action) => {
-      state.nearbyOffers = action.payload;
-      state.isNearbyOffersLoading = false;
-    })
-    .addCase(uploadNearbyOffers.rejected, (state) => {
-      state.nearbyOffers = [];
-      state.isNearbyOffersLoading = false;
     })
     .addCase(clearNearbyOffers, (state) => {
       state.nearbyOffers = [];
