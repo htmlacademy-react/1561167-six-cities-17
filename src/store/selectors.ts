@@ -2,7 +2,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import { filterOffersByCity, sortOffers } from '../utils/utils';
 import { State } from '../types/state';
 import { SortTypeKeys } from '../types/types';
-import { AuthorizationStatusKeys } from '../types/user';
 import { ReviewsListType } from '../types/review';
 import { NEARBY_OFFERS_LIMITED } from '../const';
 import { OfferType, ShortOfferListType } from '../types/offers';
@@ -25,8 +24,6 @@ const selectSortedOffers = createSelector(
   (offers, currentSortKey) => sortOffers(offers, currentSortKey)
 );
 
-const selectAuthorizationStatus = (state: State): AuthorizationStatusKeys =>
-  state.authorizationStatus;
 
 const selectIsOffersLoading = (state: State): boolean => state.isOffersLoading;
 
@@ -55,11 +52,6 @@ const selectReviewsList = (state: State): ReviewsListType => state.reviewsList;
 const selectisSubmitReviewLoading = (state: State): boolean =>
   state.isSubmitReviewLoading;
 
-const selectUserEmail = (state: State): string | undefined =>
-  state.userInfo?.email;
-
-const selectUserAvatarUrl = (state: State): string | undefined =>
-  state.userInfo?.avatarUrl;
 
 const selectErrorMessage = (state: State): string | null => state.error;
 
@@ -69,16 +61,13 @@ export {
   selectCurrentSortKey,
   selectFilteredOffers,
   selectSortedOffers,
-  selectAuthorizationStatus,
   selectIsOffersLoading,
   selectExtendedOffer,
-  selectUserEmail,
   selectIsExtendedOfferLoading,
   selectIsNearbyOffersLoading,
   selectIsReviewsListLoading,
   selectReviewsList,
   selectisSubmitReviewLoading,
-  selectUserAvatarUrl,
   selectAdaptToNearbyOffers,
   selectErrorMessage,
 };

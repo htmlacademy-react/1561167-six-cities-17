@@ -5,39 +5,16 @@ import {
   DEFAULT_SORTING_KEY,
 } from '../const';
 import { changeCity, changeSortKey, clearExtendedOffer, clearNearbyOffers, clearReviewsList, setError } from './actions';
-import { SortTypeKeys } from '../types/types';
-import { AuthorizationStatusKeys, UserInfo } from '../types/user';
 
 import {
-  checkAuthorizationStatus,
-  logIn,
-  logOut,
   submitReview,
   uploadExtendedOffer,
   uploadNearbyOffers,
   uploadOffers,
   uploadReviewsList,
 } from './api-actions';
-import { ReviewsListType } from '../types/review';
-import { CityKeys } from '../types/cities';
-import { OfferType, ShortOfferListType } from '../types/offers';
+import { InitialState } from '../types/state';
 
-type InitialState = {
-  currentCity: CityKeys;
-  currentSortKey: SortTypeKeys;
-  offers: ShortOfferListType;
-  isOffersLoading: boolean;
-  authorizationStatus: AuthorizationStatusKeys;
-  userInfo: UserInfo | null;
-  extendedOffer: OfferType | null;
-  isExtendedOfferLoading: boolean;
-  nearbyOffers: ShortOfferListType;
-  isNearbyOffersLoading: boolean;
-  reviewsList: ReviewsListType;
-  isReviewsListLoading: boolean;
-  isSubmitReviewLoading: boolean;
-  error: string | null;
-};
 
 const initialState: InitialState = {
   currentCity: DEFAULT_CURRENT_CITY,
@@ -129,28 +106,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(submitReview.rejected, (state) => {
       state.isSubmitReviewLoading = false;
-    })
-    .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
-      state.userInfo = action.payload;
-      state.authorizationStatus = AuthorizationStatus.Auth;
-    })
-    .addCase(checkAuthorizationStatus.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    })
-    .addCase(logIn.fulfilled, (state, action) => {
-      state.authorizationStatus = AuthorizationStatus.Auth;
-      state.userInfo = action.payload;
-    })
-    .addCase(logIn.rejected, (state) => {
-      state.userInfo = null;
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    })
-    .addCase(logOut.fulfilled, (state) => {
-      state.userInfo = null;
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    })
-    .addCase(logOut.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.Auth;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

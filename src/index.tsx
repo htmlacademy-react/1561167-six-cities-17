@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
@@ -16,14 +16,14 @@ store.dispatch(uploadOffers());
 store.dispatch(checkAuthorizationStatus());
 
 root.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <ToastContainer
-      position="top-center"
-      autoClose={ERROR_SHOW_TIMEOUT}
-      theme="colored"
-    />
-    <App favorites={favorites} />
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ToastContainer
+        position="top-center"
+        autoClose={ERROR_SHOW_TIMEOUT}
+        theme="colored"
+      />
+      <App favorites={favorites} />
+    </Provider>
+  </React.StrictMode>
 );
