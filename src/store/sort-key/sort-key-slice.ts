@@ -6,8 +6,8 @@ const initialState: SortState = {
   currentSortKey: DEFAULT_SORTING_KEY,
 };
 
-export const sortKeySlice = createSlice({
-  name: NameSpace.Sort,
+const sortKeySlice = createSlice({
+  name: NameSpace.SortKey,
   initialState,
   reducers: {
     changeSortKey(state, action: PayloadAction<SortTypeKeys>) {
@@ -15,5 +15,7 @@ export const sortKeySlice = createSlice({
     },
   },
 });
+
+export { sortKeySlice };
 
 export const { changeSortKey } = sortKeySlice.actions;

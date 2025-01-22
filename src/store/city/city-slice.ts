@@ -6,7 +6,7 @@ const initialState: CityState = {
   currentCity: DEFAULT_CURRENT_CITY,
 };
 
-export const citySlice = createSlice({
+const citySlice = createSlice({
   name: NameSpace.City,
   initialState,
   reducers: {
@@ -15,5 +15,7 @@ export const citySlice = createSlice({
     },
   },
 });
+
+export { citySlice };
 
 export const { changeCity } = citySlice.actions;

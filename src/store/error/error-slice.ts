@@ -16,4 +16,6 @@ const errorSlice = createSlice({
   },
 });
 
+export {errorSlice};
+
 export const { setError } = errorSlice.actions;

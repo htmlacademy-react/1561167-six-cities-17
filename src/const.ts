@@ -106,7 +106,7 @@ const NameSpace = {
   User: 'user',
   Offers: 'offers',
   City: 'city',
-  Sort: 'sort',
+  SortKey: 'sortKey',
   ExtendedOffer: 'extendedOffer',
   Reviews: 'reviews',
   Error: 'error',
