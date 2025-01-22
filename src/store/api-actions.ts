@@ -24,7 +24,7 @@ const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
 );
 
 const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
-  'offer/uploadExtendedOffer',
+  'extendedOffer/uploadExtendedOffer',
   async (id, { extra: api }) => {
     const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
     const { data } = await api.get<OfferType>(path);
