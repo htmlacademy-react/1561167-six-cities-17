@@ -13,7 +13,12 @@ const initialState: OffersState = {
 const offersSlice = createSlice({
   name: NameSpace.Offers,
   initialState,
-  reducers: {},
+  reducers: {
+    clearNearbyOffers(state) {
+      state.nearbyOffers = [];
+      state.isNearbyOffersLoading = false;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(uploadOffers.pending, (state) => {
@@ -42,3 +47,5 @@ const offersSlice = createSlice({
 });
 
 export { offersSlice };
+
+export const { clearNearbyOffers } = offersSlice.actions;

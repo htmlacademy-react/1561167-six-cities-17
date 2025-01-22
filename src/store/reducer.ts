@@ -5,7 +5,6 @@ import {
   DEFAULT_SORTING_KEY,
 } from '../const';
 import {
-  clearNearbyOffers,
   clearReviewsList,
   setError,
 } from './actions';
@@ -35,10 +34,6 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(clearNearbyOffers, (state) => {
-      state.nearbyOffers = [];
-      state.isNearbyOffersLoading = false;
-    })
     .addCase(uploadReviewsList.pending, (state) => {
       state.isReviewsListLoading = true;
     })
