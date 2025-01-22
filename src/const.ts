@@ -109,6 +109,7 @@ const NameSpace = {
   Sort: 'sort',
   ExtendedOffer: 'extendedOffer',
   Reviews: 'reviews',
+  Error: 'error',
 } as const;
 
 export {
