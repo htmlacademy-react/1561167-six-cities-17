@@ -2,10 +2,8 @@ import { TypesPageKeys } from '../../../../types/types';
 import Sort from '../sort/sort';
 import CardsList from '../../../../components/cards-list/cards-list';
 import { useAppSelector } from '../../../../hooks';
-import {
-  selectCurrentCity,
-  selectSortedOffers,
-} from '../../../../store/selectors';
+import { selectCurrentCity } from '../../../../store/city/city-selectors';
+import { selectSortedOffers } from '../../../../store/offers/offers-selectors';
 
 type OffersProps = {
   typesPage: TypesPageKeys;

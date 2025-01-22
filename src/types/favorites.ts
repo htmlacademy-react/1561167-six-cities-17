@@ -1,4 +1,5 @@
-import { OfferType, ShortOfferListType } from './offers';
+import { OfferType } from './offer';
+import { ShortOfferListType } from './offers';
 
 type FavoritesType = OfferType & { previewImage: string };
 

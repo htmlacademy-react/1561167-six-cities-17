@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import { SortTypeKeys } from '../../../../types/types';
 import { TypesSort } from '../../../../const';
-import { changeSortKey } from '../../../../store/actions';
 import { useAppDispatch } from '../../../../hooks';
+import { SortTypeKeys } from '../../../../types/sort';
+import { changeSortKey } from '../../../../store/sort-key/sort-key-slice';
 
 type ItemSortProps = {
   isActive: boolean;

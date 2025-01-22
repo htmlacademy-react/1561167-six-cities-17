@@ -1,13 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  selectAuthorizationStatus,
-  selectUserAvatarUrl,
-  selectUserEmail,
-} from '../../store/selectors';
 import { logOut } from '../../store/api-actions';
 import { MouseEvent } from 'react';
+import { selectAuthorizationStatus, selectUserAvatarUrl, selectUserEmail } from '../../store/user/user-selectors';
 
 type NavProps = {
   favoritesCount: number;

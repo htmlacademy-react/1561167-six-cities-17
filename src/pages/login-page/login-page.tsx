@@ -1,11 +1,11 @@
 import { useAppSelector } from '../../hooks';
-import { selectCurrentCity } from '../../store/selectors';
 import Header from '../../components/header/header';
 import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
 import { Title } from '../../components/title/title';
 import { SignIn } from './components/sign-in/sign-in';
 import { TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
+import { selectCurrentCity } from '../../store/city/city-selectors';
 
 function LoginPage(): JSX.Element {
   const currentCity = useAppSelector(selectCurrentCity);

@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { SortItem } from '../sort-item/sort-item';
 import { TypesSort } from '../../../../const';
-import { SortTypeKeys } from '../../../../types/types';
 import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../../../hooks';
-import { selectCurrentSortKey } from '../../../../store/selectors';
+import { selectCurrentSortKey } from '../../../../store/sort-key/sort-key-selectors';
+import { SortTypeKeys } from '../../../../types/sort';
 
 function Sort(): JSX.Element {
   const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);

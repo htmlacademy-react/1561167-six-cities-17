@@ -1,10 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
-import {
-  selectAuthorizationStatus,
-  selectIsOffersLoading,
-} from '../../store/selectors';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -16,6 +12,8 @@ import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
 import { FavoritesListType } from '../../types/favorites';
+import { selectAuthorizationStatus } from '../../store/user/user-selectors';
+import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
 
 type AppPageProps = {
   favorites: FavoritesListType;

@@ -4,9 +4,9 @@ import { State } from '../../types/state';
 import { selectCurrentCity } from '../city/city-selectors';
 import { filterOffersByCity, sortOffers } from '../../utils/utils';
 import { selectCurrentSortKey } from '../sort-key/sort-key-selectors';
-import { NEARBY_OFFERS_LIMITED } from '../../const';
+import { NameSpace, NEARBY_OFFERS_LIMITED } from '../../const';
 
-const selectOffers = (state: State): ShortOfferListType => state.offers;
+const selectOffers = (state: State): ShortOfferListType => state[NameSpace.Offers].offers;
 
 const selectFilteredOffers = createSelector(
   [selectOffers, selectCurrentCity],
@@ -18,13 +18,13 @@ const selectSortedOffers = createSelector(
   (offers, currentSortKey) => sortOffers(offers, currentSortKey)
 );
 
-const selectIsOffersLoading = (state: State): boolean => state.isOffersLoading;
+const selectIsOffersLoading = (state: State): boolean => state[NameSpace.Offers].isOffersLoading;
 
 const selectNearbyOffers = (state: State): ShortOfferListType =>
-  state.nearbyOffers;
+  state[NameSpace.Offers].nearbyOffers;
 
 const selectIsNearbyOffersLoading = (state: State): boolean =>
-  state.isNearbyOffersLoading;
+  state[NameSpace.Offers].isNearbyOffersLoading;
 
 const selectAdaptToNearbyOffers = createSelector(
   [selectNearbyOffers],

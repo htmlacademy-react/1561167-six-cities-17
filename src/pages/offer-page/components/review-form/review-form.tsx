@@ -2,15 +2,13 @@ import { ChangeEvent, useState } from 'react';
 import { ReviewRating } from '../review-rating/review-rating';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { submitReview } from '../../../../store/api-actions';
-import {
-  selectExtendedOffer,
-  selectisSubmitReviewLoading,
-} from '../../../../store/selectors';
 import { isValidValues } from './utils';
 import { CommentLengthLimits } from '../../../../const';
 import { FeedbackType } from '../../../../types/review';
 import { processErrorHandle } from '../../../../services/process-error-handle';
 import { notify } from '../../../../utils/utils';
+import { selectExtendedOffer } from '../../../../store/extended-offer/extended-offer-selectors';
+import { selectIsSubmitReviewLoading } from '../../../../store/reviews/reviews-selectors';
 
 type ChangedFeedbackType = Omit<FeedbackType, 'rating'> & {
   rating: number | null;
@@ -23,7 +21,7 @@ const initialReview: ChangedFeedbackType = {
 
 function ReviewForm(): JSX.Element {
   const offerId = useAppSelector(selectExtendedOffer)?.id ?? '';
-  const isSubmitReviewLoading = useAppSelector(selectisSubmitReviewLoading);
+  const isSubmitReviewLoading = useAppSelector(selectIsSubmitReviewLoading);
 
   const dispatch = useAppDispatch();
 

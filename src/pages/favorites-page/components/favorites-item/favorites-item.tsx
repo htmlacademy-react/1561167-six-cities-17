@@ -1,10 +1,10 @@
 import { useAppDispatch } from '../../../../hooks';
 import CardsList from '../../../../components/cards-list/cards-list';
 import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
-import { changeCity } from '../../../../store/actions';
 import { TypesPageKeys } from '../../../../types/types';
 import { ShortOfferListType } from '../../../../types/offers';
 import { CityKeys } from '../../../../types/cities';
+import { changeCity } from '../../../../store/city/city-slice';
 
 type FavoritesItemProps = {
   typesPage: TypesPageKeys;

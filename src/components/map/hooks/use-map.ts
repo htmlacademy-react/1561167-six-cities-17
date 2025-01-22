@@ -2,7 +2,7 @@ import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import { Map, TileLayer } from 'leaflet';
 import { Layer } from '../../../const';
 import 'leaflet/dist/leaflet.css';
-import { LocationType } from '../../../types/offers';
+import { LocationType } from '../../../types/offer';
 
 type MapRefType = MutableRefObject<HTMLElement | null>;
 

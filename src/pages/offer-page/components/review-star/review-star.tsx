@@ -1,6 +1,6 @@
 import { RATING_VALUES } from '../../../../const';
 import { useAppSelector } from '../../../../hooks';
-import { selectisSubmitReviewLoading } from '../../../../store/selectors';
+import { selectIsSubmitReviewLoading } from '../../../../store/reviews/reviews-selectors';
 import { OnChangeEventType } from '../../../../types/review';
 
 type ReviewStarProps = {
@@ -11,7 +11,7 @@ type ReviewStarProps = {
 
 function ReviewStar(props: ReviewStarProps): JSX.Element {
   const { number, onRatingChange, currentRating } = props;
-  const isSubmitReviewLoading = useAppSelector(selectisSubmitReviewLoading);
+  const isSubmitReviewLoading = useAppSelector(selectIsSubmitReviewLoading);
 
   return (
     <>

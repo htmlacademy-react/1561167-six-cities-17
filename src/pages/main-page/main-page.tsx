@@ -11,11 +11,9 @@ import {
 import { TypesPageKeys } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
-import {
-  selectFilteredOffers,
-} from '../../store/selectors';
-import { changeSortKey } from '../../store/actions';
 import { useEffect } from 'react';
+import { selectFilteredOffers } from '../../store/offers/offers-selectors';
+import { changeSortKey } from '../../store/sort-key/sort-key-slice';
 
 type MainPageProps = {
   favoritesCount: number;

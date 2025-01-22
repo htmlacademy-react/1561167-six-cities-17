@@ -1,10 +1,11 @@
+import { NameSpace } from '../../const';
 import { OfferType } from '../../types/offer';
 import { State } from '../../types/state';
 
 const selectIsExtendedOfferLoading = (state: State): boolean =>
-  state.isExtendedOfferLoading;
+  state[NameSpace.ExtendedOffer].isExtendedOfferLoading;
 
 const selectExtendedOffer = (state: State): OfferType | null =>
-  state.extendedOffer;
+  state[NameSpace.ExtendedOffer].extendedOffer;
 
 export { selectIsExtendedOfferLoading, selectExtendedOffer };

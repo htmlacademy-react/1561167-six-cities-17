@@ -16,7 +16,6 @@ type FavoritePageProps = {
 };
 
 function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
-
   const typesPage: TypesPageKeys = TypesPage.Favorites;
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
@@ -36,9 +35,7 @@ function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
   return (
     <div className={pageClasses}>
       <Header typesPage={typesPage}>
-        <Nav
-          favoritesCount={favorites.length}
-        />
+        <Nav favoritesCount={favorites.length} />
       </Header>
       <Title typesPage={typesPage} isEmpty={isEmpty} />
       <main className={mainClasses}>

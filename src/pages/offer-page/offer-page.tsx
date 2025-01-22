@@ -1,15 +1,6 @@
 import { useEffect } from 'react';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  selectAdaptToNearbyOffers,
-  selectAuthorizationStatus,
-  selectExtendedOffer,
-  selectIsExtendedOfferLoading,
-  selectIsNearbyOffersLoading,
-  selectIsReviewsListLoading,
-  selectReviewsList,
-} from '../../store/selectors';
 import { Title } from '../../components/title/title';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
@@ -33,11 +24,13 @@ import { useUrlId } from './utils';
 import { adaptToMap } from '../../utils/utils';
 import { AuthorizationStatus, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
-import {
-  clearExtendedOffer,
-  clearNearbyOffers,
-  clearReviewsList,
-} from '../../store/actions';
+import { selectAuthorizationStatus } from '../../store/user/user-selectors';
+import { selectExtendedOffer, selectIsExtendedOfferLoading } from '../../store/extended-offer/extended-offer-selectors';
+import { selectAdaptToNearbyOffers, selectIsNearbyOffersLoading } from '../../store/offers/offers-selectors';
+import { selectIsReviewsListLoading, selectReviewsList } from '../../store/reviews/reviews-selectors';
+import { clearExtendedOffer } from '../../store/extended-offer/extended-offer-slice';
+import { clearNearbyOffers } from '../../store/offers/offers-slice';
+import { clearReviewsList } from '../../store/reviews/reviews-slice';
 
 type OfferPageProps = {
   favoritesCount: number;
