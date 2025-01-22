@@ -5,8 +5,9 @@ import { dropToken, setToken } from '../services/token';
 import { APIRoute } from '../const';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
-import { OfferType, ShortOfferListType } from '../types/offers';
+import { ShortOfferListType } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
+import { OfferType } from '../types/offer';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;

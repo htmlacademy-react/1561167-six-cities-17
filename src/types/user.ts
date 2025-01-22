@@ -1,5 +1,5 @@
 import { AuthorizationStatus } from '../const';
-import { HostType } from './offers';
+import { HostType } from './offer';
 import { InitialState } from './state';
 
 type AuthorizationStatusKeys = keyof typeof AuthorizationStatus;

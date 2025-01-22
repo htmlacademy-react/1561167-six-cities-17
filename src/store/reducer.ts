@@ -5,7 +5,6 @@ import {
   DEFAULT_SORTING_KEY,
 } from '../const';
 import {
-  clearExtendedOffer,
   clearNearbyOffers,
   clearReviewsList,
   setError,
@@ -13,7 +12,6 @@ import {
 
 import {
   submitReview,
-  uploadExtendedOffer,
   uploadReviewsList,
 } from './api-actions';
 import { InitialState } from '../types/state';
@@ -37,21 +35,6 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(uploadExtendedOffer.pending, (state) => {
-      state.isExtendedOfferLoading = true;
-    })
-    .addCase(uploadExtendedOffer.fulfilled, (state, action) => {
-      state.extendedOffer = action.payload;
-      state.isExtendedOfferLoading = false;
-    })
-    .addCase(uploadExtendedOffer.rejected, (state) => {
-      state.extendedOffer = null;
-      state.isExtendedOfferLoading = false;
-    })
-    .addCase(clearExtendedOffer, (state) => {
-      state.extendedOffer = null;
-      state.isExtendedOfferLoading = false;
-    })
     .addCase(clearNearbyOffers, (state) => {
       state.nearbyOffers = [];
       state.isNearbyOffersLoading = false;
