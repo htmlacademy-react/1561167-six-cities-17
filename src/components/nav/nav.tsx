@@ -8,19 +8,16 @@ import {
   selectUserAvatarUrl,
   selectUserEmail,
 } from '../../store/user/user-selectors';
-
-type NavProps = {
-  favoritesCount: number;
-};
+import { selectFavoritesCount } from '../../store/favorites/favorites-selectors';
 
 type UserProfileProps = {
   isLoggedIn: boolean;
-} & NavProps;
+};
 
-const UserProfile = memo((props: UserProfileProps): JSX.Element => {
-  const { isLoggedIn, favoritesCount } = props;
+const UserProfile = memo(({ isLoggedIn }: UserProfileProps): JSX.Element => {
   const userEmail = useAppSelector(selectUserEmail);
   const userAvatarUrl = useAppSelector(selectUserAvatarUrl);
+  const favoritesCount = useAppSelector(selectFavoritesCount);
 
   const backgroundImage = {
     backgroundImage: `url(${userAvatarUrl})`,
@@ -62,7 +59,7 @@ const Item = memo(
   )
 );
 
-const Nav = memo(({ favoritesCount }: NavProps): JSX.Element => {
+const Nav = memo((): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -86,10 +83,7 @@ const Nav = memo(({ favoritesCount }: NavProps): JSX.Element => {
             className="header__nav-link header__nav-link--profile"
             to={Path.Favorites}
           >
-            <UserProfile
-              isLoggedIn={isLoggedIn}
-              favoritesCount={favoritesCount}
-            />
+            <UserProfile isLoggedIn={isLoggedIn} />
           </Link>
         </li>
         {isLoggedIn && <Item onLinkClick={handleLinkClick} />}

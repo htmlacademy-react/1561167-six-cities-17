@@ -41,12 +41,7 @@ import { clearExtendedOffer } from '../../store/extended-offer/extended-offer-sl
 import { clearNearbyOffers } from '../../store/offers/offers-slice';
 import { clearReviewsList } from '../../store/reviews/reviews-slice';
 
-type OfferPageProps = {
-  favoritesCount: number;
-};
-
-function OfferPage(props: OfferPageProps): JSX.Element {
-  const { favoritesCount } = props;
+function OfferPage(): JSX.Element {
   const typesPage: TypesPageKeys = TypesPage.Offer;
 
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
@@ -108,7 +103,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   return (
     <div className="page">
       <Header typesPage={typesPage}>
-        <Nav favoritesCount={favoritesCount} />
+        <Nav />
       </Header>
       <main className="page__main page__main--offer">
         <Title typesPage={typesPage} />

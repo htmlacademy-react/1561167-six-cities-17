@@ -10,11 +10,7 @@ import { useEffect } from 'react';
 import { selectFilteredOffers } from '../../store/offers/offers-selectors';
 import { changeSortKey } from '../../store/sort-key/sort-key-slice';
 
-type MainPageProps = {
-  favoritesCount: number;
-};
-
-function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const cityOffers = useAppSelector(selectFilteredOffers);
 
@@ -32,7 +28,7 @@ function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header typesPage={typesPage}>
-        <Nav favoritesCount={favoritesCount} />
+        <Nav />
       </Header>
       <main className={mainClasses}>
         <h1 className="visually-hidden">Cities</h1>

@@ -38,7 +38,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path={Path.Root} element={<MainPage favoritesCount={3} />} />
+          <Route path={Path.Root} element={<MainPage />} />
           <Route
             path={Path.Login}
             element={
@@ -61,7 +61,7 @@ function App(): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={Path.Offer} element={<OfferPage favoritesCount={3} />} />
+          <Route path={Path.Offer} element={<OfferPage />} />
           <Route path={Path.NotFound} element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

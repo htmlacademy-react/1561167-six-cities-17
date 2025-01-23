@@ -9,11 +9,13 @@ import { TypesPageKeys } from '../../types/types';
 import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
-import { FavoritesListType } from '../../types/favorites';
+import { useAppSelector } from '../../hooks';
+import { selectFavorites } from '../../store/favorites/favorites-selectors';
 
 function FavoritesPage(): JSX.Element {
   const typesPage: TypesPageKeys = TypesPage.Favorites;
-  const favorites: FavoritesListType = [];
+  const favorites = useAppSelector(selectFavorites);
+
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
 
@@ -32,7 +34,7 @@ function FavoritesPage(): JSX.Element {
   return (
     <div className={pageClasses}>
       <Header typesPage={typesPage}>
-        <Nav favoritesCount={favorites.length} />
+        <Nav />
       </Header>
       <Title typesPage={typesPage} isEmpty={isEmpty} />
       <main className={mainClasses}>
