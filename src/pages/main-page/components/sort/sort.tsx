@@ -1,12 +1,12 @@
+import { memo, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import { SortItem } from '../sort-item/sort-item';
 import { TypesSort } from '../../../../const';
-import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../../../hooks';
 import { selectCurrentSortKey } from '../../../../store/sort-key/sort-key-selectors';
 import { SortTypeKeys } from '../../../../types/sort';
 
-function Sort(): JSX.Element {
+const Sort = memo((): JSX.Element => {
   const [isOpenDropDown, setOpenDropDown] = useState<boolean>(false);
   const sortingValueRef = useRef<HTMLElement | null>(null);
   const currentSortKey = useAppSelector(selectCurrentSortKey);
@@ -55,6 +55,8 @@ function Sort(): JSX.Element {
       </ul>
     </form>
   );
-}
+});
 
-export default Sort;
+Sort.displayName = 'Sort';
+
+export { Sort };

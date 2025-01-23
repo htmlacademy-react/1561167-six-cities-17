@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { Path, TypesPage } from '../../const';
 import { CityProps } from '../../types/cities';
+import { memo } from 'react';
 
-function LocationsItemLink(props: CityProps): JSX.Element {
+const LocationsItemLink = memo((props: CityProps): JSX.Element => {
   const { city, typesPage, isActive = false } = props;
 
   const linkClasses = cn('locations__item-link', {
@@ -16,6 +17,8 @@ function LocationsItemLink(props: CityProps): JSX.Element {
       <span>{city}</span>
     </Link>
   );
-}
+});
 
-export default LocationsItemLink;
+LocationsItemLink.displayName = 'LocationsItemLink';
+
+export { LocationsItemLink };

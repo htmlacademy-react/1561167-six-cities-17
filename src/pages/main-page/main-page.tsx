@@ -1,13 +1,8 @@
 import cn from 'classnames';
-import Header from '../../components/header/header';
-import Nav from '../../components/nav/nav';
+import { Header } from '../../components/header/header';
+import { Nav } from '../../components/nav/nav';
 import { LocationsList } from './components/locations-list/locations-list';
-import { LocationsItem } from './components/locations-item/locations-item';
-import {
-  CITIES,
-  DEFAULT_SORTING_KEY,
-  TypesPage,
-} from '../../const';
+import { DEFAULT_SORTING_KEY, TypesPage } from '../../const';
 import { TypesPageKeys } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
@@ -20,8 +15,8 @@ type MainPageProps = {
 };
 
 function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
-  const cityOffers = useAppSelector(selectFilteredOffers);
   const dispatch = useAppDispatch();
+  const cityOffers = useAppSelector(selectFilteredOffers);
 
   const isEmpty = cityOffers.length === 0;
 
@@ -37,19 +32,13 @@ function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header typesPage={typesPage}>
-        <Nav
-          favoritesCount={favoritesCount}
-        />
+        <Nav favoritesCount={favoritesCount} />
       </Header>
       <main className={mainClasses}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList>
-              {CITIES.map((city) => (
-                <LocationsItem key={city} city={city} typesPage={typesPage} />
-              ))}
-            </LocationsList>
+            <LocationsList typesPage={typesPage} />
           </section>
         </div>
         <div className="cities">
@@ -60,4 +49,4 @@ function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export { MainPage };

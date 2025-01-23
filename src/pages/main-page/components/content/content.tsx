@@ -1,11 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import cn from 'classnames';
 import { OffersEmpty } from '../offers-empty/offers-empty';
 import { Offers } from '../offers.tsx/offers';
-import Map from '../../../../components/map/map';
-import {
-  TypesPageKeys,
-} from '../../../../types/types';
+import { Map } from '../../../../components/map/map';
+import { TypesPageKeys } from '../../../../types/types';
 import { adaptToMap } from '../../../../utils/utils';
 import { ShortOfferListType } from '../../../../types/offers';
 
@@ -16,7 +14,10 @@ type ContentPros = {
 
 function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
-  const handleCardHover = (id: string | null) => setActiveCardId(id);
+  const handleCardHover = useCallback(
+    (id: string | null) => setActiveCardId(id),
+    []
+  );
 
   const isEmpty = cityOffers.length === 0;
 
@@ -27,16 +28,14 @@ function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
     ['cities__places places']: !isEmpty,
     ['cities__no-places']: isEmpty,
   });
+
   return (
     <div className={containerClasses}>
       <section className={sectionClasses}>
         {isEmpty ? (
           <OffersEmpty />
         ) : (
-          <Offers
-            onCardHover={handleCardHover}
-            typesPage={typesPage}
-          />
+          <Offers onCardHover={handleCardHover} typesPage={typesPage} />
         )}
       </section>
       <div className="cities__right-section">

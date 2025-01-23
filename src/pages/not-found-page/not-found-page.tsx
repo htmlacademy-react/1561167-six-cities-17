@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
+import { Header } from '../../components/header/header';
+import { Footer } from '../../components/footer/footer';
+import { Logo } from '../../components/logo/logo';
 import { Path, TypesPage } from '../../const';
 import styles from './style.module.css';
 import { TypesPageKeys } from '../../types/types';
@@ -31,4 +31,4 @@ function NotFoundPage(): JSX.Element {
   );
 }
 
-export default NotFoundPage;
+export { NotFoundPage };

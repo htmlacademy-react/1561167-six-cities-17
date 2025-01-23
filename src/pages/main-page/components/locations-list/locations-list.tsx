@@ -1,11 +1,22 @@
-import { ReactNode } from 'react';
+import { memo } from 'react';
+import { CITIES } from '../../../../const';
+import { LocationsItem } from '../locations-item/locations-item';
+import { TypesPageKeys } from '../../../../types/types';
 
 type LocationsListProps = {
-  children: ReactNode[];
+  typesPage: TypesPageKeys;
 };
 
-function LocationsList({ children }: LocationsListProps): JSX.Element {
-  return <ul className="locations__list tabs__list">{children}</ul>;
-}
+const LocationsList = memo(
+  ({ typesPage }: LocationsListProps): JSX.Element => (
+    <ul className="locations__list tabs__list">
+      {CITIES.map((city) => (
+        <LocationsItem key={city} city={city} typesPage={typesPage} />
+      ))}
+    </ul>
+  )
+);
+
+LocationsList.displayName = 'LocationsList';
 
 export { LocationsList };

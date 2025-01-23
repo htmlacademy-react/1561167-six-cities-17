@@ -1,4 +1,4 @@
-import CardsList from '../../../../components/cards-list/cards-list';
+import { CardsList } from '../../../../components/cards-list/cards-list';
 import { ShortOfferListType } from '../../../../types/offers';
 import { TypesPageKeys } from '../../../../types/types';
 

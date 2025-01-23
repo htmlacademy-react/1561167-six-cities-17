@@ -1,16 +1,17 @@
-import { TypesPageKeys } from '../../../../types/types';
-import Sort from '../sort/sort';
-import CardsList from '../../../../components/cards-list/cards-list';
+import { memo } from 'react';
 import { useAppSelector } from '../../../../hooks';
 import { selectCurrentCity } from '../../../../store/city/city-selectors';
 import { selectSortedOffers } from '../../../../store/offers/offers-selectors';
+import { CardsList } from '../../../../components/cards-list/cards-list';
+import { Sort } from '../sort/sort';
+import { TypesPageKeys } from '../../../../types/types';
 
 type OffersProps = {
   typesPage: TypesPageKeys;
   onCardHover: (id: string | null) => void;
 };
 
-function Offers(props: OffersProps): JSX.Element {
+const Offers = memo((props: OffersProps): JSX.Element => {
   const { typesPage, onCardHover } = props;
 
   const currentCity = useAppSelector(selectCurrentCity);
@@ -32,6 +33,8 @@ function Offers(props: OffersProps): JSX.Element {
       />
     </>
   );
-}
+});
+
+Offers.displayName = 'Offers';
 
 export { Offers };

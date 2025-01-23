@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import Logo from '../logo/logo';
+import { memo, ReactNode } from 'react';
+import { Logo } from '../logo/logo';
 import { TypesPageKeys } from '../../types/types';
 
 type NavProps = {
@@ -7,8 +7,8 @@ type NavProps = {
   children?: ReactNode;
 };
 
-function Header({ typesPage, children }: NavProps): JSX.Element {
-  return (
+const Header = memo(
+  ({ typesPage, children }: NavProps): JSX.Element => (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -19,7 +19,9 @@ function Header({ typesPage, children }: NavProps): JSX.Element {
         </div>
       </div>
     </header>
-  );
-}
+  )
+);
 
-export default Header;
+Header.displayName = 'Hearder';
+
+export { Header };

@@ -1,4 +1,4 @@
-import Rating from '../../../../components/rating/rating';
+import { Rating } from '../../../../components/rating/rating';
 import { ClientReviewType } from '../../../../types/review';
 import { convertDate, convertShortDate } from './utils';
 

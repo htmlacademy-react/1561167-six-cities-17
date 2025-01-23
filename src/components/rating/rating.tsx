@@ -38,4 +38,4 @@ function Rating(props: RatingProps): JSX.Element {
   );
 }
 
-export default Rating;
+export { Rating };

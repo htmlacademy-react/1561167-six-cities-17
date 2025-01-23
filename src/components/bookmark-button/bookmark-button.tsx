@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import cn from 'classnames';
 import { TypesPage } from '../../const';
 import { SvgSize } from './settings';
@@ -9,11 +10,8 @@ type BookmarkButtonProps = {
   isCard?: boolean;
 };
 
-function BookmarkButton({
-  typesPage,
-  isActive,
-  isCard,
-}: BookmarkButtonProps): JSX.Element {
+const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
+  const { typesPage, isActive, isCard } = props;
   const buttonClasses = cn('button', {
     ['place-card__bookmark-button--active']: isActive,
     ['place-card__bookmark-button']: isCard,
@@ -26,6 +24,7 @@ function BookmarkButton({
   const width = isCard ? SvgSize.Card.Width : SvgSize.OffCard.Width;
   const height = isCard ? SvgSize.Card.Height : SvgSize.OffCard.Height;
   const text = isActive ? 'In' : 'To';
+
   return (
     <button className={buttonClasses} type="button">
       <svg className={svgClasses} width={width} height={height}>
@@ -34,6 +33,8 @@ function BookmarkButton({
       <span className="visually-hidden">{`${text} bookmarks`}</span>
     </button>
   );
-}
+});
 
-export default BookmarkButton;
+BookmarkButton.displayName = 'BookmarkButton';
+
+export { BookmarkButton };

@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks';
-import Header from '../../components/header/header';
-import LocationsItemLink from '../../components/locations-item-link/locations-item-link';
+import { Header } from '../../components/header/header';
+import { LocationsItemLink } from '../../components/locations-item-link/locations-item-link';
 import { Title } from '../../components/title/title';
 import { SignIn } from './components/sign-in/sign-in';
 import { TypesPage } from '../../const';

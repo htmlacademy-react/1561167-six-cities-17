@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../../../../hooks';
-import CardsList from '../../../../components/cards-list/cards-list';
-import LocationsItemLink from '../../../../components/locations-item-link/locations-item-link';
+import { CardsList } from '../../../../components/cards-list/cards-list';
+import { LocationsItemLink } from '../../../../components/locations-item-link/locations-item-link';
 import { TypesPageKeys } from '../../../../types/types';
 import { ShortOfferListType } from '../../../../types/offers';
 import { CityKeys } from '../../../../types/cities';

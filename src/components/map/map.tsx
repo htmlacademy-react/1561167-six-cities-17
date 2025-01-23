@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
 import { TypesPageKeys } from '../../types/types';
@@ -25,7 +25,7 @@ const activeCustomIcon = new Icon({
   iconAnchor: Pin.Anchor,
 });
 
-function Map(props: MapProps): JSX.Element {
+const Map = memo((props: MapProps): JSX.Element => {
   const { points, activeCardId, typesPage } = props;
   const classesMap = cn('map', {
     [`cities__map ${styles.mainwrapper}`]: typesPage === TypesPage.Main,
@@ -65,6 +65,8 @@ function Map(props: MapProps): JSX.Element {
   }, [map, points, activeCardId, cityLocation]);
 
   return <section ref={mapRef} className={classesMap}></section>;
-}
+});
 
-export default Map;
+Map.displayName = 'Map';
+
+export { Map };

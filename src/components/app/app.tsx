@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
-import MainPage from '../../pages/main-page/main-page';
-import FavoritesPage from '../../pages/favorites-page/favorites-page';
-import OfferPage from '../../pages/offer-page/offer-page';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { MainPage } from '../../pages/main-page/main-page';
+import { FavoritesPage } from '../../pages/favorites-page/favorites-page';
+import { OfferPage } from '../../pages/offer-page/offer-page';
+import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';

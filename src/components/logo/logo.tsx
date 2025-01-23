@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import cn from 'classnames';
 import { Path, TypesPage } from '../../const';
 import { LogoSize } from './settings';
@@ -9,7 +10,8 @@ type LogoProps = {
   isFooter?: boolean;
 };
 
-function Logo({ typesPage, isFooter = false }: LogoProps): JSX.Element {
+const Logo = memo((props: LogoProps): JSX.Element => {
+  const { typesPage, isFooter = false } = props;
   const linkClasses = cn({
     ['header__logo-link']: !isFooter,
     ['header__logo-link--active']: !isFooter && typesPage === TypesPage.Main,
@@ -30,6 +32,8 @@ function Logo({ typesPage, isFooter = false }: LogoProps): JSX.Element {
       />
     </Link>
   );
-}
+});
 
-export default Logo;
+Logo.displayName = 'Logo';
+
+export { Logo };

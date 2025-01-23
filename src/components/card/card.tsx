@@ -1,14 +1,11 @@
 import cn from 'classnames';
 import { Path, TypesPage } from '../../const';
-import Mark from '../mark/mark';
-import Rating from '../rating/rating';
+import { Mark } from '../mark/mark';
+import { Rating } from '../rating/rating';
 import { ImageSize } from './settings';
-import BookmarkButton from '../bookmark-button/bookmark-button';
+import { BookmarkButton } from '../bookmark-button/bookmark-button';
 import { generatePath, Link } from 'react-router-dom';
-import {
-  OnCardHoverType,
-  TypesPageKeys,
-} from '../../types/types';
+import { OnCardHoverType, TypesPageKeys } from '../../types/types';
 import { ShortOfferType } from '../../types/offers';
 
 type CardProps = {

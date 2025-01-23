@@ -1,10 +1,7 @@
 import Card from '../card/card';
 import cn from 'classnames';
 import { TypesPage } from '../../const';
-import {
-  OnCardHoverType,
-  TypesPageKeys,
-} from '../../types/types';
+import { OnCardHoverType, TypesPageKeys } from '../../types/types';
 import { ShortOfferListType } from '../../types/offers';
 
 type CardsListProps = {
@@ -37,4 +34,4 @@ function CardsList(props: CardsListProps): JSX.Element {
   );
 }
 
-export default CardsList;
+export { CardsList };

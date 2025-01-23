@@ -1,10 +1,11 @@
 import cn from 'classnames';
+import { memo } from 'react';
 
 type MarkProps = {
   isCard?: boolean;
 };
 
-function Mark({ isCard = false }: MarkProps): JSX.Element {
+const Mark = memo(({ isCard = false }: MarkProps): JSX.Element => {
   const markClasses = cn({
     ['place-card__mark']: isCard,
     ['offer__mark']: !isCard,
@@ -14,6 +15,8 @@ function Mark({ isCard = false }: MarkProps): JSX.Element {
       <span>Premium</span>
     </div>
   );
-}
+});
 
-export default Mark;
+Mark.displayName = 'Mark';
+
+export { Mark };

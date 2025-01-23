@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import Nav from '../../components/nav/nav';
-import Logo from '../../components/logo/logo';
+import { Header } from '../../components/header/header';
+import { Footer } from '../../components/footer/footer';
+import { Nav } from '../../components/nav/nav';
+import { Logo } from '../../components/logo/logo';
 import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import { TypesPageKeys } from '../../types/types';
@@ -62,4 +62,4 @@ function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
   );
 }
 
-export default FavoritesPage;
+export { FavoritesPage };
