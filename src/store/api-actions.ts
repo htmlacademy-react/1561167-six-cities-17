@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { generatePath } from 'react-router-dom';
 import { AxiosInstance } from 'axios';
 import { dropToken, setToken } from '../services/token';
-import { APIRoute } from '../const';
+import { APIRoute, NameSpace } from '../const';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
 import { ShortOfferListType } from '../types/offers';
@@ -16,7 +16,7 @@ const createAppAsyncThunk = createAsyncThunk.withTypes<{
 }>();
 
 const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
-  'offers/uploadOffers',
+  `${NameSpace.Offers}/uploadOffers`,
   async (_arg, { extra: api }) => {
     const { data } = await api.get<ShortOfferListType>(APIRoute.Offers);
     return data;
@@ -24,7 +24,7 @@ const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
 );
 
 const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
-  'extendedOffer/uploadExtendedOffer',
+  `${NameSpace.ExtendedOffer}/uploadExtendedOffer`,
   async (id, { extra: api }) => {
     const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
     const { data } = await api.get<OfferType>(path);
@@ -35,7 +35,7 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
 const uploadNearbyOffers = createAppAsyncThunk<
   ShortOfferListType,
   string | undefined
->('offers/uploadNearbyOffers', async (id, { extra: api }) => {
+>(`${NameSpace.Offers}/uploadNearbyOffers`, async (id, { extra: api }) => {
   const path = generatePath(APIRoute.NearbyOffers, { offerId: id });
   const { data } = await api.get<ShortOfferListType>(path);
   return data;
@@ -44,14 +44,14 @@ const uploadNearbyOffers = createAppAsyncThunk<
 const uploadReviewsList = createAppAsyncThunk<
   ReviewsListType,
   string | undefined
->('reviews/uploadReviewsList', async (id, { extra: api }) => {
+>(`${NameSpace.Reviews}/uploadReviewsList`, async (id, { extra: api }) => {
   const path = generatePath(APIRoute.Comments, { offerId: id });
   const { data } = await api.get<ReviewsListType>(path);
   return data;
 });
 
 const submitReview = createAppAsyncThunk<ReviewType, OfferReviewType>(
-  'reviews/submitReview',
+  `${NameSpace.Reviews}/submitReview`,
   async ({ offerId, review: { rating, comment } }, { extra: api }) => {
     const path = generatePath(APIRoute.Comments, { offerId });
     const { data } = await api.post<ReviewType>(path, {
@@ -63,7 +63,7 @@ const submitReview = createAppAsyncThunk<ReviewType, OfferReviewType>(
 );
 
 const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
-  'user/checkAuthorizationStatus',
+  `${NameSpace.User}/checkAuthorizationStatus`,
   async (_arg, { extra: api }) => {
     const { data } = await api.get<UserInfo>(APIRoute.Login);
     return data;
@@ -71,7 +71,7 @@ const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
 );
 
 const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(
-  'user/logIn',
+  `${NameSpace.User}/logIn`,
   async ({ login: email, password }, { extra: api }) => {
     const { data } = await api.post<UserInfo>(APIRoute.Login, {
       email,
@@ -83,7 +83,7 @@ const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(
 );
 
 const logOut = createAppAsyncThunk<void, undefined>(
-  'user/logOut',
+  `${NameSpace.User}/logIn/logOut`,
   async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
