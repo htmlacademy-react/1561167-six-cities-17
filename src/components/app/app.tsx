@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { MainPage } from '../../pages/main-page/main-page';
 import { FavoritesPage } from '../../pages/favorites-page/favorites-page';
 import { OfferPage } from '../../pages/offer-page/offer-page';
@@ -13,12 +13,21 @@ import { AuthorizationStatus, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
+import { useEffect } from 'react';
+import { uploadFavorites } from '../../store/api-actions';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(uploadFavorites());
+    }
+  }, [dispatch, authorizationStatus]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <LoadingPage />;
@@ -29,10 +38,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route
-            path={Path.Root}
-            element={<MainPage favoritesCount={3} />}
-          />
+          <Route path={Path.Root} element={<MainPage favoritesCount={3} />} />
           <Route
             path={Path.Login}
             element={
@@ -55,10 +61,7 @@ function App(): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route
-            path={Path.Offer}
-            element={<OfferPage favoritesCount={3} />}
-          />
+          <Route path={Path.Offer} element={<OfferPage favoritesCount={3} />} />
           <Route path={Path.NotFound} element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
