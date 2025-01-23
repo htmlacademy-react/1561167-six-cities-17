@@ -13,6 +13,7 @@ type InitialState = {
   isOffersLoading: boolean;
   authorizationStatus: AuthorizationStatusKeys;
   userInfo: UserInfo | null;
+  isAuthRequestExecuted: boolean;
   extendedOffer: OfferType | null;
   isExtendedOfferLoading: boolean;
   nearbyOffers: ShortOfferListType;

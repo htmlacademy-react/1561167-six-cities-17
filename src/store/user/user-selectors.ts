@@ -11,4 +11,12 @@ const selectUserEmail = (state: State): string | undefined =>
 const selectUserAvatarUrl = (state: State): string | undefined =>
   state[NameSpace.User].userInfo?.avatarUrl;
 
-export { selectAuthorizationStatus, selectUserEmail, selectUserAvatarUrl };
+const selectAuthRequestExecuted = (state: State): boolean =>
+  state[NameSpace.User].isAuthRequestExecuted;
+
+export {
+  selectAuthorizationStatus,
+  selectUserEmail,
+  selectUserAvatarUrl,
+  selectAuthRequestExecuted,
+};

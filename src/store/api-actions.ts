@@ -83,7 +83,7 @@ const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(
 );
 
 const logOut = createAppAsyncThunk<void, undefined>(
-  `${NameSpace.User}/logIn/logOut`,
+  `${NameSpace.User}/logOut`,
   async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();

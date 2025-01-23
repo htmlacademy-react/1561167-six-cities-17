@@ -14,6 +14,9 @@ type UserInfo = HostType & {
   token: string;
 };
 
-type User = Pick<InitialState, 'authorizationStatus' | 'userInfo'>;
+type User = Pick<
+  InitialState,
+  'authorizationStatus' | 'userInfo' | 'isAuthRequestExecuted'
+>;
 
 export type { AuthorizationStatusKeys, AuthorizationData, UserInfo, User };

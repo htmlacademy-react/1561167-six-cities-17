@@ -6,6 +6,7 @@ import { checkAuthorizationStatus, logIn, logOut } from '../api-actions';
 const initialState: User = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userInfo: null,
+  isAuthRequestExecuted: false,
 };
 
 const userSlice = createSlice({
@@ -21,13 +22,18 @@ const userSlice = createSlice({
       .addCase(checkAuthorizationStatus.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
+      .addCase(logIn.pending, (state) => {
+        state.isAuthRequestExecuted = true;
+      })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.authorizationStatus = AuthorizationStatus.Auth;
         state.userInfo = action.payload;
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.isAuthRequestExecuted = false;
       })
       .addCase(logIn.rejected, (state) => {
         state.userInfo = null;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.isAuthRequestExecuted = false;
       })
       .addCase(logOut.fulfilled, (state) => {
         state.userInfo = null;
