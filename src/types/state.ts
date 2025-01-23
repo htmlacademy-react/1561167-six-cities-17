@@ -1,5 +1,6 @@
 import { store } from '../store';
 import { CityKeys } from './cities';
+import { FavoritesListType } from './favorites';
 import { OfferType } from './offer';
 import { ShortOfferListType } from './offers';
 import { ReviewsListType } from './review';
@@ -21,6 +22,8 @@ type InitialState = {
   reviewsList: ReviewsListType;
   isReviewsListLoading: boolean;
   isSubmitReviewLoading: boolean;
+  favorites: FavoritesListType;
+  isFavoritesLoading: boolean;
   error: string | null;
 };
 

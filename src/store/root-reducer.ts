@@ -7,6 +7,7 @@ import { extendedOfferSlice } from './extended-offer/extended-offer-slice';
 import { reviewsSlice } from './reviews/reviews-slice';
 import { errorSlice } from './error/error-slice';
 import { NameSpace } from '../const';
+import { favoritesSlice } from './favorites/favorites-slice';
 
 const rootReducer = combineReducers({
   [NameSpace.User]: userSlice.reducer,
@@ -16,6 +17,8 @@ const rootReducer = combineReducers({
   [NameSpace.ExtendedOffer]: extendedOfferSlice.reducer,
   [NameSpace.Reviews]: reviewsSlice.reducer,
   [NameSpace.Error]: errorSlice.reducer,
+  [NameSpace.Favorites]: favoritesSlice.reducer,
+
 });
 
 export { rootReducer };

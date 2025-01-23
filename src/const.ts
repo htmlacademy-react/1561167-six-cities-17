@@ -96,6 +96,7 @@ const APIRoute = {
   ExtendedOffer: '/offers/:offerId',
   NearbyOffers: '/offers/:offerId/nearby',
   Comments: '/comments/:offerId',
+  Favorites:'/favorite',
 };
 
 const ERROR_SHOW_TIMEOUT = 2500;
@@ -110,7 +111,7 @@ const NameSpace = {
   ExtendedOffer: 'extendedOffer',
   Reviews: 'reviews',
   Error: 'error',
-  Favorites: 'favorites',
+  Favorites: 'favorite',
 } as const;
 
 export {
