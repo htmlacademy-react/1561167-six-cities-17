@@ -110,6 +110,7 @@ const NameSpace = {
   ExtendedOffer: 'extendedOffer',
   Reviews: 'reviews',
   Error: 'error',
+  Favorites: 'favorites',
 } as const;
 
 export {

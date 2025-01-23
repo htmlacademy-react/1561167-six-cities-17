@@ -21,9 +21,9 @@ type OfferCityType = {
 type OfferType = {
   id: string;
   title: string;
-  description: string;
   type: string;
   price: number;
+  description: string;
   images: string[];
   city: OfferCityType;
   location: LocationType;

@@ -11,15 +11,10 @@ import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
-import { FavoritesListType } from '../../types/favorites';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
 
-type AppPageProps = {
-  favorites: FavoritesListType;
-};
-
-function App({ favorites }: AppPageProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
@@ -36,7 +31,7 @@ function App({ favorites }: AppPageProps): JSX.Element {
         <Routes>
           <Route
             path={Path.Root}
-            element={<MainPage favoritesCount={favorites.length} />}
+            element={<MainPage favoritesCount={3} />}
           />
           <Route
             path={Path.Login}
@@ -56,13 +51,13 @@ function App({ favorites }: AppPageProps): JSX.Element {
                 toPath={Path.Login}
                 isOpen={authorizationStatus === AuthorizationStatus.Auth}
               >
-                <FavoritesPage favorites={favorites} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
           <Route
             path={Path.Offer}
-            element={<OfferPage favoritesCount={favorites.length} />}
+            element={<OfferPage favoritesCount={3} />}
           />
           <Route path={Path.NotFound} element={<NotFoundPage />} />
         </Routes>

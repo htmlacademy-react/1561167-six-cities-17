@@ -1,10 +1,7 @@
-import { OfferType } from './offer';
-import { ShortOfferListType } from './offers';
+import { ShortOfferType } from './offers';
 
-type FavoritesType = OfferType & { previewImage: string };
+type FavoritesListType = ShortOfferType[];
 
-type FavoritesListType = FavoritesType[];
-
-type GroupedOffersType = Record<string, ShortOfferListType>;
+type GroupedOffersType = Record<string, FavoritesListType>;
 
 export type { GroupedOffersType, FavoritesListType };

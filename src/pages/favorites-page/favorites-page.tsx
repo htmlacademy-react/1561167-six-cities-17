@@ -11,12 +11,9 @@ import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
 import { FavoritesListType } from '../../types/favorites';
 
-type FavoritePageProps = {
-  favorites: FavoritesListType;
-};
-
-function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
   const typesPage: TypesPageKeys = TypesPage.Favorites;
+  const favorites: FavoritesListType = [];
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
 
