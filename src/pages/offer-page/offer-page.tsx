@@ -82,10 +82,10 @@ function OfferPage(): JSX.Element {
   }
 
   const {
+    id,
     images,
     isPremium,
     title,
-    isFavorite,
     rating,
     type,
     bedrooms,
@@ -116,7 +116,7 @@ function OfferPage(): JSX.Element {
               {isPremium && <Mark />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <BookmarkButton typesPage={typesPage} isActive={isFavorite} />
+                <BookmarkButton typesPage={typesPage} offerId={id} />
               </div>
               <Rating rating={rating} isOffer>
                 <span className="offer__rating-value rating__value">

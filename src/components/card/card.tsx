@@ -61,7 +61,6 @@ function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
     price,
     rating,
     type,
-    isFavorite,
   } = offer;
   const articleClasses = cn('place-card', {
     ['cities__card']: typesPage === TypesPage.Main,
@@ -88,7 +87,7 @@ function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
             <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton typesPage={typesPage} isCard isActive={isFavorite} />
+          <BookmarkButton typesPage={typesPage} offerId={id} isCard />
         </div>
         <Rating rating={rating} isCard />
         <h2 className="place-card__name">
