@@ -1,10 +1,13 @@
-import { ShortOfferType } from './offers';
+import { ShortOfferListType } from './offers';
 import { InitialState } from './state';
 
-type FavoritesListType = ShortOfferType[];
+type FavoritesListType = string[];
 
-type GroupedOffersType = Record<string, FavoritesListType>;
+type GroupedOffersType = Record<string, ShortOfferListType>;
 
-type FavoritesState = Pick<InitialState, 'favorites' | 'isFavoritesLoading'>;
+type FavoritesState = Pick<
+  InitialState,
+  'favorites' | 'isFavoritesLoading' | 'isChangingStaus'
+>;
 
 export type { GroupedOffersType, FavoritesListType, FavoritesState };

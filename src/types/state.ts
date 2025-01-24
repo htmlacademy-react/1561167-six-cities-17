@@ -24,6 +24,7 @@ type InitialState = {
   isSubmitReviewLoading: boolean;
   favorites: FavoritesListType;
   isFavoritesLoading: boolean;
+  isChangingStaus: boolean;
   error: string | null;
 };
 

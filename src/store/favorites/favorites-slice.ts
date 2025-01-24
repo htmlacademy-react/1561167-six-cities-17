@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { FavoritesState } from '../../types/favorites';
 import { uploadFavorites } from '../api-actions';
+import { adaptToFavorites } from './utils';
 
 const initialState: FavoritesState = {
   favorites: [],
   isFavoritesLoading: false,
+  isChangingStaus: false,
 };
 
 const favoritesSlice = createSlice({
@@ -18,7 +20,7 @@ const favoritesSlice = createSlice({
         state.isFavoritesLoading = true;
       })
       .addCase(uploadFavorites.fulfilled, (state, action) => {
-        state.favorites = action.payload;
+        state.favorites = adaptToFavorites(action.payload);
         state.isFavoritesLoading = false;
       })
       .addCase(uploadFavorites.rejected, (state) => {

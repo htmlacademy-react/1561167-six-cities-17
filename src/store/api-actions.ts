@@ -8,7 +8,6 @@ import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
 import { ShortOfferListType } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
 import { OfferType } from '../types/offer';
-import { FavoritesListType } from '../types/favorites';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -91,10 +90,11 @@ const logOut = createAppAsyncThunk<void, undefined>(
   }
 );
 
-const uploadFavorites = createAppAsyncThunk<FavoritesListType, undefined>(
+const uploadFavorites = createAppAsyncThunk<ShortOfferListType, undefined>(
   `${NameSpace.Favorites}/uploadFavorites`,
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<FavoritesListType>(APIRoute.Favorites);
+    const { data } = await api.get<ShortOfferListType>(APIRoute.Favorites);
+
     return data;
   }
 );
