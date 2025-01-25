@@ -38,6 +38,7 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
   const handleBookmarkButtonClick = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Path.Login);
+      return;
     }
 
     const status = Number(!isActive) as FavoriteStatusKeys;
