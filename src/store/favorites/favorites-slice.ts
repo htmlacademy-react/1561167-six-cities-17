@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { FavoritesState } from '../../types/favorites';
-import { uploadFavorites } from '../api-actions';
+import { changeFavoriteStatus, uploadFavorites } from '../api-actions';
 import { adaptToFavorites } from './utils';
 
 const initialState: FavoritesState = {
@@ -13,7 +13,16 @@ const initialState: FavoritesState = {
 const favoritesSlice = createSlice({
   name: NameSpace.Favorites,
   initialState,
-  reducers: {},
+  reducers: {
+    //TODO pushOfferId(state, action) {
+    //   state.favorites = state.favorites.concat(action.payload as string);
+    // },
+    removeOfferId(state, action) {
+      state.favorites = state.favorites.filter(
+        (item) => item !== action.payload
+      );
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(uploadFavorites.pending, (state) => {
@@ -26,8 +35,20 @@ const favoritesSlice = createSlice({
       .addCase(uploadFavorites.rejected, (state) => {
         state.favorites = [];
         state.isFavoritesLoading = false;
+      })
+      .addCase(changeFavoriteStatus.pending, (state) => {
+        state.isChangingStaus = true;
+      })
+      .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+        state.favorites = state.favorites.concat(action.payload.id);
+        state.isChangingStaus = false;
+      })
+      .addCase(changeFavoriteStatus.rejected, (state) => {
+        state.isChangingStaus = false;
       });
   },
 });
 
 export { favoritesSlice };
+
+export const { removeOfferId } = favoritesSlice.actions;

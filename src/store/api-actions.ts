@@ -8,6 +8,7 @@ import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
 import { ShortOfferListType } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
 import { OfferType } from '../types/offer';
+import { FavoriteStatus } from '../types/favorites';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -19,6 +20,7 @@ const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
   `${NameSpace.Offers}/uploadOffers`,
   async (_arg, { extra: api }) => {
     const { data } = await api.get<ShortOfferListType>(APIRoute.Offers);
+
     return data;
   }
 );
@@ -28,6 +30,7 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
   async (id, { extra: api }) => {
     const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
     const { data } = await api.get<OfferType>(path);
+
     return data;
   }
 );
@@ -38,6 +41,7 @@ const uploadNearbyOffers = createAppAsyncThunk<
 >(`${NameSpace.Offers}/uploadNearbyOffers`, async (id, { extra: api }) => {
   const path = generatePath(APIRoute.NearbyOffers, { offerId: id });
   const { data } = await api.get<ShortOfferListType>(path);
+
   return data;
 });
 
@@ -47,6 +51,7 @@ const uploadReviewsList = createAppAsyncThunk<
 >(`${NameSpace.Reviews}/uploadReviewsList`, async (id, { extra: api }) => {
   const path = generatePath(APIRoute.Comments, { offerId: id });
   const { data } = await api.get<ReviewsListType>(path);
+
   return data;
 });
 
@@ -58,6 +63,7 @@ const submitReview = createAppAsyncThunk<ReviewType, OfferReviewType>(
       rating,
       comment,
     });
+
     return data;
   }
 );
@@ -66,6 +72,7 @@ const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
   `${NameSpace.User}/checkAuthorizationStatus`,
   async (_arg, { extra: api }) => {
     const { data } = await api.get<UserInfo>(APIRoute.Login);
+
     return data;
   }
 );
@@ -78,6 +85,7 @@ const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(
       password,
     });
     setToken(data.token);
+
     return data;
   }
 );
@@ -99,6 +107,16 @@ const uploadFavorites = createAppAsyncThunk<ShortOfferListType, undefined>(
   }
 );
 
+const changeFavoriteStatus = createAppAsyncThunk<OfferType, FavoriteStatus>(
+  `${NameSpace.Favorites}/changeStatus`,
+  async ({ offerId, status }, { extra: api }) => {
+    const path = generatePath(APIRoute.ChangeStatus, { offerId, status });
+    const { data } = await api.post<OfferType>(path);
+
+    return data;
+  }
+);
+
 export {
   uploadOffers,
   checkAuthorizationStatus,
@@ -109,4 +127,5 @@ export {
   uploadReviewsList,
   submitReview,
   uploadFavorites,
+  changeFavoriteStatus,
 };

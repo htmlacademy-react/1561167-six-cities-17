@@ -1,4 +1,4 @@
-import { FavoritesListType, GroupedOffersType } from '../../types/favorites';
+import { GroupedOffersType } from '../../types/favorites';
 import { ShortOfferListType } from '../../types/offers';
 
 const groupByList = (offers: ShortOfferListType) =>
@@ -9,9 +9,4 @@ const groupByList = (offers: ShortOfferListType) =>
     return accumulator;
   }, {} as GroupedOffersType);
 
-const extractFavoriteOffers = (
-  offers: ShortOfferListType,
-  favorites: FavoritesListType
-): ShortOfferListType => offers.filter(({ id }) => favorites.includes(id));
-
-export { groupByList, extractFavoriteOffers };
+export { groupByList };

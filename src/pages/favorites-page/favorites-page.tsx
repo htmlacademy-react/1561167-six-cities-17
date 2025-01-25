@@ -6,19 +6,17 @@ import { Logo } from '../../components/logo/logo';
 import { TypesPage } from '../../const';
 import { Title } from '../../components/title/title';
 import { TypesPageKeys } from '../../types/types';
-import { extractFavoriteOffers, groupByList } from './utils';
+import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
 import { useAppSelector } from '../../hooks';
-import { selectFavorites } from '../../store/favorites/favorites-selectors';
-import { selectOffers } from '../../store/offers/offers-selectors';
+import {
+  selectFavoritesOffers,
+} from '../../store/favorites/favorites-selectors';
 
 function FavoritesPage(): JSX.Element {
   const typesPage: TypesPageKeys = TypesPage.Favorites;
-  const favorites = extractFavoriteOffers(
-    useAppSelector(selectOffers),
-    useAppSelector(selectFavorites)
-  );
+  const favorites = useAppSelector(selectFavoritesOffers);
 
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
