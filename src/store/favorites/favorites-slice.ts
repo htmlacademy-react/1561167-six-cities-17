@@ -14,10 +14,7 @@ const favoritesSlice = createSlice({
   name: NameSpace.Favorites,
   initialState,
   reducers: {
-    //TODO pushOfferId(state, action) {
-    //   state.favorites = state.favorites.concat(action.payload as string);
-    // },
-    removeOfferId(state, action) {
+    removeOfferFromFavoritesById(state, action) {
       state.favorites = state.favorites.filter(
         (item) => item !== action.payload
       );
@@ -51,4 +48,4 @@ const favoritesSlice = createSlice({
 
 export { favoritesSlice };
 
-export const { removeOfferId } = favoritesSlice.actions;
+export const { removeOfferFromFavoritesById } = favoritesSlice.actions;

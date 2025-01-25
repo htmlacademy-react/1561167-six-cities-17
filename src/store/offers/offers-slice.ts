@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { OffersState, ShortOfferType } from '../../types/offers';
+import { OffersState } from '../../types/offers';
 import { NameSpace } from '../../const';
 import { uploadNearbyOffers, uploadOffers } from '../api-actions';
+import { getOfferIndexById } from './utils';
 
 const initialState: OffersState = {
   offers: [],
@@ -19,16 +20,18 @@ const offersSlice = createSlice({
       state.isNearbyOffersLoading = false;
     },
     setFavoritesStatus(state, action) {
-      const indexOffer = state.offers.findIndex(
-        (offer: ShortOfferType) => offer.id === (action.payload as string)
+      const indexOffer = getOfferIndexById(
+        state.offers,
+        action.payload as string
       );
       if (indexOffer !== -1) {
         state.offers[indexOffer].isFavorite = true;
       }
     },
     removeFavoritesStatus(state, action) {
-      const indexOffer = state.offers.findIndex(
-        (offer: ShortOfferType) => offer.id === (action.payload as string)
+      const indexOffer = getOfferIndexById(
+        state.offers,
+        action.payload as string
       );
       if (indexOffer !== -1) {
         state.offers[indexOffer].isFavorite = false;
