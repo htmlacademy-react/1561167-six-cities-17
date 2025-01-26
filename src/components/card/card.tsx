@@ -53,15 +53,7 @@ function CardImage(props: CardImageProps): JSX.Element {
 }
 
 function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
-  const {
-    id,
-    isPremium,
-    previewImage,
-    title,
-    price,
-    rating,
-    type,
-  } = offer;
+  const { id, isPremium, previewImage, title, price, rating, type } = offer;
   const articleClasses = cn('place-card', {
     ['cities__card']: typesPage === TypesPage.Main,
     ['near-places__card']: typesPage === TypesPage.Offer,
@@ -84,7 +76,7 @@ function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{price}</b>
+            <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <BookmarkButton typesPage={typesPage} offerId={id} isCard />

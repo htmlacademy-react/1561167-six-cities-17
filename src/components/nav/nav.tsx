@@ -71,7 +71,7 @@ const Nav = memo((): JSX.Element => {
     dispatch(logOut())
       .unwrap()
       .then(() => {
-        navigate(Path.Root);
+        navigate(Path.Login);
       });
   };
 

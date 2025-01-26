@@ -9,8 +9,10 @@ import { AuthorizationData } from '../../../../types/user';
 import { processErrorHandle } from '../../../../services/process-error-handle';
 import { selectAuthRequestExecuted } from '../../../../store/user/user-selectors';
 
-const initialUser: AuthorizationData = {
-  login: '',
+type UserData = Omit<AuthorizationData, 'login'> & { email: string };
+
+const initialUser: UserData = {
+  email: '',
   password: '',
 };
 
@@ -19,7 +21,7 @@ function SignIn() {
   const navigate = useNavigate();
   const isAuthRequestExecuted = useAppSelector(selectAuthRequestExecuted);
 
-  const [signIn, setSignIn] = useState<AuthorizationData>(initialUser);
+  const [signIn, setSignIn] = useState<UserData>(initialUser);
   const [isValid, setValid] = useState<boolean>(false);
 
   const handleValueChange = ({
@@ -28,7 +30,7 @@ function SignIn() {
     setSignIn((prev) => {
       const updated = { ...prev, [target.name]: target.value };
 
-      setValid(isValidValues(updated.login, updated.password));
+      setValid(isValidValues(updated.email, updated.password));
 
       return updated;
     });
@@ -42,7 +44,7 @@ function SignIn() {
       return;
     }
 
-    dispatch(logIn(signIn))
+    dispatch(logIn({ login: signIn.email, password: signIn.password }))
       .unwrap()
       .then(() => {
         setSignIn(initialUser);
@@ -66,10 +68,10 @@ function SignIn() {
           onChange={handleValueChange}
           className="login__input form__input"
           type="email"
-          name="login"
+          name="email"
           placeholder="Email"
           required
-          value={signIn.login}
+          value={signIn.email}
           disabled={isAuthRequestExecuted}
         />
       </div>

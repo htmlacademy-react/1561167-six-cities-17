@@ -24,7 +24,7 @@ function Rating(props: RatingProps): JSX.Element {
   });
 
   const style = {
-    width: `${(Math.round(rating ?? 0) / STARS_MAXIMUM) * 100}%`,
+    width: `${(Math.round(rating) / STARS_MAXIMUM) * 100}%`,
   };
 
   return (

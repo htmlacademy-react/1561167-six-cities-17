@@ -14,7 +14,7 @@ function NotFoundPage(): JSX.Element {
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Page not found</h1>
+            <h1 className="visually-hidden">Error 404. Page not found</h1>
             <div className={`favorites__status-wrapper ${styles.wrapper}`}>
               <b className="favorites__status">Nothing is lost yet.</b>
               <p className="favorites__status-description">
