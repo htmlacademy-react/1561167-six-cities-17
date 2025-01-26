@@ -66,9 +66,9 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
 
   const buttonClasses = cn('button', {
     ['place-card__bookmark-button--active']:
-      isFavorite && typesPage !== TypesPage.Offer,
+      isFavorite && !isNoAuthorized && typesPage !== TypesPage.Offer,
     ['offer__bookmark-button--active']:
-      isFavorite && typesPage === TypesPage.Offer,
+      isFavorite && !isNoAuthorized && typesPage === TypesPage.Offer,
     ['place-card__bookmark-button']: isCard,
     ['offer__bookmark-button']: !isCard && typesPage === TypesPage.Offer,
   });
