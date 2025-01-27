@@ -1,23 +1,25 @@
 import Card from '../card/card';
 import cn from 'classnames';
-import { TypesPage } from '../../const';
-import { OnCardHoverType, TypesPageKeys } from '../../types/types';
+import { OnCardHoverType } from '../../types/types';
 import { ShortOfferListType } from '../../types/offers';
+import { useAppSelector } from '../../hooks';
+import { selectCurrentPage } from '../../store/page/page-selectors';
+import { Page } from '../../const';
 
 type CardsListProps = {
   offers: ShortOfferListType;
-  typesPage: TypesPageKeys;
   onCardHover?: OnCardHoverType;
 };
 
 function CardsList(props: CardsListProps): JSX.Element {
-  const { offers, onCardHover, typesPage } = props;
+  const { offers, onCardHover } = props;
+  const page = useAppSelector(selectCurrentPage);
 
   const listClasses = cn({
     ['cities__places-list places__list tabs__content']:
-      typesPage === TypesPage.Main,
-    ['near-places__list places__list']: typesPage === TypesPage.Offer,
-    ['favorites__places']: typesPage === TypesPage.Favorites,
+    page === Page.Main,
+    ['near-places__list places__list']: page === Page.Offer,
+    ['favorites__places']: page === Page.Favorites,
   });
 
   return (
@@ -27,7 +29,7 @@ function CardsList(props: CardsListProps): JSX.Element {
           key={offer.id}
           onCardHover={onCardHover}
           offer={offer}
-          typesPage={typesPage}
+          page={page}
         />
       ))}
     </div>

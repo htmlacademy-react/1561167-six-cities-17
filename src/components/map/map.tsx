@@ -1,14 +1,14 @@
 import { memo, useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
-import { TypesPageKeys } from '../../types/types';
 import styles from './style.module.css';
-import { Pin, TypesPage } from '../../const';
+import { Page, Pin } from '../../const';
 import useMap from './hooks/use-map';
 import { MapPointsListType } from '../../types/map';
+import { useAppSelector } from '../../hooks';
+import { selectCurrentPage } from '../../store/page/page-selectors';
 
 type MapProps = {
-  typesPage: TypesPageKeys;
   points: MapPointsListType;
   activeCardId: string | null;
 };
@@ -26,15 +26,18 @@ const activeCustomIcon = new Icon({
 });
 
 const Map = memo((props: MapProps): JSX.Element => {
-  const { points, activeCardId, typesPage } = props;
+  const { points, activeCardId } = props;
+
+  const page = useAppSelector(selectCurrentPage);
+
   const classesMap = cn('map', {
-    [`cities__map ${styles.mainwrapper}`]: typesPage === TypesPage.Main,
-    [`offer__map ${styles.offerwrapper}`]: typesPage === TypesPage.Offer,
+    [`cities__map ${styles.mainwrapper}`]: page === Page.Main,
+    [`offer__map ${styles.offerwrapper}`]: page === Page.Offer,
   });
   const cityLocation = points[0].city.location;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, cityLocation, typesPage === TypesPage.Main);
+  const map = useMap(mapRef, cityLocation, page === Page.Main);
 
   useEffect(() => {
     if (map) {

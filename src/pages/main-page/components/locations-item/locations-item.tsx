@@ -1,12 +1,15 @@
 import { useCallback } from 'react';
 import { LocationsItemLink } from '../../../../components/locations-item-link/locations-item-link';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { selectCurrentCity } from '../../../../store/city/city-selectors';
+import { useAppDispatch } from '../../../../hooks';
 import { changeCity } from '../../../../store/city/city-slice';
-import { CityProps } from '../../../../types/cities';
+import { CityKeys } from '../../../../types/cities';
 
-function LocationsItem({ city, typesPage }: CityProps): JSX.Element {
-  const currentCity = useAppSelector(selectCurrentCity);
+type LocationsItemProps = {
+  city: CityKeys;
+  currentCity: CityKeys;
+};
+
+function LocationsItem({ city, currentCity }: LocationsItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleCityChange = useCallback(
@@ -16,11 +19,7 @@ function LocationsItem({ city, typesPage }: CityProps): JSX.Element {
 
   return (
     <li onClick={handleCityChange} className="locations__item">
-      <LocationsItemLink
-        city={city}
-        typesPage={typesPage}
-        isActive={city === currentCity}
-      />
+      <LocationsItemLink city={city} isActive={city === currentCity} />
     </li>
   );
 }

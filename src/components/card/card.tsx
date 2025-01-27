@@ -1,15 +1,16 @@
 import cn from 'classnames';
-import { Path, TypesPage } from '../../const';
+import { Page, Path } from '../../const';
 import { Mark } from '../mark/mark';
 import { Rating } from '../rating/rating';
 import { ImageSize } from './settings';
 import { BookmarkButton } from '../bookmark-button/bookmark-button';
 import { generatePath, Link } from 'react-router-dom';
-import { OnCardHoverType, TypesPageKeys } from '../../types/types';
+import { OnCardHoverType } from '../../types/types';
 import { ShortOfferType } from '../../types/offers';
+import { PageKeys } from '../../types/page';
 
 type CardProps = {
-  typesPage: TypesPageKeys;
+  page: PageKeys;
   offer: ShortOfferType;
   onCardHover?: OnCardHoverType;
 };
@@ -18,15 +19,15 @@ type CardImageProps = {
   id: string;
   src: string;
   title: string;
-  typesPage: TypesPageKeys;
+  page: PageKeys;
 };
 
 function CardImage(props: CardImageProps): JSX.Element {
-  const { id, src, title, typesPage } = props;
+  const { id, src, title, page } = props;
   const wrapperClasses = cn('place-card__image-wrapper', {
-    ['cities__image-wrapper']: typesPage === TypesPage.Main,
-    ['near-places__image-wrapper']: typesPage === TypesPage.Offer,
-    ['favorites__image-wrapper']: typesPage === TypesPage.Favorites,
+    ['cities__image-wrapper']: page === Page.Main,
+    ['near-places__image-wrapper']: page === Page.Offer,
+    ['favorites__image-wrapper']: page === Page.Favorites,
   });
 
   return (
@@ -36,12 +37,12 @@ function CardImage(props: CardImageProps): JSX.Element {
           className="place-card__image"
           src={src}
           width={
-            typesPage === TypesPage.Favorites
+            page === Page.Favorites
               ? ImageSize.Favorites.Width
               : ImageSize.Default.Width
           }
           height={
-            typesPage === TypesPage.Favorites
+            page === Page.Favorites
               ? ImageSize.Favorites.Height
               : ImageSize.Default.Height
           }
@@ -52,12 +53,12 @@ function CardImage(props: CardImageProps): JSX.Element {
   );
 }
 
-function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
+function Card({ offer, onCardHover, page }: CardProps): JSX.Element {
   const { id, isPremium, previewImage, title, price, rating, type } = offer;
   const articleClasses = cn('place-card', {
-    ['cities__card']: typesPage === TypesPage.Main,
-    ['near-places__card']: typesPage === TypesPage.Offer,
-    ['favorites__card']: typesPage === TypesPage.Favorites,
+    ['cities__card']: page === Page.Main,
+    ['near-places__card']: page === Page.Offer,
+    ['favorites__card']: page === Page.Favorites,
   });
 
   return (
@@ -71,7 +72,7 @@ function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
         id={id}
         src={previewImage}
         title={title}
-        typesPage={typesPage}
+        page={page}
       />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -79,7 +80,7 @@ function Card({ offer, onCardHover, typesPage }: CardProps): JSX.Element {
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton typesPage={typesPage} offerId={id} isCard />
+          <BookmarkButton offerId={id} isCard />
         </div>
         <Rating rating={rating} isCard />
         <h2 className="place-card__name">

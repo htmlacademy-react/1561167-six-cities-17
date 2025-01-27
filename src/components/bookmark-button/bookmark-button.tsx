@@ -1,8 +1,7 @@
 import { memo, useMemo } from 'react';
 import cn from 'classnames';
-import { AuthorizationStatus, Path, TypesPage } from '../../const';
+import { AuthorizationStatus, Page, Path } from '../../const';
 import { SvgSize } from './settings';
-import { TypesPageKeys } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectChangingStaus,
@@ -17,18 +16,19 @@ import {
   removeFavoritesStatus,
   setFavoritesStatus,
 } from '../../store/offers/offers-slice';
+import { selectCurrentPage } from '../../store/page/page-selectors';
 
 type BookmarkButtonProps = {
-  typesPage: TypesPageKeys;
   offerId: string;
   isCard?: boolean;
 };
 
 const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
-  const { typesPage, offerId, isCard } = props;
+  const { offerId, isCard } = props;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const page = useAppSelector(selectCurrentPage);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isNoAuthorized = useMemo(
     () => authorizationStatus !== AuthorizationStatus.Auth,
@@ -66,15 +66,15 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
 
   const buttonClasses = cn('button', {
     ['place-card__bookmark-button--active']:
-      isFavorite && !isNoAuthorized && typesPage !== TypesPage.Offer,
+      isFavorite && !isNoAuthorized && page !== Page.Offer,
     ['offer__bookmark-button--active']:
-      isFavorite && !isNoAuthorized && typesPage === TypesPage.Offer,
+      isFavorite && !isNoAuthorized && page === Page.Offer,
     ['place-card__bookmark-button']: isCard,
-    ['offer__bookmark-button']: !isCard && typesPage === TypesPage.Offer,
+    ['offer__bookmark-button']: !isCard && page === Page.Offer,
   });
   const svgClasses = cn({
     ['place-card__bookmark-icon']: isCard,
-    ['offer__bookmark-icon']: !isCard && typesPage === TypesPage.Offer,
+    ['offer__bookmark-icon']: !isCard && page === Page.Offer,
   });
   const width = isCard ? SvgSize.Card.Width : SvgSize.OffCard.Width;
   const height = isCard ? SvgSize.Card.Height : SvgSize.OffCard.Height;

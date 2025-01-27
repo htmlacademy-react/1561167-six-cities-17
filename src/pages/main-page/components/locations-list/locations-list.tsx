@@ -1,21 +1,19 @@
 import { memo } from 'react';
 import { CITIES } from '../../../../const';
 import { LocationsItem } from '../locations-item/locations-item';
-import { TypesPageKeys } from '../../../../types/types';
+import { useAppSelector } from '../../../../hooks';
+import { selectCurrentCity } from '../../../../store/city/city-selectors';
 
-type LocationsListProps = {
-  typesPage: TypesPageKeys;
-};
-
-const LocationsList = memo(
-  ({ typesPage }: LocationsListProps): JSX.Element => (
+const LocationsList = memo((): JSX.Element => {
+  const currentCity = useAppSelector(selectCurrentCity);
+  return (
     <ul className="locations__list tabs__list">
       {CITIES.map((city) => (
-        <LocationsItem key={city} city={city} typesPage={typesPage} />
+        <LocationsItem key={city} city={city} currentCity={currentCity} />
       ))}
     </ul>
-  )
-);
+  );
+});
 
 LocationsList.displayName = 'LocationsList';
 

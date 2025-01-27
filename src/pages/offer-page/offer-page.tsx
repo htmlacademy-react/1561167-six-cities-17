@@ -22,8 +22,7 @@ import {
 } from '../../store/api-actions';
 import { useUrlId } from './utils';
 import { adaptToMap } from '../../utils/utils';
-import { AuthorizationStatus, TypesPage } from '../../const';
-import { TypesPageKeys } from '../../types/types';
+import { AuthorizationStatus, Page } from '../../const';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import {
   selectExtendedOffer,
@@ -40,14 +39,18 @@ import {
 import { clearExtendedOffer } from '../../store/extended-offer/extended-offer-slice';
 import { clearNearbyOffers } from '../../store/offers/offers-slice';
 import { clearReviewsList } from '../../store/reviews/reviews-slice';
+import { changePage } from '../../store/page/page-slice';
 
 function OfferPage(): JSX.Element {
-  const typesPage: TypesPageKeys = TypesPage.Offer;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(changePage(Page.Offer));
+  }, [dispatch]);
 
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
-  const dispatch = useAppDispatch();
   const offerId = useUrlId();
   const isExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
   const offer = useAppSelector(selectExtendedOffer);
@@ -102,11 +105,11 @@ function OfferPage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header typesPage={typesPage}>
+      <Header>
         <Nav />
       </Header>
       <main className="page__main page__main--offer">
-        <Title typesPage={typesPage} />
+        <Title />
         <section className="offer">
           <div className="offer__gallery-container container">
             <Gallery images={images} />
@@ -116,7 +119,7 @@ function OfferPage(): JSX.Element {
               {isPremium && <Mark />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <BookmarkButton typesPage={typesPage} offerId={id} />
+                <BookmarkButton offerId={id} />
               </div>
               <Rating rating={rating} isOffer>
                 <span className="offer__rating-value rating__value">
@@ -156,12 +159,9 @@ function OfferPage(): JSX.Element {
           <Map
             points={adaptToMap(nearbyOffers, offer)}
             activeCardId={offerId}
-            typesPage={typesPage}
           />
         </section>
-        {nearbyOffers.length !== 0 && (
-          <NearbyOffers offers={nearbyOffers} typesPage={typesPage} />
-        )}
+        {nearbyOffers.length !== 0 && <NearbyOffers offers={nearbyOffers} />}
       </main>
     </div>
   );

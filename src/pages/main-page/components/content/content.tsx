@@ -3,16 +3,14 @@ import cn from 'classnames';
 import { OffersEmpty } from '../offers-empty/offers-empty';
 import { Offers } from '../offers.tsx/offers';
 import { Map } from '../../../../components/map/map';
-import { TypesPageKeys } from '../../../../types/types';
 import { adaptToMap } from '../../../../utils/utils';
 import { ShortOfferListType } from '../../../../types/offers';
 
 type ContentPros = {
   cityOffers: ShortOfferListType;
-  typesPage: TypesPageKeys;
 };
 
-function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
+function Content({ cityOffers }: ContentPros): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const handleCardHover = useCallback(
     (id: string | null) => setActiveCardId(id),
@@ -35,7 +33,7 @@ function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
         {isEmpty ? (
           <OffersEmpty />
         ) : (
-          <Offers onCardHover={handleCardHover} typesPage={typesPage} />
+          <Offers onCardHover={handleCardHover} />
         )}
       </section>
       <div className="cities__right-section">
@@ -43,7 +41,6 @@ function Content({ cityOffers, typesPage }: ContentPros): JSX.Element {
           <Map
             points={adaptToMap(cityOffers)}
             activeCardId={activeCardId}
-            typesPage={typesPage}
           />
         )}
       </div>

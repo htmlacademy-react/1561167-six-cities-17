@@ -4,15 +4,13 @@ import { selectCurrentCity } from '../../../../store/city/city-selectors';
 import { selectSortedOffers } from '../../../../store/offers/offers-selectors';
 import { CardsList } from '../../../../components/cards-list/cards-list';
 import { Sort } from '../sort/sort';
-import { TypesPageKeys } from '../../../../types/types';
 
 type OffersProps = {
-  typesPage: TypesPageKeys;
   onCardHover: (id: string | null) => void;
 };
 
 const Offers = memo((props: OffersProps): JSX.Element => {
-  const { typesPage, onCardHover } = props;
+  const {onCardHover } = props;
 
   const currentCity = useAppSelector(selectCurrentCity);
   const sortedOffers = useAppSelector(selectSortedOffers);
@@ -29,7 +27,6 @@ const Offers = memo((props: OffersProps): JSX.Element => {
       <CardsList
         offers={sortedOffers}
         onCardHover={onCardHover}
-        typesPage={typesPage}
       />
     </>
   );

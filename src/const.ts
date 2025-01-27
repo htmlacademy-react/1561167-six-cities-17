@@ -23,11 +23,12 @@ const RATING_VALUES = [
   'perfect',
 ] as const;
 
-const TypesPage = {
+const Page = {
   Main: 'main',
   Offer: 'offer',
   Favorites: 'favorites',
   Login: 'login',
+  NotFoundPage: 'notFoundPage',
 } as const;
 
 const TypesSort = {
@@ -61,10 +62,11 @@ const AuthorizationStatus = {
 const DEFAULT_PREFIX_TITLE = '6 cities:';
 
 const TextTitle = {
-  [TypesPage.Main]: '',
-  [TypesPage.Favorites]: 'favorites',
-  [TypesPage.Login]: 'authorization',
-  [TypesPage.Offer]: 'offer',
+  [Page.Main]: '',
+  [Page.Favorites]: 'favorites',
+  [Page.Login]: 'authorization',
+  [Page.Offer]: 'offer',
+  [Page.NotFoundPage]: 'not fount page',
 } as const;
 
 const REVIEWS_COUNT_LIMITED = 10;
@@ -113,6 +115,7 @@ const NameSpace = {
   Reviews: 'reviews',
   Error: 'error',
   Favorites: 'favorite',
+  Page:'page',
 } as const;
 
 const Status = {
@@ -124,7 +127,7 @@ export {
   Setting,
   STARS_MAXIMUM,
   CITIES,
-  TypesPage,
+  Page,
   TypesSort,
   DEFAULT_SORTING_KEY,
   DEFAULT_CURRENT_CITY,

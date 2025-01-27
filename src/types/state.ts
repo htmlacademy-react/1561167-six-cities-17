@@ -3,9 +3,10 @@ import { CityKeys } from './cities';
 import { FavoritesListType } from './favorites';
 import { OfferType } from './offer';
 import { ShortOfferListType } from './offers';
+import { PageKeys } from './page';
 import { ReviewsListType } from './review';
 import { SortTypeKeys } from './sort';
-import { AuthorizationStatusKeys, UserInfo} from './user';
+import { AuthorizationStatusKeys, UserInfo } from './user';
 
 type InitialState = {
   currentCity: CityKeys;
@@ -26,6 +27,7 @@ type InitialState = {
   isFavoritesLoading: boolean;
   isChangingStaus: boolean;
   error: string | null;
+  currentPage: PageKeys;
 };
 
 type State = ReturnType<typeof store.getState>;

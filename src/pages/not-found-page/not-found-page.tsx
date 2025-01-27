@@ -2,15 +2,22 @@ import { Link } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import { Logo } from '../../components/logo/logo';
-import { Path, TypesPage } from '../../const';
+import { Page, Path } from '../../const';
 import styles from './style.module.css';
-import { TypesPageKeys } from '../../types/types';
+import { useAppDispatch } from '../../hooks';
+import { changePage } from '../../store/page/page-slice';
+import { useEffect } from 'react';
 
 function NotFoundPage(): JSX.Element {
-  const typesPage: TypesPageKeys = TypesPage.Favorites;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(changePage(Page.NotFoundPage));
+  }, [dispatch]);
+
   return (
     <div className="page page--favorites-empty">
-      <Header typesPage={typesPage} />
+      <Header />
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
@@ -25,7 +32,7 @@ function NotFoundPage(): JSX.Element {
         </div>
       </main>
       <Footer>
-        <Logo typesPage={typesPage} isFooter />
+        <Logo isFooter />
       </Footer>
     </div>
   );

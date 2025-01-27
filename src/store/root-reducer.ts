@@ -8,6 +8,7 @@ import { reviewsSlice } from './reviews/reviews-slice';
 import { errorSlice } from './error/error-slice';
 import { NameSpace } from '../const';
 import { favoritesSlice } from './favorites/favorites-slice';
+import { pageSlice } from './page/page-slice';
 
 const rootReducer = combineReducers({
   [NameSpace.User]: userSlice.reducer,
@@ -18,7 +19,7 @@ const rootReducer = combineReducers({
   [NameSpace.Reviews]: reviewsSlice.reducer,
   [NameSpace.Error]: errorSlice.reducer,
   [NameSpace.Favorites]: favoritesSlice.reducer,
-
+  [NameSpace.Page]: pageSlice.reducer,
 });
 
 export { rootReducer };
