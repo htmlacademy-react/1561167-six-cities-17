@@ -14,23 +14,50 @@ import { AuthorizationStatusKeys } from '../../types/user';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
 import { useEffect } from 'react';
-import { uploadFavorites } from '../../store/api-actions';
+import {
+  checkAuthorizationStatus,
+  uploadFavorites,
+  uploadOffers,
+} from '../../store/api-actions';
+import { setError } from '../../store/actions';
+import { selectErrorMessage } from '../../store/error/error-selectors';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
+  const error = useAppSelector(selectErrorMessage);
+
+  useEffect(() => {
+    dispatch(uploadOffers())
+      .unwrap()
+      .then(() => {
+        dispatch(setError(null));
+        dispatch(checkAuthorizationStatus());
+      })
+      .catch(({ message }) => dispatch(setError(message as string)));
+  }, [dispatch]);
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(uploadFavorites());
+      dispatch(uploadFavorites())
+        .unwrap()
+        .then(() => {
+          dispatch(setError(null));
+        })
+        .catch(({ message }) => dispatch(setError(message as string)));
     }
   }, [dispatch, authorizationStatus]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <LoadingPage />;
+  }
+
+  if (!error) {
+    <b>{error}</b>;
   }
 
   return (
