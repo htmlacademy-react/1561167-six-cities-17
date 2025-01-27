@@ -1,19 +1,16 @@
-import { TypesPageKeys } from '../../../../types/types';
-import Sort from '../sort/sort';
-import CardsList from '../../../../components/cards-list/cards-list';
+import { memo } from 'react';
 import { useAppSelector } from '../../../../hooks';
-import {
-  selectCurrentCity,
-  selectSortedOffers,
-} from '../../../../store/selectors';
+import { selectCurrentCity } from '../../../../store/city/city-selectors';
+import { selectSortedOffers } from '../../../../store/offers/offers-selectors';
+import { CardsList } from '../../../../components/cards-list/cards-list';
+import { Sort } from '../sort/sort';
 
 type OffersProps = {
-  typesPage: TypesPageKeys;
   onCardHover: (id: string | null) => void;
 };
 
-function Offers(props: OffersProps): JSX.Element {
-  const { typesPage, onCardHover } = props;
+const Offers = memo((props: OffersProps): JSX.Element => {
+  const {onCardHover } = props;
 
   const currentCity = useAppSelector(selectCurrentCity);
   const sortedOffers = useAppSelector(selectSortedOffers);
@@ -30,10 +27,11 @@ function Offers(props: OffersProps): JSX.Element {
       <CardsList
         offers={sortedOffers}
         onCardHover={onCardHover}
-        typesPage={typesPage}
       />
     </>
   );
-}
+});
+
+Offers.displayName = 'Offers';
 
 export { Offers };

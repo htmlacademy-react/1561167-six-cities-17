@@ -1,11 +1,15 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 
 type FooterProps = {
   children: ReactNode;
 };
 
-function Footer({ children }: FooterProps): JSX.Element {
-  return <footer className="footer container">{children}</footer>;
-}
+const Footer = memo(
+  ({ children }: FooterProps): JSX.Element => (
+    <footer className="footer container">{children}</footer>
+  )
+);
 
-export default Footer;
+Footer.displayName = 'Footer';
+
+export { Footer };

@@ -1,9 +1,10 @@
 import { Id, toast } from 'react-toastify';
 import { TypesSort } from '../const';
-import { SortTypeKeys } from '../types/types';
 import { MapPointsListType } from '../types/map';
-import { OfferType, ShortOfferListType } from '../types/offers';
+import { ShortOfferListType } from '../types/offers';
 import { CityKeys } from '../types/cities';
+import { OfferType } from '../types/offer';
+import { SortTypeKeys } from '../types/sort';
 
 const adaptToMap = (
   shortOffers: ShortOfferListType,

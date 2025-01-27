@@ -15,13 +15,20 @@ const CITIES = [
 
 const DEFAULT_CURRENT_CITY = CITIES[0];
 
-const RATING_VALUES = ['terribly', 'badly', 'not bad', 'good', 'perfect'] as const;
+const RATING_VALUES = [
+  'terribly',
+  'badly',
+  'not bad',
+  'good',
+  'perfect',
+] as const;
 
-const TypesPage = {
+const Page = {
   Main: 'main',
   Offer: 'offer',
   Favorites: 'favorites',
   Login: 'login',
+  NotFoundPage: 'notFoundPage',
 } as const;
 
 const TypesSort = {
@@ -55,10 +62,11 @@ const AuthorizationStatus = {
 const DEFAULT_PREFIX_TITLE = '6 cities:';
 
 const TextTitle = {
-  [TypesPage.Main]: '',
-  [TypesPage.Favorites]: 'favorites',
-  [TypesPage.Login]: 'authorization',
-  [TypesPage.Offer]: 'offer',
+  [Page.Main]: '',
+  [Page.Favorites]: 'favorites',
+  [Page.Login]: 'authorization',
+  [Page.Offer]: 'offer',
+  [Page.NotFoundPage]: 'not fount page',
 } as const;
 
 const REVIEWS_COUNT_LIMITED = 10;
@@ -89,18 +97,37 @@ const APIRoute = {
   Logout: '/logout',
   ExtendedOffer: '/offers/:offerId',
   NearbyOffers: '/offers/:offerId/nearby',
-  Comments:'/comments/:offerId',
+  Comments: '/comments/:offerId',
+  Favorites: '/favorite',
+  ChangeStatus: '/favorite/:offerId/:status',
 };
 
 const ERROR_SHOW_TIMEOUT = 2500;
 
 const NEARBY_OFFERS_LIMITED = 3;
 
+const NameSpace = {
+  User: 'user',
+  Offers: 'offers',
+  City: 'city',
+  SortKey: 'sortKey',
+  ExtendedOffer: 'extendedOffer',
+  Reviews: 'reviews',
+  Error: 'error',
+  Favorites: 'favorite',
+  Page:'page',
+} as const;
+
+const Status = {
+  In: 1,
+  Out: 0,
+} as const;
+
 export {
   Setting,
   STARS_MAXIMUM,
   CITIES,
-  TypesPage,
+  Page,
   TypesSort,
   DEFAULT_SORTING_KEY,
   DEFAULT_CURRENT_CITY,
@@ -118,4 +145,6 @@ export {
   APIRoute,
   ERROR_SHOW_TIMEOUT,
   NEARBY_OFFERS_LIMITED,
+  NameSpace,
+  Status,
 };

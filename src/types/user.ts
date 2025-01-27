@@ -1,5 +1,6 @@
 import { AuthorizationStatus } from '../const';
-import { HostType } from './offers';
+import { HostType } from './offer';
+import { InitialState } from './state';
 
 type AuthorizationStatusKeys = keyof typeof AuthorizationStatus;
 
@@ -13,4 +14,9 @@ type UserInfo = HostType & {
   token: string;
 };
 
-export type { AuthorizationStatusKeys, AuthorizationData, UserInfo };
+type User = Pick<
+  InitialState,
+  'authorizationStatus' | 'userInfo' | 'isAuthRequestExecuted'
+>;
+
+export type { AuthorizationStatusKeys, AuthorizationData, UserInfo, User };

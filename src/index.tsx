@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { favorites } from './mocks/favorites';
 import { store } from './store';
 import { checkAuthorizationStatus, uploadOffers } from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
@@ -23,7 +22,7 @@ root.render(
         autoClose={ERROR_SHOW_TIMEOUT}
         theme="colored"
       />
-      <App favorites={favorites} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

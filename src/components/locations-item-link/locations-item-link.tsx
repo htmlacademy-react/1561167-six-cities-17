@@ -1,21 +1,34 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import { Path, TypesPage } from '../../const';
-import { CityProps } from '../../types/cities';
+import { Page, Path } from '../../const';
+import { CityKeys } from '../../types/cities';
+import { memo } from 'react';
+import { useAppSelector } from '../../hooks';
+import { selectCurrentPage } from '../../store/page/page-selectors';
+import { getRandomCity } from './utils';
 
-function LocationsItemLink(props: CityProps): JSX.Element {
-  const { city, typesPage, isActive = false } = props;
+type LocationsItemLinkProps = {
+  city?: CityKeys;
+  isActive?: boolean;
+};
 
-  const linkClasses = cn('locations__item-link', {
-    ['tabs__item']: typesPage === TypesPage.Main,
-    ['tabs__item--active']: isActive,
-  });
+const LocationsItemLink = memo(
+  ({ city, isActive = false }: LocationsItemLinkProps): JSX.Element => {
+    const page = useAppSelector(selectCurrentPage);
 
-  return (
-    <Link className={linkClasses} to={Path.Root}>
-      <span>{city}</span>
-    </Link>
-  );
-}
+    const linkClasses = cn('locations__item-link', {
+      ['tabs__item']: page === Page.Main,
+      ['tabs__item--active']: isActive,
+    });
 
-export default LocationsItemLink;
+    return (
+      <Link className={linkClasses} to={Path.Root}>
+        <span>{city || getRandomCity()}</span>
+      </Link>
+    );
+  }
+);
+
+LocationsItemLink.displayName = 'LocationsItemLink';
+
+export { LocationsItemLink };

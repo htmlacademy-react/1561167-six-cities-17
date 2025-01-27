@@ -1,4 +1,4 @@
-import { OfferType } from '../../../../types/offers';
+import { OfferType } from '../../../../types/offer';
 
 type FeaturesProps = Pick<OfferType, 'type' | 'bedrooms' | 'maxAdults'>;
 

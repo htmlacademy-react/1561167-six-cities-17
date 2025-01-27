@@ -1,26 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logOut } from '../../store/api-actions';
+import { memo, MouseEvent } from 'react';
 import {
   selectAuthorizationStatus,
   selectUserAvatarUrl,
   selectUserEmail,
-} from '../../store/selectors';
-import { logOut } from '../../store/api-actions';
-import { MouseEvent } from 'react';
-
-type NavProps = {
-  favoritesCount: number;
-};
+} from '../../store/user/user-selectors';
+import { selectFavoritesCount } from '../../store/favorites/favorites-selectors';
 
 type UserProfileProps = {
   isLoggedIn: boolean;
-} & NavProps;
+};
 
-function UserProfile(props: UserProfileProps): JSX.Element {
-  const { isLoggedIn, favoritesCount } = props;
+const UserProfile = memo(({ isLoggedIn }: UserProfileProps): JSX.Element => {
   const userEmail = useAppSelector(selectUserEmail);
   const userAvatarUrl = useAppSelector(selectUserAvatarUrl);
+  const favoritesCount = useAppSelector(selectFavoritesCount);
+
   const backgroundImage = {
     backgroundImage: `url(${userAvatarUrl})`,
     borderRadius: '50%',
@@ -43,7 +41,7 @@ function UserProfile(props: UserProfileProps): JSX.Element {
       <span className="header__login">Sign in</span>
     </>
   );
-}
+});
 
 type OnLinkClick = (evt: MouseEvent<HTMLAnchorElement>) => void;
 
@@ -51,17 +49,17 @@ type ItemProps = {
   onLinkClick: OnLinkClick;
 };
 
-function Item({ onLinkClick }: ItemProps): JSX.Element {
-  return (
+const Item = memo(
+  ({ onLinkClick }: ItemProps): JSX.Element => (
     <li className="header__nav-item">
       <a onClick={onLinkClick} className="header__nav-link">
         <span className="header__signout">Sign out</span>
       </a>
     </li>
-  );
-}
+  )
+);
 
-function Nav({ favoritesCount }: NavProps): JSX.Element {
+const Nav = memo((): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -73,7 +71,7 @@ function Nav({ favoritesCount }: NavProps): JSX.Element {
     dispatch(logOut())
       .unwrap()
       .then(() => {
-        navigate(Path.Root);
+        navigate(Path.Login);
       });
   };
 
@@ -85,16 +83,17 @@ function Nav({ favoritesCount }: NavProps): JSX.Element {
             className="header__nav-link header__nav-link--profile"
             to={Path.Favorites}
           >
-            <UserProfile
-              isLoggedIn={isLoggedIn}
-              favoritesCount={favoritesCount}
-            />
+            <UserProfile isLoggedIn={isLoggedIn} />
           </Link>
         </li>
         {isLoggedIn && <Item onLinkClick={handleLinkClick} />}
       </ul>
     </nav>
   );
-}
+});
 
-export default Nav;
+Item.displayName = 'Item';
+UserProfile.displayName = 'UserProfile';
+Nav.displayName = 'Nav';
+
+export { Nav };

@@ -1,16 +1,12 @@
 import { CITIES } from '../const';
-import { TypesPageKeys } from './types';
+import { InitialState } from './state';
 
 type CitiesType = typeof CITIES;
 
 type CityKeys = CitiesType[number];
 
-type CityProps = {
-  typesPage: TypesPageKeys;
-  city: CityKeys;
-  isActive?: boolean;
-};
-
 type CurrentCityChangeType = (city: CityKeys) => void;
 
-export type { CityProps, CityKeys, CurrentCityChangeType };
+type CityState = Pick<InitialState, 'currentCity'>;
+
+export type { CityKeys, CurrentCityChangeType, CityState };

@@ -1,26 +1,17 @@
 import { useEffect } from 'react';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  selectAdaptToNearbyOffers,
-  selectAuthorizationStatus,
-  selectExtendedOffer,
-  selectIsExtendedOfferLoading,
-  selectIsNearbyOffersLoading,
-  selectIsReviewsListLoading,
-  selectReviewsList,
-} from '../../store/selectors';
 import { Title } from '../../components/title/title';
-import Header from '../../components/header/header';
-import Nav from '../../components/nav/nav';
-import Map from '../../components/map/map';
-import Mark from '../../components/mark/mark';
-import BookmarkButton from '../../components/bookmark-button/bookmark-button';
-import Rating from '../../components/rating/rating';
-import Gallery from './components/gallery/gallery';
+import { Header } from '../../components/header/header';
+import { Nav } from '../../components/nav/nav';
+import { Map } from '../../components/map/map';
+import { Mark } from '../../components/mark/mark';
+import { BookmarkButton } from '../../components/bookmark-button/bookmark-button';
+import { Rating } from '../../components/rating/rating';
+import { Gallery } from './components/gallery/gallery';
 import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
-import NotFoundPage from '../not-found-page/not-found-page';
+import { NotFoundPage } from '../not-found-page/not-found-page';
 import { LoadingPage } from '../loading-page/loadig-page';
 import { NearbyOffers } from './components/nearby-offers/nearby-offers';
 import { OfferReviews } from './components/offer-reviews/offer-reviews';
@@ -31,21 +22,35 @@ import {
 } from '../../store/api-actions';
 import { useUrlId } from './utils';
 import { adaptToMap } from '../../utils/utils';
-import { AuthorizationStatus, TypesPage } from '../../const';
-import { TypesPageKeys } from '../../types/types';
+import { AuthorizationStatus, Page } from '../../const';
+import { selectAuthorizationStatus } from '../../store/user/user-selectors';
+import {
+  selectExtendedOffer,
+  selectIsExtendedOfferLoading,
+} from '../../store/extended-offer/extended-offer-selectors';
+import {
+  selectAdaptToNearbyOffers,
+  selectIsNearbyOffersLoading,
+} from '../../store/offers/offers-selectors';
+import {
+  selectIsReviewsListLoading,
+  selectReviewsList,
+} from '../../store/reviews/reviews-selectors';
+import { clearExtendedOffer } from '../../store/extended-offer/extended-offer-slice';
+import { clearNearbyOffers } from '../../store/offers/offers-slice';
+import { clearReviewsList } from '../../store/reviews/reviews-slice';
+import { changePage } from '../../store/page/page-slice';
 
-type OfferPageProps = {
-  favoritesCount: number;
-};
+function OfferPage(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-function OfferPage(props: OfferPageProps): JSX.Element {
-  const { favoritesCount } = props;
-  const typesPage: TypesPageKeys = TypesPage.Offer;
+  useEffect(() => {
+    dispatch(changePage(Page.Offer));
+  }, [dispatch]);
 
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
-  const dispatch = useAppDispatch();
   const offerId = useUrlId();
   const isExtendedOfferLoading = useAppSelector(selectIsExtendedOfferLoading);
   const offer = useAppSelector(selectExtendedOffer);
@@ -64,6 +69,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
         dispatch(uploadNearbyOffers(offerId));
         dispatch(uploadReviewsList(offerId));
       });
+    return () => {
+      dispatch(clearExtendedOffer());
+      dispatch(clearNearbyOffers());
+      dispatch(clearReviewsList());
+    };
   }, [dispatch, offerId]);
 
   if (isExtendedOfferLoading || isNearbyOffersLoading || isReviewsListLoading) {
@@ -75,10 +85,10 @@ function OfferPage(props: OfferPageProps): JSX.Element {
   }
 
   const {
+    id,
     images,
     isPremium,
     title,
-    isFavorite,
     rating,
     type,
     bedrooms,
@@ -95,11 +105,11 @@ function OfferPage(props: OfferPageProps): JSX.Element {
 
   return (
     <div className="page">
-      <Header typesPage={typesPage}>
-        <Nav favoritesCount={favoritesCount} />
+      <Header>
+        <Nav />
       </Header>
       <main className="page__main page__main--offer">
-        <Title typesPage={typesPage} />
+        <Title />
         <section className="offer">
           <div className="offer__gallery-container container">
             <Gallery images={images} />
@@ -109,7 +119,7 @@ function OfferPage(props: OfferPageProps): JSX.Element {
               {isPremium && <Mark />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <BookmarkButton typesPage={typesPage} isActive={isFavorite} />
+                <BookmarkButton offerId={id} />
               </div>
               <Rating rating={rating} isOffer>
                 <span className="offer__rating-value rating__value">
@@ -149,15 +159,12 @@ function OfferPage(props: OfferPageProps): JSX.Element {
           <Map
             points={adaptToMap(nearbyOffers, offer)}
             activeCardId={offerId}
-            typesPage={typesPage}
           />
         </section>
-        {nearbyOffers.length !== 0 && (
-          <NearbyOffers offers={nearbyOffers} typesPage={typesPage} />
-        )}
+        {nearbyOffers.length !== 0 && <NearbyOffers offers={nearbyOffers} />}
       </main>
     </div>
   );
 }
 
-export default OfferPage;
+export { OfferPage };

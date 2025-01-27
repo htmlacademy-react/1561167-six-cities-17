@@ -1,31 +1,33 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
-import {
-  selectAuthorizationStatus,
-  selectIsOffersLoading,
-} from '../../store/selectors';
-import MainPage from '../../pages/main-page/main-page';
-import FavoritesPage from '../../pages/favorites-page/favorites-page';
-import OfferPage from '../../pages/offer-page/offer-page';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { MainPage } from '../../pages/main-page/main-page';
+import { FavoritesPage } from '../../pages/favorites-page/favorites-page';
+import { OfferPage } from '../../pages/offer-page/offer-page';
+import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
-import { FavoritesListType } from '../../types/favorites';
+import { selectAuthorizationStatus } from '../../store/user/user-selectors';
+import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
+import { useEffect } from 'react';
+import { uploadFavorites } from '../../store/api-actions';
 
-type AppPageProps = {
-  favorites: FavoritesListType;
-};
-
-function App({ favorites }: AppPageProps): JSX.Element {
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(uploadFavorites());
+    }
+  }, [dispatch, authorizationStatus]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <LoadingPage />;
@@ -36,10 +38,7 @@ function App({ favorites }: AppPageProps): JSX.Element {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route
-            path={Path.Root}
-            element={<MainPage favoritesCount={favorites.length} />}
-          />
+          <Route path={Path.Root} element={<MainPage />} />
           <Route
             path={Path.Login}
             element={
@@ -58,14 +57,11 @@ function App({ favorites }: AppPageProps): JSX.Element {
                 toPath={Path.Login}
                 isOpen={authorizationStatus === AuthorizationStatus.Auth}
               >
-                <FavoritesPage favorites={favorites} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
-          <Route
-            path={Path.Offer}
-            element={<OfferPage favoritesCount={favorites.length} />}
-          />
+          <Route path={Path.Offer} element={<OfferPage />} />
           <Route path={Path.NotFound} element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

@@ -1,9 +1,26 @@
-import { OfferType, ShortOfferListType } from './offers';
+import { Status } from '../const';
+import { ShortOfferListType } from './offers';
+import { InitialState } from './state';
 
-type FavoritesType = OfferType & { previewImage: string };
-
-type FavoritesListType = FavoritesType[];
+type FavoritesListType = string[];
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
 
-export type { GroupedOffersType, FavoritesListType };
+type FavoritesState = Pick<
+  InitialState,
+  'favorites' | 'isFavoritesLoading' | 'isChangingStaus'
+>;
+
+type FavoriteStatusKeys = (typeof Status)[keyof typeof Status];
+
+type FavoriteStatus = {
+  offerId: string;
+  status: FavoriteStatusKeys;
+};
+export type {
+  GroupedOffersType,
+  FavoritesListType,
+  FavoritesState,
+  FavoriteStatus,
+  FavoriteStatusKeys,
+};

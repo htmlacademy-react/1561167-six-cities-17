@@ -1,33 +1,26 @@
 import cn from 'classnames';
-import Header from '../../components/header/header';
-import Nav from '../../components/nav/nav';
+import { Header } from '../../components/header/header';
+import { Nav } from '../../components/nav/nav';
 import { LocationsList } from './components/locations-list/locations-list';
-import { LocationsItem } from './components/locations-item/locations-item';
-import {
-  CITIES,
-  DEFAULT_SORTING_KEY,
-  TypesPage,
-} from '../../const';
-import { TypesPageKeys } from '../../types/types';
+import { DEFAULT_SORTING_KEY, Page } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Content } from './components/content/content';
-import {
-  selectFilteredOffers,
-} from '../../store/selectors';
-import { changeSortKey } from '../../store/actions';
 import { useEffect } from 'react';
+import { selectFilteredOffers } from '../../store/offers/offers-selectors';
+import { changeSortKey } from '../../store/sort-key/sort-key-slice';
+import { changePage } from '../../store/page/page-slice';
 
-type MainPageProps = {
-  favoritesCount: number;
-};
-
-function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
-  const cityOffers = useAppSelector(selectFilteredOffers);
+function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(changePage(Page.Main));
+  }, [dispatch]);
+
+  const cityOffers = useAppSelector(selectFilteredOffers);
 
   const isEmpty = cityOffers.length === 0;
 
-  const typesPage: TypesPageKeys = TypesPage.Main;
   const mainClasses = cn('page__main page__main--index', {
     ['page__main--index-empty']: isEmpty,
   });
@@ -38,28 +31,22 @@ function MainPage({ favoritesCount }: MainPageProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header typesPage={typesPage}>
-        <Nav
-          favoritesCount={favoritesCount}
-        />
+      <Header>
+        <Nav />
       </Header>
       <main className={mainClasses}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList>
-              {CITIES.map((city) => (
-                <LocationsItem key={city} city={city} typesPage={typesPage} />
-              ))}
-            </LocationsList>
+            <LocationsList />
           </section>
         </div>
         <div className="cities">
-          <Content cityOffers={cityOffers} typesPage={typesPage} />
+          <Content cityOffers={cityOffers} />
         </div>
       </main>
     </div>
   );
 }
 
-export default MainPage;
+export { MainPage };

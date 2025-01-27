@@ -2,11 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { generatePath } from 'react-router-dom';
 import { AxiosInstance } from 'axios';
 import { dropToken, setToken } from '../services/token';
-import { APIRoute } from '../const';
+import { APIRoute, NameSpace } from '../const';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
-import { OfferType, ShortOfferListType } from '../types/offers';
+import { ShortOfferListType } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
+import { OfferType } from '../types/offer';
+import { FavoriteStatus } from '../types/favorites';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   state: State;
@@ -15,18 +17,20 @@ const createAppAsyncThunk = createAsyncThunk.withTypes<{
 }>();
 
 const uploadOffers = createAppAsyncThunk<ShortOfferListType, undefined>(
-  'offers/uploadOffers',
+  `${NameSpace.Offers}/uploadOffers`,
   async (_arg, { extra: api }) => {
     const { data } = await api.get<ShortOfferListType>(APIRoute.Offers);
+
     return data;
   }
 );
 
 const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
-  'offers/uploadExtendedOffer',
+  `${NameSpace.ExtendedOffer}/uploadExtendedOffer`,
   async (id, { extra: api }) => {
     const path = generatePath(APIRoute.ExtendedOffer, { offerId: id });
     const { data } = await api.get<OfferType>(path);
+
     return data;
   }
 );
@@ -34,61 +38,84 @@ const uploadExtendedOffer = createAppAsyncThunk<OfferType, string | undefined>(
 const uploadNearbyOffers = createAppAsyncThunk<
   ShortOfferListType,
   string | undefined
->('offers/uploadNearbyOffers', async (id, { extra: api }) => {
+>(`${NameSpace.Offers}/uploadNearbyOffers`, async (id, { extra: api }) => {
   const path = generatePath(APIRoute.NearbyOffers, { offerId: id });
   const { data } = await api.get<ShortOfferListType>(path);
+
   return data;
 });
 
 const uploadReviewsList = createAppAsyncThunk<
   ReviewsListType,
   string | undefined
->('reviews/uploadReviewsList', async (id, { extra: api }) => {
+>(`${NameSpace.Reviews}/uploadReviewsList`, async (id, { extra: api }) => {
   const path = generatePath(APIRoute.Comments, { offerId: id });
   const { data } = await api.get<ReviewsListType>(path);
+
   return data;
 });
 
 const submitReview = createAppAsyncThunk<ReviewType, OfferReviewType>(
-  'reviews/submitReview',
+  `${NameSpace.Reviews}/submitReview`,
   async ({ offerId, review: { rating, comment } }, { extra: api }) => {
     const path = generatePath(APIRoute.Comments, { offerId });
     const { data } = await api.post<ReviewType>(path, {
       rating,
       comment,
     });
+
     return data;
   }
 );
 
 const checkAuthorizationStatus = createAppAsyncThunk<UserInfo, undefined>(
-  'user/checkAuthorizationStatus',
+  `${NameSpace.User}/checkAuthorizationStatus`,
   async (_arg, { extra: api }) => {
     const { data } = await api.get<UserInfo>(APIRoute.Login);
+
     return data;
   }
 );
 
 const logIn = createAppAsyncThunk<UserInfo, AuthorizationData>(
-  'user/logIn',
+  `${NameSpace.User}/logIn`,
   async ({ login: email, password }, { extra: api }) => {
     const { data } = await api.post<UserInfo>(APIRoute.Login, {
       email,
       password,
     });
     setToken(data.token);
+
     return data;
   }
 );
 
 const logOut = createAppAsyncThunk<void, undefined>(
-  'user/logOut',
+  `${NameSpace.User}/logOut`,
   async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
   }
 );
 
+const uploadFavorites = createAppAsyncThunk<ShortOfferListType, undefined>(
+  `${NameSpace.Favorites}/uploadFavorites`,
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<ShortOfferListType>(APIRoute.Favorites);
+
+    return data;
+  }
+);
+
+const changeFavoriteStatus = createAppAsyncThunk<OfferType, FavoriteStatus>(
+  `${NameSpace.Favorites}/changeStatus`,
+  async ({ offerId, status }, { extra: api }) => {
+    const path = generatePath(APIRoute.ChangeStatus, { offerId, status });
+    const { data } = await api.post<OfferType>(path);
+
+    return data;
+  }
+);
 
 export {
   uploadOffers,
@@ -99,4 +126,6 @@ export {
   uploadNearbyOffers,
   uploadReviewsList,
   submitReview,
+  uploadFavorites,
+  changeFavoriteStatus,
 };

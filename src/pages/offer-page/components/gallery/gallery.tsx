@@ -1,16 +1,21 @@
-import { OfferType } from '../../../../types/offers';
+import { memo } from 'react';
+import { OfferType } from '../../../../types/offer';
 import GalleryItem from '../gallery-item/gallery-item';
 
 type GalleryProps = Pick<OfferType, 'images'>;
 
-function Gallery({ images }: GalleryProps): JSX.Element {
+const Gallery = memo(({ images }: GalleryProps): JSX.Element => {
+  const pictures = images.slice(0, 6);
+
   return (
     <div className="offer__gallery">
-      {images.map((src) => (
+      {pictures.map((src) => (
         <GalleryItem key={src} src={src} alt={'Photo studio'} />
       ))}
     </div>
   );
-}
+});
 
-export default Gallery;
+Gallery.displayName = 'Gallery';
+
+export { Gallery };

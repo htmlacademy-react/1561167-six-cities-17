@@ -1,23 +1,27 @@
 import cn from 'classnames';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import Nav from '../../components/nav/nav';
-import Logo from '../../components/logo/logo';
-import { TypesPage } from '../../const';
+import { Header } from '../../components/header/header';
+import { Footer } from '../../components/footer/footer';
+import { Nav } from '../../components/nav/nav';
+import { Logo } from '../../components/logo/logo';
+import { Page } from '../../const';
 import { Title } from '../../components/title/title';
-import { TypesPageKeys } from '../../types/types';
 import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
-import { FavoritesListType } from '../../types/favorites';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectFavoritesOffers } from '../../store/favorites/favorites-selectors';
+import { changePage } from '../../store/page/page-slice';
+import { useEffect } from 'react';
 
-type FavoritePageProps = {
-  favorites: FavoritesListType;
-};
+function FavoritesPage(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
+  useEffect(() => {
+    dispatch(changePage(Page.Favorites));
+  }, [dispatch]);
 
-  const typesPage: TypesPageKeys = TypesPage.Favorites;
+  const favorites = useAppSelector(selectFavoritesOffers);
+
   const groupedOffers = groupByList(favorites);
   const isEmpty = !Object.keys(groupedOffers).length;
 
@@ -35,12 +39,10 @@ function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
 
   return (
     <div className={pageClasses}>
-      <Header typesPage={typesPage}>
-        <Nav
-          favoritesCount={favorites.length}
-        />
+      <Header>
+        <Nav />
       </Header>
-      <Title typesPage={typesPage} isEmpty={isEmpty} />
+      <Title isEmpty={isEmpty} />
       <main className={mainClasses}>
         <div className="page__favorites-container container">
           <section className={sectionClasses}>
@@ -50,19 +52,16 @@ function FavoritesPage({ favorites }: FavoritePageProps): JSX.Element {
             {isEmpty ? (
               <FavoriteEmpty />
             ) : (
-              <FavoritesList
-                groupedOffers={groupedOffers}
-                typesPage={typesPage}
-              />
+              <FavoritesList groupedOffers={groupedOffers} />
             )}
           </section>
         </div>
       </main>
       <Footer>
-        <Logo typesPage={typesPage} isFooter />
+        <Logo isFooter />
       </Footer>
     </div>
   );
 }
 
-export default FavoritesPage;
+export { FavoritesPage };
