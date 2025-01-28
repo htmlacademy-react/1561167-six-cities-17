@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { OffersState } from '../../types/offers';
 import { NameSpace } from '../../const';
 import { uploadNearbyOffers, uploadOffers } from '../api-actions';
-import { getOfferIndexById } from './utils';
 
 const initialState: OffersState = {
   offers: [],
@@ -18,24 +17,6 @@ const offersSlice = createSlice({
     clearNearbyOffers(state) {
       state.nearbyOffers = [];
       state.isNearbyOffersLoading = false;
-    },
-    setFavoritesStatus(state, action) {
-      const indexOffer = getOfferIndexById(
-        state.offers,
-        action.payload as string
-      );
-      if (indexOffer !== -1) {
-        state.offers[indexOffer].isFavorite = true;
-      }
-    },
-    removeFavoritesStatus(state, action) {
-      const indexOffer = getOfferIndexById(
-        state.offers,
-        action.payload as string
-      );
-      if (indexOffer !== -1) {
-        state.offers[indexOffer].isFavorite = false;
-      }
     },
   },
   extraReducers(builder) {
@@ -67,5 +48,4 @@ const offersSlice = createSlice({
 
 export { offersSlice };
 
-export const { clearNearbyOffers, setFavoritesStatus, removeFavoritesStatus } =
-  offersSlice.actions;
+export const { clearNearbyOffers } = offersSlice.actions;

@@ -5,7 +5,7 @@ import { dropToken, setToken } from '../services/token';
 import { APIRoute, NameSpace } from '../const';
 import { AuthorizationData, UserInfo } from '../types/user';
 import { OfferReviewType, ReviewsListType, ReviewType } from '../types/review';
-import { ShortOfferListType } from '../types/offers';
+import { ShortOfferListType, ShortOfferType } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
 import { OfferType } from '../types/offer';
 import { FavoriteStatus } from '../types/favorites';
@@ -107,13 +107,21 @@ const uploadFavorites = createAppAsyncThunk<ShortOfferListType, undefined>(
   }
 );
 
-const changeFavoriteStatus = createAppAsyncThunk<OfferType, FavoriteStatus>(
+const changeFavoriteStatus = createAppAsyncThunk<ShortOfferType, FavoriteStatus>(
   `${NameSpace.Favorites}/changeStatus`,
-  async ({ offerId, status }, { extra: api }) => {
+  async ({ offerId, status }, { getState, extra: api }) => {
     const path = generatePath(APIRoute.ChangeStatus, { offerId, status });
-    const { data } = await api.post<OfferType>(path);
+    const { data } = await api.post<ShortOfferType>(path);
+    const { offers } = getState().offers;
+    const currentOffer = offers.find((offer) => offer.id === data.id);
 
-    return data;
+    if (!currentOffer) {
+      throw new Error(
+        `There is no such offer with the specified ID: ${data.id}`
+      );
+    }
+
+    return { ...currentOffer, isFavorite: data.isFavorite };
   }
 );
 

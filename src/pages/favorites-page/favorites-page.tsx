@@ -10,8 +10,8 @@ import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
+  selectFavorites,
   selectFavoritesCount,
-  selectFavoritesOffers,
 } from '../../store/favorites/favorites-selectors';
 import { changePage } from '../../store/page/page-slice';
 import { useEffect } from 'react';
@@ -23,7 +23,7 @@ function FavoritesPage(): JSX.Element {
     dispatch(changePage(Page.Favorites));
   }, [dispatch]);
 
-  const favorites = useAppSelector(selectFavoritesOffers);
+  const favorites = useAppSelector(selectFavorites);
 
   const groupedOffers = groupByList(favorites);
   const isEmpty = !useAppSelector(selectFavoritesCount);

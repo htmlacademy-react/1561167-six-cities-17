@@ -11,11 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { changeFavoriteStatus } from '../../store/api-actions';
 import { FavoriteStatusKeys } from '../../types/favorites';
-import { removeOfferFromFavoritesById } from '../../store/favorites/favorites-slice';
-import {
-  removeFavoritesStatus,
-  setFavoritesStatus,
-} from '../../store/offers/offers-slice';
 import { selectCurrentPage } from '../../store/page/page-selectors';
 import { processErrorHandle } from '../../services/process-error-handle';
 
@@ -53,19 +48,9 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
         offerId,
         status,
       })
-    )
-      .unwrap()
-      .then(() => {
-        if (!isFavorite) {
-          dispatch(setFavoritesStatus(offerId));
-        } else {
-          dispatch(removeOfferFromFavoritesById(offerId));
-          dispatch(removeFavoritesStatus(offerId));
-        }
-      })
-      .catch(({ message }) =>
-        processErrorHandle(`${message}. Try again later.`)
-      );
+    ).catch(({ message }) =>
+      processErrorHandle(`${message}. Try again later.`)
+    );
   };
 
   const buttonClasses = cn('button', {

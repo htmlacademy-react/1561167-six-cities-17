@@ -2,7 +2,7 @@ import { Status } from '../const';
 import { ShortOfferListType } from './offers';
 import { InitialState } from './state';
 
-type FavoritesListType = string[];
+type FavoritesListType = ShortOfferListType;
 
 type GroupedOffersType = Record<string, ShortOfferListType>;
 
