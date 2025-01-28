@@ -21,9 +21,13 @@ const selectFavoritesCount = (state: State): number =>
 const selectChangingStaus = (state: State): boolean =>
   state[NameSpace.Favorites].isChangingStaus;
 
+const selectFavoritesLoading = (state: State): boolean =>
+  state[NameSpace.Favorites].isFavoritesLoading;
+
 export {
   selectOfferIsFavorite,
   selectFavoritesOffers,
   selectFavoritesCount,
   selectChangingStaus,
+  selectFavoritesLoading,
 };

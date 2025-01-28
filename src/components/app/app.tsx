@@ -9,7 +9,7 @@ import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
-import { AuthorizationStatus, Path } from '../../const';
+import { AuthorizationStatus, Page, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
@@ -21,6 +21,8 @@ import {
 } from '../../store/api-actions';
 import { setError } from '../../store/actions';
 import { selectErrorMessage } from '../../store/error/error-selectors';
+import { selectFavoritesLoading } from '../../store/favorites/favorites-selectors';
+import { changePage } from '../../store/page/page-slice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,35 +31,37 @@ function App(): JSX.Element {
     selectAuthorizationStatus
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
+  const isFavoritesLoading = useAppSelector(selectFavoritesLoading);
   const error = useAppSelector(selectErrorMessage);
+
+  useEffect(() => {
+    dispatch(changePage(Page.Main));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(uploadOffers())
       .unwrap()
       .then(() => {
         dispatch(setError(null));
-        dispatch(checkAuthorizationStatus());
+        dispatch(checkAuthorizationStatus()).then((response) => {
+          if (response.meta.requestStatus === 'fulfilled') {
+            dispatch(uploadFavorites());
+          }
+        });
       })
       .catch(({ message }) => dispatch(setError(message as string)));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(uploadFavorites())
-        .unwrap()
-        .then(() => {
-          dispatch(setError(null));
-        })
-        .catch(({ message }) => dispatch(setError(message as string)));
-    }
-  }, [dispatch, authorizationStatus]);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersLoading ||
+    isFavoritesLoading
+  ) {
     return <LoadingPage />;
   }
 
   if (!error) {
-    <b>{error}</b>;
+    return <b>{error}</b>;
   }
 
   return (

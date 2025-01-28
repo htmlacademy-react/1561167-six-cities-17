@@ -9,7 +9,10 @@ import { groupByList } from './utils';
 import { FavoriteEmpty } from './components/favorites-empty/favorites-empty';
 import { FavoritesList } from './components/favorites-list/favorites-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectFavoritesOffers } from '../../store/favorites/favorites-selectors';
+import {
+  selectFavoritesCount,
+  selectFavoritesOffers,
+} from '../../store/favorites/favorites-selectors';
 import { changePage } from '../../store/page/page-slice';
 import { useEffect } from 'react';
 
@@ -23,7 +26,7 @@ function FavoritesPage(): JSX.Element {
   const favorites = useAppSelector(selectFavoritesOffers);
 
   const groupedOffers = groupByList(favorites);
-  const isEmpty = !Object.keys(groupedOffers).length;
+  const isEmpty = !useAppSelector(selectFavoritesCount);
 
   const pageClasses = cn('page', { ['page--favorites-empty']: isEmpty });
   const mainClasses = cn('page__main page__main--favorites', {
@@ -36,6 +39,10 @@ function FavoritesPage(): JSX.Element {
     ['favorites__title']: !isEmpty,
     ['visually-hidden']: isEmpty,
   });
+
+  // if (isFavoritesLoading){
+  //   return <LoadingPage />;
+  // }
 
   return (
     <div className={pageClasses}>
