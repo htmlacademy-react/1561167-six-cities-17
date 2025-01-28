@@ -63,6 +63,7 @@ function ReviewForm(): JSX.Element {
       .unwrap()
       .then(() => {
         setFeedback(initialReview);
+        setValid(false);
       })
       .catch(({ message }) =>
         processErrorHandle(`${message}. Try again later.`)
