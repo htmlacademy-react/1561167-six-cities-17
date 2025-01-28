@@ -17,6 +17,7 @@ import {
   setFavoritesStatus,
 } from '../../store/offers/offers-slice';
 import { selectCurrentPage } from '../../store/page/page-selectors';
+import { processErrorHandle } from '../../services/process-error-handle';
 
 type BookmarkButtonProps = {
   offerId: string;
@@ -61,7 +62,10 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
           dispatch(removeOfferFromFavoritesById(offerId));
           dispatch(removeFavoritesStatus(offerId));
         }
-      });
+      })
+      .catch(({ message }) =>
+        processErrorHandle(`${message}. Try again later.`)
+      );
   };
 
   const buttonClasses = cn('button', {

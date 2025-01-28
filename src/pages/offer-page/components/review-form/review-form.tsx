@@ -64,7 +64,9 @@ function ReviewForm(): JSX.Element {
       .then(() => {
         setFeedback(initialReview);
       })
-      .catch(({ message }) => processErrorHandle(`${message}. Try again later.`));
+      .catch(({ message }) =>
+        processErrorHandle(`${message}. Try again later.`)
+      );
   };
 
   return (
