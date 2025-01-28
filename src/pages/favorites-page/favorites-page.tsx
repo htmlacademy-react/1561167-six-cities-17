@@ -40,10 +40,6 @@ function FavoritesPage(): JSX.Element {
     ['visually-hidden']: isEmpty,
   });
 
-  // if (isFavoritesLoading){
-  //   return <LoadingPage />;
-  // }
-
   return (
     <div className={pageClasses}>
       <Header>
