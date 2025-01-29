@@ -7,7 +7,7 @@ import { OfferPage } from '../../pages/offer-page/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
-import { LoadingPage } from '../../pages/loading-page/loadig-page';
+import { LoadingPage } from '../../pages/loading-page/loading-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { AuthorizationStatus, Page, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
