@@ -1,7 +1,8 @@
-import { createSlice} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { uploadExtendedOffer } from '../api-actions';
 import { NameSpace } from '../../const';
 import { OfferState } from '../../types/offer';
+import { OfferUpdate } from '../../types/offers';
 
 const initialState: OfferState = {
   extendedOffer: null,
@@ -15,6 +16,11 @@ const extendedOfferSlice = createSlice({
     clearExtendedOffer(state) {
       state.extendedOffer = null;
       state.isExtendedOfferLoading = false;
+    },
+    updateExtendedOfferStatus(state, action: PayloadAction<OfferUpdate>) {
+      if (state.extendedOffer && state.extendedOffer.id === action.payload.id) {
+        state.extendedOffer.isFavorite = action.payload.isFavorite;
+      }
     },
   },
   extraReducers(builder) {
@@ -35,4 +41,5 @@ const extendedOfferSlice = createSlice({
 
 export { extendedOfferSlice };
 
-export const { clearExtendedOffer } = extendedOfferSlice.actions;
+export const { clearExtendedOffer, updateExtendedOfferStatus } =
+  extendedOfferSlice.actions;

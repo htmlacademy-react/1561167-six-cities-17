@@ -3,24 +3,25 @@ import cn from 'classnames';
 import { AuthorizationStatus, Page, Path } from '../../const';
 import { SvgSize } from './settings';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  selectChangingStaus,
-  selectOfferIsFavorite,
-} from '../../store/favorites/favorites-selectors';
+import { selectChangingStaus } from '../../store/favorites/favorites-selectors';
 import { useNavigate } from 'react-router-dom';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { changeFavoriteStatus } from '../../store/api-actions';
 import { FavoriteStatusKeys } from '../../types/favorites';
 import { selectCurrentPage } from '../../store/page/page-selectors';
 import { processErrorHandle } from '../../services/process-error-handle';
+import { updateOfferStatus } from '../../store/offers/offers-slice';
+import { updateExtendedOfferStatus } from '../../store/extended-offer/extended-offer-slice';
+import { OfferUpdate } from '../../types/offers';
 
 type BookmarkButtonProps = {
+  isFavorite: boolean;
   offerId: string;
   isCard?: boolean;
 };
 
 const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
-  const { offerId, isCard } = props;
+  const { offerId, isCard, isFavorite } = props;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -31,10 +32,6 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
     [authorizationStatus]
   );
   const isChangingStaus = useAppSelector(selectChangingStaus);
-
-  const isFavorite = useAppSelector((state) =>
-    selectOfferIsFavorite(state, offerId)
-  );
 
   const handleBookmarkButtonClick = () => {
     if (isNoAuthorized) {
@@ -48,9 +45,16 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
         offerId,
         status,
       })
-    ).catch(({ message }) =>
-      processErrorHandle(`${message}. Try again later.`)
-    );
+    )
+      .unwrap()
+      .then(() => {
+        const updated: OfferUpdate = { id: offerId, isFavorite: !!status };
+        dispatch(updateOfferStatus(updated));
+        dispatch(updateExtendedOfferStatus(updated));
+      })
+      .catch(({ message }) =>
+        processErrorHandle(`${message}. Try again later.`)
+      );
   };
 
   const buttonClasses = cn('button', {

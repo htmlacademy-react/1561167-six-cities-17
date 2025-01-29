@@ -101,6 +101,7 @@ function OfferPage(): JSX.Element {
     price,
     goods,
     description,
+    isFavorite,
     host: { avatarUrl, name, isPro },
   } = offer;
 
@@ -124,7 +125,7 @@ function OfferPage(): JSX.Element {
               {isPremium && <Mark />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <BookmarkButton offerId={id} />
+                <BookmarkButton offerId={id} isFavorite={isFavorite} />
               </div>
               <Rating rating={rating} isOffer>
                 <span className="offer__rating-value rating__value">

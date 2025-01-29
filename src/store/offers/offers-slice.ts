@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { OffersState } from '../../types/offers';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { OffersState, OfferUpdate } from '../../types/offers';
 import { NameSpace } from '../../const';
 import { uploadNearbyOffers, uploadOffers } from '../api-actions';
 
@@ -17,6 +17,15 @@ const offersSlice = createSlice({
     clearNearbyOffers(state) {
       state.nearbyOffers = [];
       state.isNearbyOffersLoading = false;
+    },
+    updateOfferStatus(state, action: PayloadAction<OfferUpdate>) {
+      const indexUpdateOffer = state.offers.findIndex(
+        ({ id }) => id === action.payload.id
+      );
+
+      if (indexUpdateOffer !== -1) {
+        state.offers[indexUpdateOffer].isFavorite = action.payload.isFavorite;
+      }
     },
   },
   extraReducers(builder) {
@@ -48,4 +57,4 @@ const offersSlice = createSlice({
 
 export { offersSlice };
 
-export const { clearNearbyOffers } = offersSlice.actions;
+export const { clearNearbyOffers, updateOfferStatus } = offersSlice.actions;
