@@ -36,8 +36,6 @@ type OfferType = {
   maxAdults: number;
 };
 
-type OfferListType = OfferType[];
-
 type OfferState = Pick<
   InitialState,
   'extendedOffer' | 'isExtendedOfferLoading'
@@ -48,6 +46,5 @@ export type {
   HostType,
   OfferCityType,
   OfferType,
-  OfferListType,
   OfferState,
 };
