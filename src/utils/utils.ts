@@ -47,6 +47,6 @@ const sortOffers = (
   key: SortTypeKeys
 ): ShortOfferListType => sortBy[TypesSort[key]](offers);
 
-const notify = (message: string):Id => toast.warn(message);
+const notify = (message: string): Id => toast.warn(message);
 
 export { adaptToMap, filterOffersByCity, sortOffers, notify };

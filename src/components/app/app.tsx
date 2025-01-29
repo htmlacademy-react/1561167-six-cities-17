@@ -20,7 +20,6 @@ import {
   uploadOffers,
 } from '../../store/api-actions';
 import { setError } from '../../store/actions';
-import { selectErrorMessage } from '../../store/error/error-selectors';
 import { selectFavoritesLoading } from '../../store/favorites/favorites-selectors';
 import { changePage } from '../../store/page/page-slice';
 
@@ -32,7 +31,6 @@ function App(): JSX.Element {
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
   const isFavoritesLoading = useAppSelector(selectFavoritesLoading);
-  const error = useAppSelector(selectErrorMessage);
 
   useEffect(() => {
     dispatch(changePage(Page.Main));
@@ -42,7 +40,6 @@ function App(): JSX.Element {
     dispatch(uploadOffers())
       .unwrap()
       .then(() => {
-        dispatch(setError(null));
         dispatch(checkAuthorizationStatus()).then((response) => {
           if (response.meta.requestStatus === 'fulfilled') {
             dispatch(uploadFavorites());
@@ -58,10 +55,6 @@ function App(): JSX.Element {
     isFavoritesLoading
   ) {
     return <LoadingPage />;
-  }
-
-  if (!error) {
-    return <b>{error}</b>;
   }
 
   return (
