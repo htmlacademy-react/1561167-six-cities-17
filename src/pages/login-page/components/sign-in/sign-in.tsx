@@ -50,9 +50,9 @@ function SignIn() {
         setSignIn(initialUser);
         navigate(Path.Root);
       })
-      .catch(({ message }) =>
-        processErrorHandle(`${message}. Try again later.`)
-      );
+      .catch(({ message }) => {
+        processErrorHandle(`${message}. Try again later.`);
+      });
   };
 
   return (

@@ -5,8 +5,6 @@ type CitiesType = typeof CITIES;
 
 type CityKeys = CitiesType[number];
 
-type CurrentCityChangeType = (city: CityKeys) => void;
-
 type CityState = Pick<InitialState, 'currentCity'>;
 
-export type { CityKeys, CurrentCityChangeType, CityState };
+export type { CityKeys, CityState };

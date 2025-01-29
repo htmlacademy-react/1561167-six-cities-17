@@ -1,7 +1,3 @@
-const Setting = {
-  RentalOffersCount: 5,
-} as const;
-
 const STARS_MAXIMUM = 5;
 
 const CITIES = [
@@ -124,7 +120,6 @@ const Status = {
 } as const;
 
 export {
-  Setting,
   STARS_MAXIMUM,
   CITIES,
   Page,

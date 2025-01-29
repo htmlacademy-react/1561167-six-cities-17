@@ -12,7 +12,7 @@ import { Gallery } from './components/gallery/gallery';
 import { Features } from './components/features/features';
 import { OfferInsideList } from './components/offer-inside-list/offer-inside-list';
 import { NotFoundPage } from '../not-found-page/not-found-page';
-import { LoadingPage } from '../loading-page/loadig-page';
+import { LoadingPage } from '../loading-page/loading-page';
 import { NearbyOffers } from './components/nearby-offers/nearby-offers';
 import { OfferReviews } from './components/offer-reviews/offer-reviews';
 import {
