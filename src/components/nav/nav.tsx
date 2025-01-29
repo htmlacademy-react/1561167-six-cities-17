@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthorizationStatus, Path } from '../../const';
+import { AuthorizationStatus, Page, Path } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logOut } from '../../store/api-actions';
 import { memo, MouseEvent } from 'react';
@@ -9,6 +9,7 @@ import {
   selectUserEmail,
 } from '../../store/user/user-selectors';
 import { selectFavoritesCount } from '../../store/favorites/favorites-selectors';
+import { selectCurrentPage } from '../../store/page/page-selectors';
 
 type UserProfileProps = {
   isLoggedIn: boolean;
@@ -62,6 +63,7 @@ const Item = memo(
 const Nav = memo((): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
+  const page = useAppSelector(selectCurrentPage);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -71,7 +73,9 @@ const Nav = memo((): JSX.Element => {
     dispatch(logOut())
       .unwrap()
       .then(() => {
-        navigate(Path.Login);
+        if (page === Page.Favorites){
+          navigate(Path.Login);
+        }
       });
   };
 

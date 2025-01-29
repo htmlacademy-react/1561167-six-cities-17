@@ -54,7 +54,16 @@ function CardImage(props: CardImageProps): JSX.Element {
 }
 
 function Card({ offer, onCardHover, page }: CardProps): JSX.Element {
-  const { id, isPremium, previewImage, title, price, rating, type } = offer;
+  const {
+    id,
+    isPremium,
+    previewImage,
+    title,
+    price,
+    rating,
+    type,
+    isFavorite,
+  } = offer;
   const articleClasses = cn('place-card', {
     ['cities__card']: page === Page.Main,
     ['near-places__card']: page === Page.Offer,
@@ -68,19 +77,14 @@ function Card({ offer, onCardHover, page }: CardProps): JSX.Element {
       className={articleClasses}
     >
       {isPremium && <Mark isCard />}
-      <CardImage
-        id={id}
-        src={previewImage}
-        title={title}
-        page={page}
-      />
+      <CardImage id={id} src={previewImage} title={title} page={page} />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton offerId={id} isCard />
+          <BookmarkButton offerId={id} isCard isFavorite={isFavorite} />
         </div>
         <Rating rating={rating} isCard />
         <h2 className="place-card__name">

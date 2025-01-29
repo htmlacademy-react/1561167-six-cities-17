@@ -1,8 +1,17 @@
-import { FavoritesListType } from '../../types/favorites';
-import { ShortOfferListType } from '../../types/offers';
+import { OfferType } from '../../types/offer';
+import { ShortOfferType } from '../../types/offers';
 
-function adaptToFavorites(offers: ShortOfferListType):FavoritesListType {
-  return offers.map((offer) => offer.id);
+function adaptResponceToFavorite(
+  offer: OfferType & { previewImage: string },
+  ...fieldsToRemove: Array<keyof OfferType>
+): ShortOfferType {
+  const newOffer = { ...offer };
+
+  for (const field of fieldsToRemove) {
+    delete newOffer[field];
+  }
+
+  return newOffer;
 }
 
-export { adaptToFavorites };
+export { adaptResponceToFavorite };

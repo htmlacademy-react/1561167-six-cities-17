@@ -9,28 +9,59 @@ import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 import { LoadingPage } from '../../pages/loading-page/loadig-page';
 import { LoginPage } from '../../pages/login-page/login-page';
-import { AuthorizationStatus, Path } from '../../const';
+import { AuthorizationStatus, Page, Path } from '../../const';
 import { AuthorizationStatusKeys } from '../../types/user';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import { selectIsOffersLoading } from '../../store/offers/offers-selectors';
 import { useEffect } from 'react';
-import { uploadFavorites } from '../../store/api-actions';
+import {
+  checkAuthorizationStatus,
+  uploadFavorites,
+  uploadOffers,
+} from '../../store/api-actions';
+import { setError } from '../../store/actions';
+import { selectErrorMessage } from '../../store/error/error-selectors';
+import { selectFavoritesLoading } from '../../store/favorites/favorites-selectors';
+import { changePage } from '../../store/page/page-slice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+
   const authorizationStatus: AuthorizationStatusKeys = useAppSelector(
     selectAuthorizationStatus
   );
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
+  const isFavoritesLoading = useAppSelector(selectFavoritesLoading);
+  const error = useAppSelector(selectErrorMessage);
 
   useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(uploadFavorites());
-    }
-  }, [dispatch, authorizationStatus]);
+    dispatch(changePage(Page.Main));
+  }, [dispatch]);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+  useEffect(() => {
+    dispatch(uploadOffers())
+      .unwrap()
+      .then(() => {
+        dispatch(setError(null));
+        dispatch(checkAuthorizationStatus()).then((response) => {
+          if (response.meta.requestStatus === 'fulfilled') {
+            dispatch(uploadFavorites());
+          }
+        });
+      })
+      .catch(({ message }) => dispatch(setError(message as string)));
+  }, [dispatch]);
+
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersLoading ||
+    isFavoritesLoading
+  ) {
     return <LoadingPage />;
+  }
+
+  if (!error) {
+    return <b>{error}</b>;
   }
 
   return (

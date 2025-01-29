@@ -1,8 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { OffersState } from '../../types/offers';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { OffersState, OfferUpdate } from '../../types/offers';
 import { NameSpace } from '../../const';
 import { uploadNearbyOffers, uploadOffers } from '../api-actions';
-import { getOfferIndexById } from './utils';
 
 const initialState: OffersState = {
   offers: [],
@@ -19,22 +18,13 @@ const offersSlice = createSlice({
       state.nearbyOffers = [];
       state.isNearbyOffersLoading = false;
     },
-    setFavoritesStatus(state, action) {
-      const indexOffer = getOfferIndexById(
-        state.offers,
-        action.payload as string
+    updateOfferStatus(state, action: PayloadAction<OfferUpdate>) {
+      const indexUpdateOffer = state.offers.findIndex(
+        ({ id }) => id === action.payload.id
       );
-      if (indexOffer !== -1) {
-        state.offers[indexOffer].isFavorite = true;
-      }
-    },
-    removeFavoritesStatus(state, action) {
-      const indexOffer = getOfferIndexById(
-        state.offers,
-        action.payload as string
-      );
-      if (indexOffer !== -1) {
-        state.offers[indexOffer].isFavorite = false;
+
+      if (indexUpdateOffer !== -1) {
+        state.offers[indexUpdateOffer].isFavorite = action.payload.isFavorite;
       }
     },
   },
@@ -67,5 +57,4 @@ const offersSlice = createSlice({
 
 export { offersSlice };
 
-export const { clearNearbyOffers, setFavoritesStatus, removeFavoritesStatus } =
-  offersSlice.actions;
+export const { clearNearbyOffers, updateOfferStatus } = offersSlice.actions;

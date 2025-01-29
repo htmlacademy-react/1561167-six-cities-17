@@ -40,6 +40,8 @@ import { clearExtendedOffer } from '../../store/extended-offer/extended-offer-sl
 import { clearNearbyOffers } from '../../store/offers/offers-slice';
 import { clearReviewsList } from '../../store/reviews/reviews-slice';
 import { changePage } from '../../store/page/page-slice';
+import { setError } from '../../store/actions';
+import { selectErrorMessage } from '../../store/error/error-selectors';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -58,6 +60,7 @@ function OfferPage(): JSX.Element {
   const nearbyOffers = useAppSelector(selectAdaptToNearbyOffers);
   const isReviewsListLoading = useAppSelector(selectIsReviewsListLoading);
   const reviewsList = useAppSelector(selectReviewsList);
+  const isError = !useAppSelector(selectErrorMessage);
 
   useEffect(() => {
     if (!offerId) {
@@ -66,9 +69,11 @@ function OfferPage(): JSX.Element {
     dispatch(uploadExtendedOffer(offerId))
       .unwrap()
       .then(() => {
+        dispatch(setError(null));
         dispatch(uploadNearbyOffers(offerId));
         dispatch(uploadReviewsList(offerId));
-      });
+      })
+      .catch(({ message }) => dispatch(setError(message as string)));
     return () => {
       dispatch(clearExtendedOffer());
       dispatch(clearNearbyOffers());
@@ -80,7 +85,7 @@ function OfferPage(): JSX.Element {
     return <LoadingPage />;
   }
 
-  if (!offer) {
+  if (!offer || isError) {
     return <NotFoundPage />;
   }
 
@@ -96,6 +101,7 @@ function OfferPage(): JSX.Element {
     price,
     goods,
     description,
+    isFavorite,
     host: { avatarUrl, name, isPro },
   } = offer;
 
@@ -119,7 +125,7 @@ function OfferPage(): JSX.Element {
               {isPremium && <Mark />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <BookmarkButton offerId={id} />
+                <BookmarkButton offerId={id} isFavorite={isFavorite} />
               </div>
               <Rating rating={rating} isOffer>
                 <span className="offer__rating-value rating__value">

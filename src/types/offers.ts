@@ -13,4 +13,6 @@ type OffersState = Pick<
   'offers' | 'isOffersLoading' | 'nearbyOffers' | 'isNearbyOffersLoading'
 >;
 
-export type { ShortOfferType, ShortOfferListType, OffersState };
+type OfferUpdate = Pick<OfferType, 'id' | 'isFavorite'>;
+
+export type { ShortOfferType, ShortOfferListType, OffersState, OfferUpdate };
