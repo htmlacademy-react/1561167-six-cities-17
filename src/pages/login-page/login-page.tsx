@@ -5,10 +5,14 @@ import { Title } from '../../components/title/title';
 import { SignIn } from './components/sign-in/sign-in';
 import { Page } from '../../const';
 import { changePage } from '../../store/page/page-slice';
+import { useEffect } from 'react';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  dispatch(changePage(Page.Login));
+
+  useEffect(() => {
+    dispatch(changePage(Page.Login));
+  }, [dispatch]);
 
   return (
     <div className="page page--gray page--login">

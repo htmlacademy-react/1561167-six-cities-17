@@ -25,11 +25,12 @@ const LocationsItemLink = memo(
 
     if (!city) {
       city = getRandomCity();
-      dispatch(changeCity(city));
     }
 
+    const handleLinkClick = () => dispatch(changeCity(city));
+
     return (
-      <Link className={linkClasses} to={Path.Root}>
+      <Link onClick={handleLinkClick} className={linkClasses} to={Path.Root}>
         <span>{city}</span>
       </Link>
     );
