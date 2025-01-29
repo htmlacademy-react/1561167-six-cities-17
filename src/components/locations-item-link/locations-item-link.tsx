@@ -23,14 +23,13 @@ const LocationsItemLink = memo(
       ['tabs__item--active']: isActive,
     });
 
-    if (!city) {
-      city = getRandomCity();
-      dispatch(changeCity(city));
-    }
+    const cityName = city ?? getRandomCity();
+
+    const handleLinkClick = () => dispatch(changeCity(cityName));
 
     return (
-      <Link className={linkClasses} to={Path.Root}>
-        <span>{city}</span>
+      <Link onClick={handleLinkClick} className={linkClasses} to={Path.Root}>
+        <span>{cityName}</span>
       </Link>
     );
   }
