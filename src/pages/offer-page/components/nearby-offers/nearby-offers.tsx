@@ -6,6 +6,7 @@ type NearbyOffersProps = {
 };
 
 function NearbyOffers({ offers }: NearbyOffersProps): JSX.Element {
+  console.log(offers);
   return (
     <div className="container">
       <section className="near-places places">
