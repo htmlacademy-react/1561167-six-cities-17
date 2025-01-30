@@ -49,4 +49,25 @@ const sortOffers = (
 
 const notify = (message: string): Id => toast.warn(message);
 
-export { adaptToMap, filterOffersByCity, sortOffers, notify };
+const toCapitalizeSentence = (sentence: string): string => {
+  if (!sentence || !sentence.length) {
+    return '';
+  }
+  const words = sentence.split(' ');
+  const capitalizedWords = words.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+  return capitalizedWords.join(' ');
+};
+
+const getPluralNoun = (noun: string, count: number): string =>
+  count > 1 ? `${noun}s` : noun;
+
+export {
+  adaptToMap,
+  filterOffersByCity,
+  sortOffers,
+  notify,
+  toCapitalizeSentence,
+  getPluralNoun,
+};
