@@ -8,6 +8,7 @@ import { generatePath, Link } from 'react-router-dom';
 import { OnCardHoverType } from '../../types/types';
 import { ShortOfferType } from '../../types/offers';
 import { PageKeys } from '../../types/page';
+import { toCapitalizeSentence } from '../../utils/utils';
 
 type CardProps = {
   page: PageKeys;
@@ -90,7 +91,7 @@ function Card({ offer, onCardHover, page }: CardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={generatePath(Path.Offer, { offerId: id })}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{toCapitalizeSentence(type)}</p>
       </div>
     </article>
   );
