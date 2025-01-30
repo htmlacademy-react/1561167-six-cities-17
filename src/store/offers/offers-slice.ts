@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OffersState, OfferUpdate } from '../../types/offers';
 import { NameSpace } from '../../const';
 import { uploadNearbyOffers, uploadOffers } from '../api-actions';
+import { getIndexOfferById } from './utils';
 
 const initialState: OffersState = {
   offers: [],
@@ -19,12 +20,24 @@ const offersSlice = createSlice({
       state.isNearbyOffersLoading = false;
     },
     updateOfferStatus(state, action: PayloadAction<OfferUpdate>) {
-      const indexUpdateOffer = state.offers.findIndex(
-        ({ id }) => id === action.payload.id
+      const indexUpdateOffer = getIndexOfferById(
+        state.offers,
+        action.payload.id
       );
 
       if (indexUpdateOffer !== -1) {
         state.offers[indexUpdateOffer].isFavorite = action.payload.isFavorite;
+      }
+    },
+    updateNearbyOfferStatus(state, action: PayloadAction<OfferUpdate>) {
+      const indexUpdateOffer = getIndexOfferById(
+        state.nearbyOffers,
+        action.payload.id
+      );
+
+      if (indexUpdateOffer !== -1) {
+        state.nearbyOffers[indexUpdateOffer].isFavorite =
+          action.payload.isFavorite;
       }
     },
   },
@@ -57,4 +70,5 @@ const offersSlice = createSlice({
 
 export { offersSlice };
 
-export const { clearNearbyOffers, updateOfferStatus } = offersSlice.actions;
+export const { clearNearbyOffers, updateOfferStatus, updateNearbyOfferStatus } =
+  offersSlice.actions;

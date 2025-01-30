@@ -10,7 +10,10 @@ import { changeFavoriteStatus } from '../../store/api-actions';
 import { FavoriteStatusKeys } from '../../types/favorites';
 import { selectCurrentPage } from '../../store/page/page-selectors';
 import { processErrorHandle } from '../../services/process-error-handle';
-import { updateOfferStatus } from '../../store/offers/offers-slice';
+import {
+  updateNearbyOfferStatus,
+  updateOfferStatus,
+} from '../../store/offers/offers-slice';
 import { updateExtendedOfferStatus } from '../../store/extended-offer/extended-offer-slice';
 import { OfferUpdate } from '../../types/offers';
 
@@ -50,6 +53,7 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
       .then(() => {
         const updated: OfferUpdate = { id: offerId, isFavorite: !!status };
         dispatch(updateOfferStatus(updated));
+        dispatch(updateNearbyOfferStatus(updated));
         dispatch(updateExtendedOfferStatus(updated));
       })
       .catch(({ message }) =>
