@@ -10,7 +10,10 @@ import { changeFavoriteStatus } from '../../store/api-actions';
 import { FavoriteStatusKeys } from '../../types/favorites';
 import { selectCurrentPage } from '../../store/page/page-selectors';
 import { processErrorHandle } from '../../services/process-error-handle';
-import { updateOfferStatus } from '../../store/offers/offers-slice';
+import {
+  updateNearbyOfferStatus,
+  updateOfferStatus,
+} from '../../store/offers/offers-slice';
 import { updateExtendedOfferStatus } from '../../store/extended-offer/extended-offer-slice';
 import { OfferUpdate } from '../../types/offers';
 
@@ -50,6 +53,7 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
       .then(() => {
         const updated: OfferUpdate = { id: offerId, isFavorite: !!status };
         dispatch(updateOfferStatus(updated));
+        dispatch(updateNearbyOfferStatus(updated));
         dispatch(updateExtendedOfferStatus(updated));
       })
       .catch(({ message }) =>
@@ -59,9 +63,11 @@ const BookmarkButton = memo((props: BookmarkButtonProps): JSX.Element => {
 
   const buttonClasses = cn('button', {
     ['place-card__bookmark-button--active']:
-      isFavorite && !isNoAuthorized && page !== Page.Offer,
+      isFavorite &&
+      !isNoAuthorized &&
+      (page !== Page.Offer || (isCard && page === Page.Offer)),
     ['offer__bookmark-button--active']:
-      isFavorite && !isNoAuthorized && page === Page.Offer,
+      isFavorite && !isNoAuthorized && page === Page.Offer && !isCard,
     ['place-card__bookmark-button']: isCard,
     ['offer__bookmark-button']: !isCard && page === Page.Offer,
   });

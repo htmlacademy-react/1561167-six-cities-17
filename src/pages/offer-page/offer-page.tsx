@@ -20,9 +20,6 @@ import {
   uploadNearbyOffers,
   uploadReviewsList,
 } from '../../store/api-actions';
-import { useUrlId } from './utils';
-import { adaptToMap } from '../../utils/utils';
-import { AuthorizationStatus, Page } from '../../const';
 import { selectAuthorizationStatus } from '../../store/user/user-selectors';
 import {
   selectExtendedOffer,
@@ -42,6 +39,9 @@ import { clearReviewsList } from '../../store/reviews/reviews-slice';
 import { changePage } from '../../store/page/page-slice';
 import { setError } from '../../store/actions';
 import { selectErrorMessage } from '../../store/error/error-selectors';
+import { useUrlId } from './utils';
+import { adaptToMap } from '../../utils/utils';
+import { AuthorizationStatus, Page } from '../../const';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -165,6 +165,7 @@ function OfferPage(): JSX.Element {
           <Map
             points={adaptToMap(nearbyOffers, offer)}
             activeCardId={offerId}
+            page={Page.Offer}
           />
         </section>
         {nearbyOffers.length !== 0 && <NearbyOffers offers={nearbyOffers} />}

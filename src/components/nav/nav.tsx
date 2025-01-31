@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthorizationStatus, Page, Path } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logOut } from '../../store/api-actions';
 import { memo, MouseEvent } from 'react';
@@ -10,6 +9,8 @@ import {
 } from '../../store/user/user-selectors';
 import { selectFavoritesCount } from '../../store/favorites/favorites-selectors';
 import { selectCurrentPage } from '../../store/page/page-selectors';
+import { processErrorHandle } from '../../services/process-error-handle';
+import { AuthorizationStatus, Page, Path } from '../../const';
 
 type UserProfileProps = {
   isLoggedIn: boolean;
@@ -73,10 +74,13 @@ const Nav = memo((): JSX.Element => {
     dispatch(logOut())
       .unwrap()
       .then(() => {
-        if (page === Page.Favorites){
+        if (page === Page.Favorites) {
           navigate(Path.Login);
         }
-      });
+      })
+      .catch(({ message }) =>
+        processErrorHandle(`${message}. Try again later.`)
+      );
   };
 
   return (

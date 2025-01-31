@@ -1,5 +1,6 @@
 import { Rating } from '../../../../components/rating/rating';
 import { ClientReviewType } from '../../../../types/review';
+import { toCapitalizeSentence } from '../../../../utils/utils';
 import { convertDate, convertShortDate } from './utils';
 
 type ReviewsItemProps = {
@@ -25,7 +26,7 @@ function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{name}</span>
+        <span className="reviews__user-name">{toCapitalizeSentence(name)}</span>
       </div>
       <div className="reviews__info">
         <Rating rating={rating} isReview />

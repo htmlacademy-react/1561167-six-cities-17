@@ -5,12 +5,14 @@ import { Offers } from '../offers.tsx/offers';
 import { Map } from '../../../../components/map/map';
 import { adaptToMap } from '../../../../utils/utils';
 import { ShortOfferListType } from '../../../../types/offers';
+import { Page } from '../../../../const';
 
 type ContentPros = {
   cityOffers: ShortOfferListType;
 };
 
 function Content({ cityOffers }: ContentPros): JSX.Element {
+
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const handleCardHover = useCallback(
     (id: string | null) => setActiveCardId(id),
@@ -41,6 +43,7 @@ function Content({ cityOffers }: ContentPros): JSX.Element {
           <Map
             points={adaptToMap(cityOffers)}
             activeCardId={activeCardId}
+            page={Page.Main}
           />
         )}
       </div>
