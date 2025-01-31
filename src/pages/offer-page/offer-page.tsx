@@ -37,11 +37,11 @@ import { clearExtendedOffer } from '../../store/extended-offer/extended-offer-sl
 import { clearNearbyOffers } from '../../store/offers/offers-slice';
 import { clearReviewsList } from '../../store/reviews/reviews-slice';
 import { changePage } from '../../store/page/page-slice';
-import { setError } from '../../store/actions';
 import { selectErrorMessage } from '../../store/error/error-selectors';
 import { useUrlId } from './utils';
 import { adaptToMap } from '../../utils/utils';
 import { AuthorizationStatus, Page } from '../../const';
+import { setError } from '../../store/error/error-slice';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();

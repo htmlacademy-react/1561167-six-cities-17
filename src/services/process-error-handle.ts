@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { store } from '../store';
-import { setError } from '../store/actions';
 import { ERROR_SHOW_TIMEOUT } from '../const';
 import { notify } from '../utils/utils';
+import { setError } from '../store/error/error-slice';
 
 const clearError = createAsyncThunk('error/clearError', () => {
   setTimeout(() => store.dispatch(setError(null)), ERROR_SHOW_TIMEOUT);

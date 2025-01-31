@@ -19,9 +19,9 @@ import {
   uploadFavorites,
   uploadOffers,
 } from '../../store/api-actions';
-import { setError } from '../../store/actions';
 import { selectFavoritesLoading } from '../../store/favorites/favorites-selectors';
 import { changePage } from '../../store/page/page-slice';
+import { setError } from '../../store/error/error-slice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
