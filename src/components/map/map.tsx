@@ -1,16 +1,16 @@
-import { memo, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import cn from 'classnames';
 import styles from './style.module.css';
 import { Page, Pin } from '../../const';
 import useMap from './hooks/use-map';
 import { MapPointsListType } from '../../types/map';
-import { useAppSelector } from '../../hooks';
-import { selectCurrentPage } from '../../store/page/page-selectors';
+import { PageKeys } from '../../types/page';
 
 type MapProps = {
   points: MapPointsListType;
   activeCardId: string | null;
+  page: PageKeys;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,15 +25,14 @@ const activeCustomIcon = new Icon({
   iconAnchor: Pin.Anchor,
 });
 
-const Map = memo((props: MapProps): JSX.Element => {
-  const { points, activeCardId } = props;
-
-  const page = useAppSelector(selectCurrentPage);
+function Map(props: MapProps): JSX.Element {
+  const { points, activeCardId, page } = props;
 
   const classesMap = cn('map', {
     [`cities__map ${styles.mainwrapper}`]: page === Page.Main,
     [`offer__map ${styles.offerwrapper}`]: page === Page.Offer,
   });
+
   const cityLocation = points[0].city.location;
 
   const mapRef = useRef(null);
@@ -68,8 +67,6 @@ const Map = memo((props: MapProps): JSX.Element => {
   }, [map, points, activeCardId, cityLocation]);
 
   return <section ref={mapRef} className={classesMap}></section>;
-});
-
-Map.displayName = 'Map';
+}
 
 export { Map };
